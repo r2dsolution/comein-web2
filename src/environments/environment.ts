@@ -3,10 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  // host: 'https://23com4659h.execute-api.us-east-2.amazonaws.com',
-  host: 'http://localhost:8080',
-  cryptr: '891'
+  production: false
 };
 
 /*
@@ -17,3 +14,10 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+
+
+/*
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://angular.io/license
+*/
