@@ -1,0 +1,24 @@
+<div mat-dialog-title >Personal info</div>
+<div mat-dialog-content>
+    <div class="container" *ngIf="personalInfo">
+        <div class="row" *ngIf="personalInfo.firstName">
+            <div class="col-md-4">Firstname</div>
+            <div class="col-md-8">{{ personalInfo.firstName }}</div>
+        </div>
+        <div class="row" *ngIf="personalInfo.lastName">
+            <div class="col-md-4">Lastname</div>
+            <div class="col-md-8">{{ personalInfo.lastName }}</div>
+        </div>
+        <div class="row" *ngIf="personalInfo.email">
+            <div class="col-md-4">Email</div>
+            <div class="col-md-8">{{ personalInfo.email }}</div>
+        </div>
+        <div class="row" *ngIf="personalInfo.mobileNo">
+            <div class="col-md-4">Mobile no.</div>
+            <div class="col-md-8">{{ personalInfo.mobileNo }}</div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-dialog-close mat-raised-button mat-button>Close</button>
+</div>

@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="table-header">
+        <div class="title">
+          Customers management
+        </div>
+        <div class="control">
+          <button mat-raised-button color="primary" routerLink="create/edit">
+           <mat-icon>add</mat-icon> New customer
+          </button>
+        </div>
+    </div>
+    <div>
+      <form class="form" action="">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Email">
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Reference name">
+                </mat-form-field>
+            </div>
+        </div> -->
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Surname">
+                </mat-form-field>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12">
+              <button mat-raised-button color="primary">
+                <mat-icon>search</mat-icon> Search
+               </button>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="table-list">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+          
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <!-- <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container> -->
+          
+              <!-- Weight Column -->
+              <ng-container matColumnDef="referenceName">
+                <th mat-header-cell *matHeaderCellDef> Reference name </th>
+                <td mat-cell *matCellDef="let element"> {{element.referenceName}} </td>
+              </ng-container>
+          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="point">
+                <th mat-header-cell *matHeaderCellDef> Point </th>
+                <td mat-cell *matCellDef="let element"> {{element.point}} </td>
+              </ng-container>
+          
+              <tr mat-header-row  *matHeaderRowDef="displayedColumns;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickRow(row)"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[10, 20]"
+                           showFirstLastButtons 
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>          
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<div class="container">
+    <div class="table-header">
+        <div class="title">
+            Tour booking
+        </div>
+    </div>
+    <form [formGroup]="searchForm" class="form">
+        <div class="row">
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-select formControlName="dateType" placeholder="Date by">
+                        <mat-option value="tour">Tour</mat-option>
+                        <mat-option value="booking">Booking</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <div class="date-group">
+                    <mat-form-field>
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate formControlName="startDate" placeholder="From date" (dateChange)="changeDatePicker()">
+                            <input matEndDate formControlName="endDate" placeholder="To date" (dateChange)="changeDatePicker()">
+                        </mat-date-range-input>
+                        <mat-hint>MM/DD/YYYY to MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Booking Code" formControlName="bookingCode">
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Reference name" formControlName="referenceName">
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <button mat-button mat-raised-button color="primary" (click)="search()">Search</button>
+            </div>
+        </div>
+    </form>
+    <div class="table-list">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Booking code
+                                </div>
+                                <div class="col-md-3">
+                                    Reference Name
+                                </div>
+                                <div class="col-md-3">
+                                    Tour name
+                                </div>
+                                <div class="col-md-3">
+                                    Tour date
+                                </div>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-accordion>
+        
+        <mat-accordion>
+            <mat-expansion-panel  *ngFor="let b of tourBookingList; index as i;" [id]="i"  (afterExpand)="loadDetail(i)" >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ b.bookingCode }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ b.referenceName }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ b.tourName }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ b.tourDate | date:'dd/MM/yyyy' }}
+                                </div>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                        This is a summary of the content
+                    </mat-panel-description> -->
+                </mat-expansion-panel-header>
+                <div class="container" *ngIf="booking">
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ booking.personalData?.firstName || '-'}}
+                        </div>
+                        <div class="col-md-4">
+                            {{ booking.personalData?.lastName || '-'}}
+                       </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Email: {{ booking.personalData?.email || '-'}}
+                        </div>
+                        <div class="col-md-4">
+                            Phone: {{ booking.personalData?.mobileNo || '-'}}
+                       </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Location pick up: {{ booking.locationPickup || '-'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Booking date time: {{ booking.bookingDate | date:'dd/MM/yyyy' }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Adult: {{ booking.totalAdult }}
+                        </div>
+                        <div class="col-md-4">
+                            Child: {{ booking.totalChild }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Special request: {{ booking.remark }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Total rate: {{ booking.totalRate }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Cancellable policy: -
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Payment method: {{ booking.paymentMethod }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="control">
+                        <button mat-button mat-raised-button color="primary" (click)="changeBookingDate(booking)">Change date</button> &nbsp;
+                        <button mat-button mat-raised-button color="primary"  (click)="cancelTourBooking(booking)">Cancel booking</button>
+                    </div>
+                </div>
+                
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

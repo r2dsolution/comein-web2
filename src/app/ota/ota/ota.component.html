@@ -1,0 +1,74 @@
+<div class="container">
+    
+    <div>
+      <form [formGroup]="form">
+        <div class="d-flex justify-content-between">
+            <div class="title d-flex justify-content-center flex-column">
+                OTA Dashboard
+            </div>
+            <div class="d-flex justify-content-end">
+                <div class="date-group">
+                    <mat-form-field>
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate formControlName="startDate" placeholder="From date" (dateChange)="changeDatePicker()">
+                            <input matEndDate formControlName="endDate" placeholder="To date" (dateChange)="changeDatePicker()">
+                        </mat-date-range-input>
+                        <mat-hint>MM/DD/YYYY to MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-center flex-column">
+                    <button type="button" class=" m-2" mat-button mat-raised-button color="primary" (click)="onFilter()">Refresh</button>
+                </div>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="table-list">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+          
+              <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let element; index as i;"> {{ i+1 }} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="feedDate">
+                <th mat-header-cell *matHeaderCellDef> Feed date </th>
+                <td mat-cell *matCellDef="let element"> {{element.feedDate | date:'dd/MM/yyyy'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="bookNo">
+                <th mat-header-cell *matHeaderCellDef> Book no </th>
+                <td mat-cell *matCellDef="let element"> {{element.bookingNumber}} </td>
+              </ng-container>
+              <ng-container matColumnDef="bookDate">
+                <th mat-header-cell *matHeaderCellDef> Book date </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdDate  | date:'dd/MM/yyyy h:mm:ss'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="otaName">
+                <th mat-header-cell *matHeaderCellDef> OTA name </th>
+                <td mat-cell *matCellDef="let element"> {{element.hotelName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="statusMatch">
+                <th mat-header-cell *matHeaderCellDef> Status match </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+              </ng-container>
+
+              <tr mat-header-row  *matHeaderRowDef="displayedColumns;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></tr>
+            </table>
+          
+            <mat-paginator 
+                [length]="paginator.length"
+                [pageSize]="paginator.pageSize"
+                [pageIndex]="paginator.pageIndex"
+                (page)="onSetPage($event)"
+                [pageSizeOptions]="[5, 10, 20, 50, 100]"
+                showFirstLastButtons 
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>          
+    </div>
+</div>

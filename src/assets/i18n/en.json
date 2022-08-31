@@ -1,0 +1,24 @@
+{
+    "MAIN_MENU": {
+        "HOME": "Dashboard",
+        "BOOKING": "Booking",
+        "HOTEL_STAFF": "Hotel Staff",
+        "HOTEL_ADMIN": "Hotel Management",
+        "COMEIN_ADMIN": "Comein Admin",
+        "TOUR": "Tour",
+        "TOUR_PACKAGE": "Package template",
+        "TOUR_PROFILE": "Tour Management",
+        "AGENCY_PROFILE": "Profile",
+        "CUSTOMER": "Customer",
+        "SCHEDULE": "Schedule",
+        "INVENTORY": "Inventory",
+        "TOUR_BOOKING": "Tour Booking",
+        "OTA": "OTA Dashboard",
+        "OPTIONS": {
+            "LOGOUT": "Logout",
+            "MY_PROFILE": "My profile",
+            "SWITCH_ROLE": "Switch role",
+            "CHANGE_PASSWORD": "Change password"
+        }
+    }
+}

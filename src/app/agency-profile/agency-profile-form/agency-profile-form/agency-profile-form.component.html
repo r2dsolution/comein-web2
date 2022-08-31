@@ -1,0 +1,122 @@
+<div class="container">
+    <div class="form-header">
+        <div class="title">
+            <button mat-icon-button (click)="back()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            Profile
+        </div>
+        <div class="control">
+            <!-- <button mat-raised-button color="primary" (click)="openVerifyDialog()" *ngIf="id!=null && !form.get('status').value">
+                <mat-icon>verified_user</mat-icon>
+                Verify
+            </button> -->
+            <button mat-raised-button color="primary" (click)="openSaveDialog()" >
+                <mat-icon>save</mat-icon>
+                Save
+            </button>
+            <!-- <button mat-raised-button color="primary" (click)="openSaveDialog()" *ngIf="id" >
+                <mat-icon>edit</mat-icon>
+                Edit
+            </button> -->
+        </div>
+    </div>
+    <form class="form" action="" [formGroup]="form">
+        <!-- <div class="row" style="margin-bottom: inherit;">
+            <div class="col-md-12">
+                <img src="https://assets.anantara.com/image/upload/q_auto,f_auto/media/minor/anantara/images/anantara-riverside-bangkok-resort/dining/anantara_riverside_bangkok_dining_new_head1920x600-1.jpg"  class=" cover-image img-fluid" alt="">
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" [disabled]="id!=null" matInput placeholder="Company Registered Name" formControlName="companyName">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" [disabled]="id!=null" matInput placeholder="TAT Registration Number (เลขที่ใบอนุญาตินำเที่ยว)" formControlName="tatNo">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" [disabled]="id!=null" matInput placeholder="Tour business name" formControlName="businessName">
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- <div class="card p-4">
+            <div>
+                Personal infomation
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input type="text" [disabled]="id!=null" matInput placeholder="First name"  formControlName="firstName">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input type="text" [disabled]="id!=null" matInput placeholder="Last name"  formControlName="lastName">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" [disabled]="id!=null" matInput placeholder="Reference name"  formControlName="referenceName">
+                </mat-form-field>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" [disabled]="id!=null" matInput placeholder="Email"  formControlName="email">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" [disabled]="id!=null" matInput placeholder="Phone number"  formControlName="mobileNo">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" *ngIf="id!=null">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" [disabled]="id!=null" matInput placeholder="Status"  formControlName="status">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-select formControlName="country" placeholder="Country">
+                        <mat-option *ngFor="let country of countryOptions; index as i;" [value]="country.code">
+                            {{ country.nameEn }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-select formControlName="province" placeholder="Province">
+                        <mat-option *ngFor="let province of provinceOptions; index as i;" [value]="province.code">
+                            {{ province.nameEn }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <mat-form-field>
+                <textarea name="" matInput formControlName="address" placeholder="address" id="" cols="30" rows="3"></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,28 @@
+.fullscreen{
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    background-image: url("../../../assets/images/background.jpg");
+    background-size: cover;
+}
+
+.card{
+    user-select: none;
+    .card-title{
+        text-align: center;
+        font-size: 24px;
+    }
+    .card-content{
+        img{
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: lightblue;
+            padding: 15px;
+        }
+    }
+    
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+}

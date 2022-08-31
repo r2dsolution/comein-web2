@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tawatchai-dev-213041-authRole",
+      "UnauthRoleArn": "arn:aws:iam::091340909384:role/amplify-tawatchai-dev-213041-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::091340909384:role/amplify-tawatchai-dev-213041-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-tawatchai-dev-213041-deployment",
+      "UnauthRoleName": "amplify-tawatchai-dev-213041-unauthRole",
+      "StackName": "amplify-tawatchai-dev-213041",
+      "StackId": "arn:aws:cloudformation:us-east-2:091340909384:stack/amplify-tawatchai-dev-213041/751eb220-4557-11ec-b510-0ad4fa987b9e",
+      "AmplifyAppId": "d2magwzznanay1"
+    }
+  }
+}

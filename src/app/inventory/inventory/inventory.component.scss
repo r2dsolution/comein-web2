@@ -1,0 +1,18 @@
+.cancel-input{
+    width: 30px;
+}
+
+.event{
+    font-size: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    padding: 3px;
+    border-width: 1px;
+    border-color: transparent;
+    border-style: solid;
+    border-radius: 1px;
+    &:hover{
+        border-color: cornsilk;
+        font-weight: bold;
+    }
+}
