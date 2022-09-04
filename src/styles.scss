@@ -1,0 +1,192 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import '~quill/dist/quill.snow.css';
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.img-fluid{
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.form-header{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    .title{
+        font-size: larger;
+    }
+    .control{
+        button{
+            margin-left: 15px;
+        }
+    }
+}
+
+form.form{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 50%);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.table-header {
+    font-size: larger;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    position: sticky;
+    top: 63px;
+    background-color: #fafafa;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.mat-row .mat-cell {
+    cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+    background-color: lightgray;
+}
+.table-list {
+    margin-top: 15px;
+    padding-bottom: 25px;
+}
+table {
+    width: 100%;
+}
+
+.label {
+    display: inline;
+    padding: 0.2em 0.6em 0.3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+}
+
+.label-primary {
+    background-color: #337ab7;
+}
+
+.label-info {
+    background-color: #5bc0de;
+}
+
+.label-warning {
+    background-color: #f0ad4e;
+}
+
+.label-danger {
+    background-color: #d9534f;
+}
+
+.logo {
+    width: auto;
+    height: auto !important;
+    text-align: center;
+    img{
+      width: 90px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.cal-month-view .cal-day-cell.cal-today{
+    background-color: #003e95 !important;
+    color: white !important;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #ffffff;
+  font-size: 10px;
+  margin: 0px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}

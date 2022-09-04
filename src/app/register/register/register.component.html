@@ -1,0 +1,121 @@
+<div class="login-page">
+    <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <div class="login">
+                    <div class="box">
+                        <div class="d-block p-3">
+                            <div class="text-center">
+                                <img src="https://master.d318lr8s05o159.amplifyapp.com/assets/images/comein_logo.png"
+                                    alt="ComeinLogo">
+                            </div>
+                            <ng-container *ngTemplateOutlet="isSubmit ? thankyou : register"></ng-container>
+
+                            <ng-template #register>
+                                <div class="text-center m-3">
+                                    <h4 *ngIf="isHotelAdmin">Hotel registeration</h4>
+                                    <h4 *ngIf="isTourAgency">Tour company registeration</h4>
+                                </div>
+                                <form class="full-width-form" [formGroup]="loginForm">
+                                    <div>
+                                        <mat-form-field>
+                                            <input type="email" matInput placeholder="Email" formControlName="email"
+                                            required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <input type="text" matInput placeholder="Hotel Name" formControlName="hotelName" *ngIf="isHotelAdmin"
+                                            required>
+                                            <input type="text" matInput placeholder="Tour Company" formControlName="companyName" *ngIf="isTourAgency"
+                                            required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="card p-1">
+                                        Personal info
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <mat-form-field>
+                                                    <input type="text" matInput placeholder="First name" formControlName="firstName"
+                                                    required>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <mat-form-field>
+                                                    <input type="text" matInput placeholder="Last name" formControlName="lastName"
+                                                    required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div>
+                                        <mat-form-field>
+                                            <input type="text" matInput placeholder="Reference name" formControlName="referenceName">        
+                                        </mat-form-field>
+                                    </div> -->
+                                    <div>
+                                        <mat-form-field >
+                                            <mat-label>Telephone</mat-label>
+                                            <span matPrefix>TH +66 &nbsp;</span>
+                                            <input type="text" matInput placeholder="812345678" maxlength="9" formControlName="mobileNo" required [OnlyNumber]="true">
+                                            <!-- <mat-icon matSuffix>phone</mat-icon> -->
+                                          </mat-form-field>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <mat-form-field>
+                                                <mat-select formControlName="country" placeholder="Country">
+                                                    <mat-option *ngFor="let country of countryOptions; index as i;" [value]="country.code">
+                                                        {{ country.nameEn }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <mat-form-field>
+                                                <mat-select formControlName="province" placeholder="Province">
+                                                    <mat-option *ngFor="let province of provinceOptions; index as i;" [value]="province.code">
+                                                        {{ province.nameEn }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <textarea name="" matInput formControlName="address" placeholder="address" id="" cols="30" rows="3"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="p-1"><mat-checkbox formControlName="accept" ></mat-checkbox></div>
+                                        <div>
+                                            I agree to Comein's storage and processing of my personal data. <span class="term-button" (click)="viewTerm()">Term & condition</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div *ngIf="isLoading" class="loader">Loading...</div>
+                                        <button *ngIf="!isLoading" type="button" mat-raised-button color="primary" [disabled]="!loginForm.valid || !loginForm.get('accept').value" (click)="submit()">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </ng-template>
+                            <ng-template #thankyou>
+                                <div class="text-center m-3">
+                                    <h4>Register success</h4>
+                                </div>
+                                <br><br>
+                                <div class="text-center m-3">
+                                    <h3>We will reply to </h3>
+                                    <h3 class="email-label">{{ loginForm.get('email').value }}</h3>
+                                    <h3>as soon as posible</h3>
+                                </div>
+                            </ng-template>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

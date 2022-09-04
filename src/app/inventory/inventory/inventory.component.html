@@ -1,0 +1,129 @@
+
+<div class="container-fluid">
+    <div class="p-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Booking inventory</h4>
+            
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-select (selectionChange)="getSchedule($event)" placeholder="Select tour" [value]="tourList ? tourList[0]?.id : ''">
+                        <mat-option [value]="tour.id" *ngFor="let tour of tourList; index as i;" >{{ tour.tourName }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <mat-card>
+                    <mwl-utils-calendar-header 
+                        [(view)]="view" 
+                        [(viewDate)]="viewDate">
+                    </mwl-utils-calendar-header>
+                    <mwl-calendar-month-view
+                    [viewDate]="viewDate"
+                    [events]="events"
+                    [refresh]="refresh"
+                    (beforeViewRender)="setCurrentMonth($event)"
+                    [cellTemplate]="customCellTemplate">
+                    </mwl-calendar-month-view>
+                    <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                        <div class="text-end m-2">{{day.date|date:'d'}}</div>
+                         <div *ngFor="let event of day.events;" class="event" (click)="eventClicked(event)">
+                             <div>
+                                 Date: {{event.tourDate | date:'dd/MM/yyyy'}}
+                             </div>
+                            <div>
+                                Total: {{ event.total}}
+                            </div>
+                            <div>
+                            Adult: {{ event.adultRate | number:'.0'}} ฿
+                            </div>
+                            <div>
+                            Child: {{ event.childRate | number:'.0'}} ฿
+                            </div>
+                            <div *ngIf="event.cancelable && event.cancelable !=='N'">
+                            Cancel before: {{ event.cancelBefore }} days
+                            </div>
+                            <div *ngIf="!event.cancelable || event.cancelable ==='N'">
+                                Non refundable
+                            </div>
+                         </div>
+                    </ng-template>
+                </mat-card>
+            </div>
+            <div class="col-md-4">
+                <form action="" [formGroup]="form">
+                    <mat-card>
+                        <div class="containet-fluid">
+                            <div class="row" *ngIf="!selected">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <mat-label>Enter a date range</mat-label>
+                                        <mat-date-range-input [rangePicker]="picker">
+                                            <input matStartDate formControlName="startDate" placeholder="From date" (dateChange)="changeDatePicker()">
+                                            <input matEndDate formControlName="endDate" placeholder="To date" (dateChange)="changeDatePicker()">
+                                        </mat-date-range-input>
+                                        <mat-hint>MM/DD/YYYY to MM/DD/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-date-range-picker #picker></mat-date-range-picker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="selected">
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Tour date" value="{{ form.get('tourDate').value | date:'dd/MM/yyyy' }}" readonly>
+                                </mat-form-field>
+                            </div>
+                            <h5>Price</h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input type="number" matInput formControlName="adultRate" placeholder="Adult rate">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input type="number" matInput formControlName="childRate" placeholder="Child rate">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input type="number" matInput formControlName="total" placeholder="Total">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-checkbox formControlName="cancelable" >
+                                        Cancellable before <input  class="cancel-input" type="number" maxlength="2" formControlName="cancelBefore"> Day(s)
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button mat-button mat-raised-button color="primary" *ngIf="!selected" (click)="create()" [disabled]="!form.valid">
+                                        Create
+                                    </button>
+                                    <button mat-button mat-raised-button color="primary" *ngIf="selected" (click)="update()" [disabled]="!form.valid">
+                                        Update
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button mat-button mat-raised-button (click)="cancel()">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

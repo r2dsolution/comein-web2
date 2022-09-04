@@ -1,0 +1,256 @@
+<div class="container">
+    <div class="form-header">
+        <div class="title">
+          <button mat-icon-button (click)="back()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          OTA - {{ota ? ota.bookingNumber :''}} - {{ota ? ota.hotelName: '' }}
+        </div>
+        <div class="control">
+            <div class="control">
+                
+            </div>
+        </div>
+    </div>
+    <div class="card p-3" *ngIf="ota">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    OTA ID : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.id }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Booking number : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.bookingNumber }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Firstname : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.firstName }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Lastname : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.lastName }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Email : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.email }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Contact number : 
+                </p>
+            </div>
+            <div class="col-md-3">
+                {{ ota.contactNo }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Nationality : 
+                </p>
+            </div>
+            <div class="col-md-3">
+                {{ ota.nationality || '-' }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Checkin date : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.checkinDate }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Checkout date : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.checkoutDate }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Is cancel : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.isCancel === 'Y' ? 'Yes': 'No' }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Hotel name : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.hotelName }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Room type : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.roomType }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Room night : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.roomNight }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Price : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.price | number:'.2' }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Adult : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.adult }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Child : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.child }}
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Template logic : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.templateLogic }}
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Booking date : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.createdDate | date: 'dd/MM/yyyy h:mm:ss' }}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Feed date : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.feedDate | date: 'dd/MM/yyyy' }}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Date receive : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.dateReceive | date: 'dd/MM/yyyy h:mm:ss' }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Remark : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.remark || '-' }}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <p class="ota-label">
+                    Status : 
+                </p>
+            </div>
+            <div class="col-md-4">
+                {{ ota.status }}
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <button mat-button mat-raised-button class="m-2" color="primary" (click)="onRematch()" *ngIf="ota.status === 'UnMatch'">
+                    Re-Match
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

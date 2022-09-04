@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="table-header">
+        <div class="title">
+          Tour Package Template
+        </div>
+        <div class="control">
+          <button mat-raised-button color="primary" (click)="onAdd()">
+           <mat-icon>add</mat-icon> New Package
+          </button>
+        </div>
+    </div>
+    <div>
+      <form class="form" [formGroup]="form">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" matInput formControlName="name" placeholder="Tour name">
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input type="text" matInput formControlName="hotelName" placeholder="Hotel Name">
+                </mat-form-field>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12">
+              <button mat-raised-button color="primary" (click)="onSearch()">
+                <mat-icon>search</mat-icon> Search
+               </button>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="table-list">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+          
+              <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; index as i;"> {{ i+1 }} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Tour name </th>
+                <td mat-cell *matCellDef="let element"> {{element.hotelName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>  </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <button mat-buttom mat-raised-button>View</button>
+                    <button mat-buttom mat-raised-button>Edit</button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row  *matHeaderRowDef="displayedColumns;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickRow(row)"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[10, 20]"
+                           showFirstLastButtons 
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>          
+    </div>
+</div>

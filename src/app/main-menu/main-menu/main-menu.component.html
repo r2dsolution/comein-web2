@@ -1,0 +1,107 @@
+<mat-sidenav-container (backdropClick)="close()">
+    <mat-sidenav #sidenav  >
+      <div class="side-nav" *ngIf="(isLoggedIn$ && isSelectedRole$) | async">
+        <div class="sections">
+          <div class="logo">
+            <img src="https://master.d318lr8s05o159.amplifyapp.com/assets/images/comein_logo.png" alt="">
+          </div>
+          <div class="menu-list">
+            <!-- [routerLinkActiveOptions]="menu.routerLinkActiveOptions" -->
+            <!-- *ngxPermissionsOnly="menu.role" -->
+            <div *ngFor="let menu of menus">
+              <a
+                *ngIf="currentRole(menu.role)"
+                [routerLink]="menu.routerLink" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [matBadge]="menu.matBadgeParameter" 
+                matBadgeColor="warn" 
+                matBadgeOverlap="true"
+                (click)="close()"
+                mat-raised-button 
+                mat-button >
+                {{ menu.title | translate }}
+              </a>
+            </div>
+            
+        </div>
+        <div class="version">
+          <span class="version-text">
+            version: 1.0
+          </span>
+          <!-- <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>settings</mat-icon>
+          </button> -->
+          <!-- <mat-menu #languageMenu="matMenu">
+            <button mat-menu-item (click)="changeLanguage('th')">
+              <mat-icon svgIcon="th" aria-hidden="false"></mat-icon>
+              <span>ภาษาไทย</span>
+            </button>
+            <button mat-menu-item (click)="changeLanguage('en')">
+              <mat-icon svgIcon="en" aria-hidden="false"></mat-icon>
+              <span>English</span>
+            </button>
+          </mat-menu> -->
+          <mat-menu #menu="matMenu">
+            <!-- <button mat-menu-item [matMenuTriggerFor]="languageMenu">
+              <mat-icon>g_translate</mat-icon>
+              <span>{{ 'MAIN_MENU.OPTIONS.LANGUAGE_OPTIONS' | translate }}</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>settings</mat-icon>
+              <span>{{ 'MAIN_MENU.OPTIONS.ALLSETTING' | translate }}</span>
+            </button> -->
+            <!-- <button mat-menu-item (click)="onLogout()">
+              <mat-icon>lock</mat-icon>
+              <span>{{ 'MAIN_MENU.OPTIONS.LOGOUT' | translate }}</span>
+            </button> -->
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" *ngIf="(isLoggedIn$ && isSelectedRole$) | async">
+      <button type="button" mat-raised-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button type="button" routerLink="/" mat-button>
+        <div>{{ hotelName }}</div>
+      </button>
+      <span class="toolbar-spacer"></span>
+      <div *ngIf="isLoading" class="lds-dual-ring"></div>
+      <div>{{ userName }}</div>
+      <button type="button" mat-button [matMenuTriggerFor]="menu">
+        <!-- <img src="./assets/images/user-1.jpeg" class="user-profile" alt=""> -->
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>{{ 'MAIN_MENU.OPTIONS.MY_PROFILE' | translate }}</span>
+        </button>
+        <!-- <button mat-menu-item (click)="switchRole()">
+          <mat-icon>autorenew</mat-icon>
+          <span>{{ 'MAIN_MENU.OPTIONS.SWITCH_ROLE' | translate }}</span>
+        </button> -->
+        <button mat-menu-item (click)="onChangePassword()">
+          <mat-icon>lock_person</mat-icon>
+          <span>{{ 'MAIN_MENU.OPTIONS.CHANGE_PASSWORD' | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="onLogout()">
+          <mat-icon>lock</mat-icon>
+          <span>{{ 'MAIN_MENU.OPTIONS.LOGOUT' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <!-- <div class="progressbar">
+      <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+    </div> -->
+    <div class="contents" [class.with-padding]="(isLoggedIn$ && isSelectedRole$)| async">
+      <!-- all content will show here -->
+      <ng-content></ng-content>
+      <!-- all content will show here -->
+    </div>
+  </mat-sidenav-content>
+  </mat-sidenav-container>
+  

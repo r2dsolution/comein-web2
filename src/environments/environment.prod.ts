@@ -1,10 +1,5 @@
 export const environment = {
-  production: true
-};
-
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/
+  production: true,
+  host: 'https://23com4659h.execute-api.us-east-2.amazonaws.com',
+  cryptr: '891'
+}
