@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
 import { HttpInterceptorInterceptor } from './core/interceptors/http-interceptor.interceptor';
 
 import Amplify, { Auth, Storage } from 'aws-amplify';
-// import awsmobile from '../aws-exports';
+import awsmobile from '../aws-exports';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -31,14 +31,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 // Storage.configure(awsmobile);
 
-// export function startupServiceFactory() {
-//   return () => {
-//     return new Promise(async (resolve) => {
-//       Amplify.configure(awsmobile);
-//       resolve(true);
-//     });
-//   };
-// }
+export function startupServiceFactory() {
+  return () => {
+    return new Promise(async (resolve) => {
+      Amplify.configure(awsmobile);
+      resolve(true);
+    });
+  };
+}
 
 const modules = {
   syntax: false,
@@ -109,11 +109,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       deps: [AuthService, NgxPermissionsService],
       multi: true
     },
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: startupServiceFactory,
-    //   multi: true
-    // },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorInterceptor,
