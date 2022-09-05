@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // host: 'https://23com4659h.execute-api.us-east-2.amazonaws.com',
+  // host: 'https://gawlz55u98.execute-api.ap-southeast-1.amazonaws.com',
   host: 'http://localhost:8080',
   cryptr: '891'
 };
