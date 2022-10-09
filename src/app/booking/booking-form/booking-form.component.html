@@ -8,11 +8,11 @@
         </div>
         <div class="control">
             <div class="control">
-                <button mat-raised-button color="primary" (click)="completeBooking()" *ngIf="id && (status !== 'Completed' || status !== 'Cancel')">
+                <button mat-raised-button color="primary" (click)="completeBooking()" *ngIf="id && (status !== 'Completed' && status !== 'Cancel')">
                     <mat-icon>line_style</mat-icon>
                     Complete booking
                 </button>
-                <button mat-raised-button color="primary" (click)="openVerifyDialog()" *ngIf="id && (status !== 'Completed' || status !== 'Cancel')">
+                <button mat-raised-button color="primary" (click)="openVerifyDialog()" *ngIf="id && (status !== 'Completed' && status !== 'Cancel')">
                     <mat-icon>verified_user</mat-icon>
                     Send Invite
                 </button>
