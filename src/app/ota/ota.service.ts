@@ -16,12 +16,12 @@ export class OtaService {
 
   }
 
-  getOtaDashboard() {
+  getOtaDashboard(dateFrom, dateTo): Observable<any> {
+    
     return this.http.post(`${environment.host}/dashboards`, {
       "dashboard_id": 1,
-      "tour_company_id": 1,
-      "date_from": "2022-08-01",
-      "date_to": "2022-08-06"
+      "date_from": moment(new Date(dateFrom)).format('YYYY-MM-DD').toString(),
+      "date_to":  moment(new Date(dateTo)).format('YYYY-MM-DD').toString()
     })
   }
 
@@ -30,8 +30,8 @@ export class OtaService {
       params: {
         page: page,
         size: size,
-        startDate: startDate || '',
-        endDate: endDate || ''
+        startDate:  moment(new Date(startDate)).format('YYYY-MM-DD').toString() || '',
+        endDate: moment(new Date(endDate)).format('YYYY-MM-DD').toString() || ''
       }
     }).pipe(
       map((res: any) => {

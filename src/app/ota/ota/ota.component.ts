@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexTitleSubtitle, ApexXAxis, ChartComponent } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexTitleSubtitle, ApexXAxis, ChartComponent } from 'ng-apexcharts';
 import { OtaRematchDialogComponent } from 'src/app/ota/ota-rematch-dialog/ota-rematch-dialog.component';
 import { OtaService } from '../ota.service';
 
@@ -16,6 +16,8 @@ export type ChartOptions = {
   labels: string[];
   chart: ApexChart;
   legend: ApexLegend;
+  lastUpdate: Date;
+  colors: string[];
 
   // xaxis: ApexXAxis;
   // title: ApexTitleSubtitle;
@@ -42,7 +44,8 @@ export class OtaComponent implements OnInit {
     'bookNo',
     'bookDate',
     'otaName',
-    'statusMatch'
+    'statusMatch',
+    'isCancel'
   ];
 
 
@@ -53,8 +56,8 @@ export class OtaComponent implements OnInit {
     private router: Router
   ) {
     this.form = new FormGroup({
-      startDate: new FormControl(''),
-      endDate: new FormControl('')
+      startDate: new FormControl(moment(new Date(),).subtract(31, 'days').toDate()),
+      endDate: new FormControl(moment(new Date(),).add(1, 'day').toDate())
     });
 
     this.paginator.length = 0;
@@ -62,15 +65,18 @@ export class OtaComponent implements OnInit {
     this.paginator.pageIndex = 0;
 
 
+
     this.chartOptions = {
       chart: {
         type: 'pie'
       },
-      legend:{
+      legend: {
         show: false
       },
-      series: [44, 55, 13, 33],
-      labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
+      series: [80, 20],
+      labels: ['Matched', 'Not matched'],
+      lastUpdate: new Date(),
+      colors: ['#e04c4c', '#45ad31']
     };
 
   }
@@ -86,9 +92,11 @@ export class OtaComponent implements OnInit {
     this.getList();
   }
 
-  getDashboard(){
-    this.otaService.getOtaDashboard().subscribe((response)=>{
+  getDashboard() {
+    this.otaService.getOtaDashboard(this.form.get('startDate').value, this.form.get('endDate').value).subscribe((response) => {
       console.log(response);
+      this.chartOptions.series = [2000, 8000];
+      this.chartOptions.lastUpdate = new Date(response.last_update_feed);
     });
   }
 
