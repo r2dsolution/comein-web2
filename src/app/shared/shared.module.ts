@@ -52,6 +52,8 @@ import { OnlyNumberDirective } from './only-number-directive/only-number.directi
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { TermAndConditionComponent } from './term-and-condition/term-and-condition.component';
 import { OtaRematchDialogComponent } from '../ota/ota-rematch-dialog/ota-rematch-dialog.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 
 const materialModules = [
   MatCheckboxModule,
@@ -87,7 +89,8 @@ const angularModule = [
   TranslateModule,
   NgxPermissionsModule,
   CalendarModule,
-  QuillModule
+  QuillModule,
+  NgApexchartsModule
 ]
 
 const angularComponent = [

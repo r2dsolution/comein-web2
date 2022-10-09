@@ -16,6 +16,15 @@ export class OtaService {
 
   }
 
+  getOtaDashboard() {
+    return this.http.post(`${environment.host}/dashboards`, {
+      "dashboard_id": 1,
+      "tour_company_id": 1,
+      "date_from": "2022-08-01",
+      "date_to": "2022-08-06"
+    })
+  }
+
   getOtaFeed(page, size, startDate: string, endDate: string): Observable<any> {
     return this.http.get(`${environment.host}/ota-bookings`, {
       params: {
@@ -47,7 +56,7 @@ export class OtaService {
   reMatch(id: number, hotelId: any, otaObj): Observable<any> {
     return this.http.post(`${environment.host}/ota-bookings/manual`, {
       ...otaObj,
-      id:id,
+      id: id,
       hotelId: hotelId
     })
   }
@@ -55,7 +64,7 @@ export class OtaService {
   unMatch(id: number, hotelId: any, otaObj): Observable<any> {
     return this.http.post(`${environment.host}/ota-bookings/manual`, {
       ...otaObj,
-      id:id,
+      id: id,
       hotelId: hotelId
     })
   }

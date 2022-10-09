@@ -1,11 +1,47 @@
 <div class="container">
-    
+    <div class="row pt-3 chart">
+      <div class="col-md-4">
+        <apx-chart
+          [chart]="chartOptions.chart"
+          [legend]="chartOptions.legend"
+          [series]="chartOptions.series"
+          [labels]="chartOptions.labels"
+        ></apx-chart>
+      </div>
+      <div class="col-md-4 d-flex flex-column justify-content-center">
+        <div class="summary">
+          <div class="title">
+            Total 
+          </div>
+          <div class="total">
+            {{ 2334 | number }}
+          </div>
+          <div class="update">
+            Last Update: {{ '2022/01/30' | date:'yyyy-MM-dd hh:mm:ss' }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4  d-flex flex-column justify-content-center">
+        <div class="summary">
+          <div class="title">
+            Error: Not match
+          </div>
+          <div class="total">
+            {{ 246 | number }}
+          </div>
+          <div class="update">
+            Last Update: {{ '2022/01/30' | date:'yyyy-MM-dd hh:mm:ss' }}
+          </div>
+        </div>
+      </div>
+    </div>
     <div>
       <form [formGroup]="form">
         <div class="d-flex justify-content-between">
             <div class="title d-flex justify-content-center flex-column">
                 OTA Dashboard
             </div>
+            
             <div class="d-flex justify-content-end">
                 <div class="date-group">
                     <mat-form-field>

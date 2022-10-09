@@ -6,8 +6,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexTitleSubtitle, ApexXAxis, ChartComponent } from 'ng-apexcharts';
 import { OtaRematchDialogComponent } from 'src/app/ota/ota-rematch-dialog/ota-rematch-dialog.component';
 import { OtaService } from '../ota.service';
+
+export type ChartOptions = {
+  // plotOptions: ApexPlotOptions;
+  series: ApexNonAxisChartSeries;
+  labels: string[];
+  chart: ApexChart;
+  legend: ApexLegend;
+
+  // xaxis: ApexXAxis;
+  // title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-ota',
@@ -17,6 +29,9 @@ import { OtaService } from '../ota.service';
 export class OtaComponent implements OnInit {
   // paginator: MatPaginator;
   paginator: any = {};
+
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
@@ -45,26 +60,46 @@ export class OtaComponent implements OnInit {
     this.paginator.length = 0;
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
+
+
+    this.chartOptions = {
+      chart: {
+        type: 'pie'
+      },
+      legend:{
+        show: false
+      },
+      series: [44, 55, 13, 33],
+      labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
+    };
+
   }
 
   ngOnInit(): void {
     this.getList();
+    this.getDashboard();
   }
 
-  onFilter(){
+  onFilter() {
     this.getList();
     this.changeDatePicker();
     this.getList();
   }
-  
+
+  getDashboard(){
+    this.otaService.getOtaDashboard().subscribe((response)=>{
+      console.log(response);
+    });
+  }
+
   getList(page = 0) {
     let value = this.form.value;
-    if(!moment(value.startDate).isValid()){ value.startDate = null }
-    if(!moment(value.endDate).isValid()){ value.endDate = null }
+    if (!moment(value.startDate).isValid()) { value.startDate = null }
+    if (!moment(value.endDate).isValid()) { value.endDate = null }
     this.otaService.getOtaFeed(page, this.paginator.pageSize, value.startDate, value.endDate).subscribe({
-    next: (response) => {
-      this.dataSource.data = response.datas;
-      console.log(response);
+      next: (response) => {
+        this.dataSource.data = response.datas;
+        console.log(response);
         this.paginator.length = response.pagging.total;
         // this.paginator.pageSize = response.pagging.pageSize;
         this.paginator.pageIndex = response.pagging.pageNumber;
@@ -73,7 +108,7 @@ export class OtaComponent implements OnInit {
   }
 
 
-  onRowClick(ota){
+  onRowClick(ota) {
     console.log(ota);
     this.router.navigate(['ota', ota.id, 'detail']);
     // if(ota.status === 'UnMatch'){
@@ -92,7 +127,7 @@ export class OtaComponent implements OnInit {
     // }
   }
 
-  onSetPage(event: PageEvent){
+  onSetPage(event: PageEvent) {
     this.paginator.pageSize = event.pageSize;
     this.getList(event.pageIndex);
   }
