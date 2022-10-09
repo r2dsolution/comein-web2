@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PersonalDialogComponent } from 'src/app/shared/personal-dialog/personal-dialog.component';
@@ -38,7 +38,7 @@ export class BookingComponent implements OnInit {
     private matDialog: MatDialog
   ) {
     this.form = new FormGroup({
-      bookingNumber: new FormControl(),
+      bookingNo: new FormControl(),
       referenceName: new FormControl(),
       // customerName: new FormControl(),
       // customerSurname: new FormControl()
@@ -46,7 +46,7 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getList({});
+    this.getList({size: 10});
   }
 
   getList(filter){
@@ -55,7 +55,13 @@ export class BookingComponent implements OnInit {
       this.dataSource.data = response.datas;
       this.paginator.pageIndex = response.pagging.pageNumber;
       this.paginator.pageSize = response.pagging.pageSize;
+      this.paginator.length = response.pagging.total;
     })
+  }
+
+  onPageChange(page: PageEvent){
+    console.log(page);
+    this.getList({...this.form.value, size: page.pageSize, page: page.pageIndex})
   }
 
   onSearch(){
@@ -67,7 +73,7 @@ export class BookingComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
   }
 
   viewPersonalInfomation(row: any) {
