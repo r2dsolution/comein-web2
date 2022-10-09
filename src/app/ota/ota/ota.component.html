@@ -18,7 +18,7 @@
             {{ chartOptions.series[0] | number }}
           </div>
           <div class="update">
-            Last Update: {{ '2022/01/30' | date:'yyyy-MM-dd hh:mm:ss' }}
+            Last Update: {{ chartOptions.lastUpdateFeed | date:'yyyy-MM-dd hh:mm:ss' }}
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
             {{ chartOptions.series[1] | number }}
           </div>
           <div class="update">
-            Last Update: {{ '2022/01/30' | date:'yyyy-MM-dd hh:mm:ss' }}
+            Last Update: {{ chartOptions.lastUpdateUnMatch | date:'yyyy-MM-dd hh:mm:ss' }}
           </div>
         </div>
       </div>

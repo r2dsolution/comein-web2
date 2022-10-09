@@ -17,12 +17,15 @@ export class OtaService {
   }
 
   getOtaDashboard(dateFrom, dateTo): Observable<any> {
-    
     return this.http.post(`${environment.host}/dashboards`, {
       "dashboard_id": 1,
       "date_from": moment(new Date(dateFrom)).format('YYYY-MM-DD').toString(),
       "date_to":  moment(new Date(dateTo)).format('YYYY-MM-DD').toString()
-    })
+    }).pipe(
+      map((res)=>{
+        return res[0];
+      })
+    )
   }
 
   getOtaFeed(page, size, startDate: string, endDate: string): Observable<any> {

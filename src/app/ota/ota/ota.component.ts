@@ -16,7 +16,8 @@ export type ChartOptions = {
   labels: string[];
   chart: ApexChart;
   legend: ApexLegend;
-  lastUpdate: Date;
+  lastUpdateFeed: Date;
+  lastUpdateUnMatch: Date;
   colors: string[];
 
   // xaxis: ApexXAxis;
@@ -73,10 +74,11 @@ export class OtaComponent implements OnInit {
       legend: {
         show: false
       },
-      series: [80, 20],
+      series: [0, 0],
       labels: ['Matched', 'Not matched'],
-      lastUpdate: new Date(),
-      colors: ['#e04c4c', '#45ad31']
+      lastUpdateFeed: new Date(),
+      lastUpdateUnMatch: new Date(),
+      colors: ['#45ad31', '#e04c4c']
     };
 
   }
@@ -85,18 +87,19 @@ export class OtaComponent implements OnInit {
     this.getList();
     this.getDashboard();
   }
-
+  
   onFilter() {
     this.getList();
+    this.getDashboard();
     this.changeDatePicker();
-    this.getList();
   }
 
   getDashboard() {
     this.otaService.getOtaDashboard(this.form.get('startDate').value, this.form.get('endDate').value).subscribe((response) => {
       console.log(response);
-      this.chartOptions.series = [2000, 8000];
-      this.chartOptions.lastUpdate = new Date(response.last_update_feed);
+      this.chartOptions.series = [response.total_feed, response.total_unmatch];
+      this.chartOptions.lastUpdateFeed = new Date(response.last_updated_feed);
+      this.chartOptions.lastUpdateUnMatch = new Date(response.last_updated_unmatch);
     });
   }
 
@@ -106,8 +109,8 @@ export class OtaComponent implements OnInit {
     if (!moment(value.endDate).isValid()) { value.endDate = null }
     this.otaService.getOtaFeed(page, this.paginator.pageSize, value.startDate, value.endDate).subscribe({
       next: (response) => {
-        this.dataSource.data = response.datas;
         console.log(response);
+        this.dataSource.data = response.datas;
         this.paginator.length = response.pagging.total;
         // this.paginator.pageSize = response.pagging.pageSize;
         this.paginator.pageIndex = response.pagging.pageNumber;
