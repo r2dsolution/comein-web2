@@ -65,7 +65,7 @@ export class BookingComponent implements OnInit {
   }
 
   onSearch(){
-    this.getList(this.form.value);
+    this.getList({...this.form.value, size: this.paginator.pageSize, page: this.paginator.pageIndex});
   }
 
   onClickRow(row){
