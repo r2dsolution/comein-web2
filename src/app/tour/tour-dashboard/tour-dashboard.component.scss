@@ -1,0 +1,48 @@
+.summary-card {
+    background-color: antiquewhite;
+    border-width: 1px;
+    border-style: solid;
+    padding: 5px;
+    border-radius: 3px;
+
+    .desc {
+        font-size: 10px;
+        text-align: center;
+    }
+    .number {
+        font-size: 24px;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.tour-header {
+    cursor: pointer;
+    user-select: none;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.tour-table {
+    border-bottom-style: solid;
+    border-bottom-width: 0px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: white;
+    max-height: 0px;
+    transition-duration: 300ms;
+    transition-property: max-height padding border-bottom-width;
+    overflow: hidden;
+    padding: 0px;
+    
+    &.show {
+        padding: 10px;
+        max-height: 500px;
+        border-bottom-width: 1px;
+    }
+}
