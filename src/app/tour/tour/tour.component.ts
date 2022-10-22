@@ -61,4 +61,8 @@ export class TourComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+  dateArray(date: any): string{
+    return date.join('-');
+  }
 }

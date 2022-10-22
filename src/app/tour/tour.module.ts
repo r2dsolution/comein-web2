@@ -5,12 +5,14 @@ import { TourRoutingModule } from './tour-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { TourDashboardComponent } from './tour-dashboard/tour-dashboard.component';
 
 
 @NgModule({
   declarations: [
     TourComponent,
-    TourFormComponent
+    TourFormComponent,
+    TourDashboardComponent
   ],
   providers: [
     NgxImageCompressService
