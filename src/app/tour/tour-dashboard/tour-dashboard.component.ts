@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexStroke, ApexTooltip, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
 
@@ -26,6 +27,7 @@ export type ChartOptions = {
   styleUrls: ['./tour-dashboard.component.scss']
 })
 export class TourDashboardComponent implements OnInit {
+  dashboardForm: FormGroup;
   displayedColumns: string[] = [
     'bookindId',
     'refName',
@@ -40,7 +42,11 @@ export class TourDashboardComponent implements OnInit {
 
   dataSource = new MatTableDataSource();
 
-  constructor() { }
+  constructor() {
+    this.dashboardForm = new FormGroup({
+      date: new FormControl('')
+    })
+  }
 
   ngOnInit(): void {
     this.chartOptions = {
