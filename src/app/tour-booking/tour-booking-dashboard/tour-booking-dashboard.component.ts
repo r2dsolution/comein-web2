@@ -24,19 +24,22 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-payment-dashboard',
-  templateUrl: './payment-dashboard.component.html',
-  styleUrls: ['./payment-dashboard.component.scss']
+  selector: 'app-tour-booking-dashboard',
+  templateUrl: './tour-booking-dashboard.component.html',
+  styleUrls: ['./tour-booking-dashboard.component.scss']
 })
-export class PaymentDashboardComponent implements OnInit {
+export class TourBookingDashboardComponent implements OnInit {
 
+  
   searchForm: FormGroup;
 
   displayedColumns: string[] = [
     'bookindId',
     'refName',
     'tourDate',
-    'total'
+    'tourName',
+    'total',
+    'status'
   ];
 
   series: any[] = [5000.45, 25000];
