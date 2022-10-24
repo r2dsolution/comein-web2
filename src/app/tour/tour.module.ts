@@ -6,13 +6,15 @@ import { SharedModule } from '../shared/shared.module';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { TourDashboardComponent } from './tour-dashboard/tour-dashboard.component';
+import { PaymentDashboardComponent } from './payment-dashboard/payment-dashboard.component';
 
 
 @NgModule({
   declarations: [
     TourComponent,
     TourFormComponent,
-    TourDashboardComponent
+    TourDashboardComponent,
+    PaymentDashboardComponent
   ],
   providers: [
     NgxImageCompressService

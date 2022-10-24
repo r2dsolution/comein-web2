@@ -21,6 +21,9 @@ export const MENUS = [
         title: "MAIN_MENU.TOUR_DASHBOARD", routerLink: '/tour/dashboard', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['tour'] // true false
     },
     {
+        title: "MAIN_MENU.TOUR_PAYMENT_DASHBOARD", routerLink: '/tour/payment-dashboard', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['tour'] // true false
+    },
+    {
         title: "MAIN_MENU.TOUR", routerLink: '/tour', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['tour'] // true false
     },
     // {
