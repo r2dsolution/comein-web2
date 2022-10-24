@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReceivableNoteDialogComponent } from '../receivable-note-dialog/receivable-note-dialog.component';
+import { TourNoteDialogComponent } from '../tour-note-dialog/tour-note-dialog.component';
 
 @Component({
   selector: 'app-recievable',
@@ -25,12 +26,22 @@ export class RecievableComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.openReceiveNote(1);
+    this.openTourNote(1);
   }
 
   openReceiveNote(index) {
     console.log('open receive dialof', index);
-    this.matDialog.open(ReceivableNoteDialogComponent,{
+    this.matDialog.open(ReceivableNoteDialogComponent, {
+      width: '450px'
+    }).afterClosed().subscribe({
+      next: (answer) => {
+
+      }
+    })
+  }
+
+  openTourNote(index) {
+    this.matDialog.open(TourNoteDialogComponent, {
       width: '450px'
     }).afterClosed().subscribe({
       next: (answer) => {
