@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { HotelNoteDialogComponent } from '../hotel-note-dialog/hotel-note-dialog.component';
 import { ReceivableNoteDialogComponent } from '../receivable-note-dialog/receivable-note-dialog.component';
 import { TourNoteDialogComponent } from '../tour-note-dialog/tour-note-dialog.component';
 
@@ -26,7 +27,7 @@ export class RecievableComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.openTourNote(1);
+    // this.openTourNote(1);
   }
 
   openReceiveNote(index) {
@@ -42,6 +43,16 @@ export class RecievableComponent implements OnInit {
 
   openTourNote(index) {
     this.matDialog.open(TourNoteDialogComponent, {
+      width: '450px'
+    }).afterClosed().subscribe({
+      next: (answer) => {
+
+      }
+    })
+  }
+
+  openHotelNote(index) {
+    this.matDialog.open(HotelNoteDialogComponent, {
       width: '450px'
     }).afterClosed().subscribe({
       next: (answer) => {
