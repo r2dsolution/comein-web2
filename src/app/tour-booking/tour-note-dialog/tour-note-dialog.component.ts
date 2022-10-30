@@ -16,8 +16,9 @@ export class TourNoteDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addPeriod(){
+  addPeriod(e){
     console.log('addPeriod()');
+    e.stopPropagation();
     this.matDialog.open(AddPeriodDialogComponent,{
       width: '450px'
     }).afterClosed().subscribe((answer)=>{

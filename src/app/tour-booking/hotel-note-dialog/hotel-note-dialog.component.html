@@ -45,7 +45,7 @@
                     <mat-option value=""> - </mat-option>
                     <mat-option [value]="1"> 14/01/2022 - 14/02/2022 </mat-option>
                 </mat-select>
-                <button mat-icon-button matSuffix [attr.aria-label]="'Add'" (click)="addPeriod()">
+                <button mat-icon-button matSuffix [attr.aria-label]="'Add'" (click)="addPeriod($event)">
                     <mat-icon>add_circle_outline</mat-icon>
                 </button>
             </mat-form-field>
