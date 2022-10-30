@@ -1,0 +1,22 @@
+<div class="container pt-5">
+    <!-- <mat-radio-group aria-label="Select an option" class="row" value="1">
+        <div class="col-md-3">
+            <mat-radio-button value="1">
+                Setup Default for all Tour payment condition
+            </mat-radio-button>
+        </div>
+        <div class="col-md-3">
+            <mat-radio-button value="2">
+                Setup specific Tour payment condition
+            </mat-radio-button>
+        </div>
+    </mat-radio-group> -->
+    <mat-tab-group>
+        <mat-tab label="Setup Default for all Tour payment condition">
+            <app-setup-payment-condition-all></app-setup-payment-condition-all>
+        </mat-tab>
+        <mat-tab label="Setup Specific Tour payment condition">
+            <app-setup-payment-condition-select></app-setup-payment-condition-select>
+        </mat-tab>
+    </mat-tab-group>
+</div>

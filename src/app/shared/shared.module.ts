@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';  
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -80,7 +81,8 @@ const materialModules = [
   MatCardModule,
   MatNativeDateModule,
   MatExpansionModule,
-  DragDropModule
+  DragDropModule,
+  MatTabsModule
 ];
 
 const angularModule = [
@@ -123,7 +125,7 @@ const angularComponent = [
     ...materialModules,
     ...angularModule
   ],
-  exports:[
+  exports: [
     ...materialModules,
     ...angularModule,
     ...angularComponent

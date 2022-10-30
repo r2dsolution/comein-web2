@@ -7,6 +7,9 @@ import { TourFormComponent } from './tour-form/tour-form.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { TourDashboardComponent } from './tour-dashboard/tour-dashboard.component';
 import { PaymentDashboardComponent } from './payment-dashboard/payment-dashboard.component';
+import { SetupPaymentConditionComponent } from './setup-payment-condition/setup-payment-condition.component';
+import { SetupPaymentConditionAllComponent } from './setup-payment-condition-all/setup-payment-condition-all.component';
+import { SetupPaymentConditionSelectComponent } from './setup-payment-condition-select/setup-payment-condition-select.component';
 
 
 @NgModule({
@@ -14,7 +17,10 @@ import { PaymentDashboardComponent } from './payment-dashboard/payment-dashboard
     TourComponent,
     TourFormComponent,
     TourDashboardComponent,
-    PaymentDashboardComponent
+    PaymentDashboardComponent,
+    SetupPaymentConditionComponent,
+    SetupPaymentConditionAllComponent,
+    SetupPaymentConditionSelectComponent
   ],
   providers: [
     NgxImageCompressService

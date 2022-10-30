@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { AuthGuard } from '../core/guard/auth.guard';
 import { PaymentDashboardComponent } from './payment-dashboard/payment-dashboard.component';
+import { SetupPaymentConditionComponent } from './setup-payment-condition/setup-payment-condition.component';
 import { TourDashboardComponent } from './tour-dashboard/tour-dashboard.component';
 // import { TourBookingComponent } from './tour-booking/tour-booking.component';
 import { TourFormComponent } from './tour-form/tour-form.component';
@@ -26,6 +27,15 @@ const routes: Routes = [
     data:{
       permissions:{
         only:['accessMenuTour']
+      }
+    }
+  },
+  {
+    path: 'payment-condition', component: SetupPaymentConditionComponent,
+    canActivate: [AuthGuard, NgxPermissionsGuard],
+    data:{
+      permissions:{
+        only:['accessMenuTourAdmin']
       }
     }
   },
