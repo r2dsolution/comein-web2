@@ -48,6 +48,9 @@ export const MENUS = [
         title: "MAIN_MENU.TOUR_PAYMENT_CONDITON", routerLink: '/tour/payment-condition', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['comeinAdmin'] // true false
     },
     {
+        title: "MAIN_MENU.TOUR_TOPUP_RATE", routerLink: '/tour/topup-rate', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['comeinAdmin'] // true false
+    },
+    {
         title: "MAIN_MENU.TOUR_BOOKING", routerLink: '/tour-booking', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['tour'] // true false
     },
     {

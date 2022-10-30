@@ -10,6 +10,10 @@ import { PaymentDashboardComponent } from './payment-dashboard/payment-dashboard
 import { SetupPaymentConditionComponent } from './setup-payment-condition/setup-payment-condition.component';
 import { SetupPaymentConditionAllComponent } from './setup-payment-condition-all/setup-payment-condition-all.component';
 import { SetupPaymentConditionSelectComponent } from './setup-payment-condition-select/setup-payment-condition-select.component';
+import { SetupTopupRateComponent } from './setup-topup-rate/setup-topup-rate.component';
+import { SetupTopupRateAllComponent } from './setup-topup-rate-all/setup-topup-rate-all.component';
+import { SetupTopupRateSelectComponent } from './setup-topup-rate-select/setup-topup-rate-select.component';
+import { SetupTopupRateFormComponent } from './setup-topup-rate-form/setup-topup-rate-form.component';
 
 
 @NgModule({
@@ -20,7 +24,11 @@ import { SetupPaymentConditionSelectComponent } from './setup-payment-condition-
     PaymentDashboardComponent,
     SetupPaymentConditionComponent,
     SetupPaymentConditionAllComponent,
-    SetupPaymentConditionSelectComponent
+    SetupPaymentConditionSelectComponent,
+    SetupTopupRateComponent,
+    SetupTopupRateAllComponent,
+    SetupTopupRateSelectComponent,
+    SetupTopupRateFormComponent
   ],
   providers: [
     NgxImageCompressService
