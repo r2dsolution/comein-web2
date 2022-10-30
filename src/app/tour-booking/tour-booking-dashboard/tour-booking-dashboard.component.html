@@ -72,11 +72,22 @@
     </div>
     <div class="row">
         <mat-accordion>
-            <mat-expansion-panel [expanded]="true" hideToggle>
+            <mat-expansion-panel disabled [expanded]="true" hideToggle>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <div class="container-fluid d-flex justify-content-between">
-                            <h2>Sun and Sea</h2>
+                            <div>
+                                <mat-form-field>
+                                    <mat-select value="">
+                                        <mat-option value="">
+                                            -- Select Company --
+                                        </mat-option>
+                                        <mat-option [value]="1">
+                                            ABC Tour Agency
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                             <h2>{{ 25000 | number:'0.2' }} B</h2>
                         </div>
                     </mat-panel-title>

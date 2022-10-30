@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <div class="summary">
                 <div class="period-input">
-                    <mat-form-field>
+                    <!-- <mat-form-field>
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="startDate" placeholder="From date" (dateChange)="changeDatePicker()">
@@ -25,6 +25,14 @@
                         <mat-hint>MM/DD/YYYY to MM/DD/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field> -->
+                    <mat-form-field>
+                        <mat-label>
+                            Date period
+                        </mat-label>
+                        <mat-select>
+                            <mat-option value="value">10/02/2022</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <hr>
