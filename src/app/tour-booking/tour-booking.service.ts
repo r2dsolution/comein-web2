@@ -34,11 +34,20 @@ export class TourBookingService {
       bookingCode: bookingCode
     });
   }
+
   changeTourBookingDate(bookingCode: string, date: string): Observable<any> {
     return this.http.put(`${environment.host}/tour-bookings/changedate`,{
       "bookingCode": bookingCode,
       "tourDate": date
     });
+  }
+
+  getTourBookingDashboard(dateForm, dateTo): Observable<any> {
+    return this.http.post(`${environment.host}/dashboards`, {
+      "dashboard_id": 4,
+      "date_from": dateForm,
+      "date_to": dateTo
+    })
   }
 }
 

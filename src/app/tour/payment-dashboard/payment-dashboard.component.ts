@@ -3,6 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexStroke, ApexTitleSubtitle, ChartComponent } from 'ng-apexcharts';
+import { SharedService } from 'src/app/shared/shared.service';
+import { TourService } from '../tour.service';
 
 export type ChartOptions = {
 
@@ -39,16 +41,20 @@ export class PaymentDashboardComponent implements OnInit {
     'total'
   ];
 
-  series: any[] = [5000.45, 25000];
+  // series: any[] = [5000.45, 25000];
 
 
   dataSource = new MatTableDataSource();
 
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
+  tourCompanyId: any;
 
 
-  constructor() {
+  constructor(
+    private sharedService: SharedService,
+    private tourService: TourService
+  ) {
     this.searchForm = new FormGroup({
       startDate: new FormControl(),
       endDate: new FormControl(),
@@ -57,19 +63,31 @@ export class PaymentDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.sharedService.getUserInfo().subscribe({
+      next: (info) => {
+        // console.log()
+        this.tourCompanyId = info.tourId;
+        this.getDashboard(
+          moment(new Date()).format('YYYY-MM-DD'),
+          moment(new Date()).add(5, 'days').format('YYYY-MM-DD')
+        );
+      }
+    });
+  }
+
+  getDashboard(dateForm, dateTo){
+    this.setChart(['test'],[1000]);
+    // this.tourService.getTourPaymentDashboard(this.tourCompanyId,dateForm, dateTo).subscribe((response)=>{
+    //   console.log(response);
+    // })
+  }
+
+  setChart(labels: string[], series: number[]){
     this.chartOptions = {
-      series: this.series,
+      series: series,
       chart: {
-        // width: 380,
         type: 'donut',
-        // dropShadow: {
-        //   enabled: true,
-        //   color: '#111',
-        //   top: -1,
-        //   left: 3,
-        //   blur: 3,
-        //   opacity: 0.2
-        // }
       },
       stroke: {
         width: 0,
@@ -85,7 +103,7 @@ export class PaymentDashboardComponent implements OnInit {
                   // console.log(w);
                   return `บาท`;
                 },
-                label: `${new Intl.NumberFormat().format(Number(Array.from(this.series).reduce((a: number, b: number) => a + b, 0)))}`,
+                label: `${new Intl.NumberFormat().format(Number(Array.from(series).reduce((a: number, b: number) => a + b, 0)))}`,
                 fontSize: '24px',
                 showAlways: true
               }
@@ -93,47 +111,20 @@ export class PaymentDashboardComponent implements OnInit {
           }
         }
       },
-      labels: ["Sun and Sea", "The river side dinner"],
+      labels: labels,
       dataLabels: {
         enabled: false
       },
       fill: {
-        // type: 'pattern',
         opacity: 1,
-        // pattern: {
-        //   enabled: true,
-        //   style: ['verticalLines', 'squares', 'horizontalLines', 'circles', 'slantedLines'],
-        // },
       },
-      // states: {
-      //   hover: {
-      //     filter: 'none'
-      //   }
-      // },
-      // theme: {
-      //   palette: 'palette2'
-      // },
       title: {
         text: ""
       },
       legend: {
         show: false
       }
-      // responsive: [
-      //   {
-      //     breakpoint: 480,
-      //     options: {
-      //       chart: {
-      //         width: 200
-      //       },
-      //       legend: {
-      //         position: 'bottom'
-      //       }
-      //     }
-      //   }
-      // ]
     };
-
   }
 
   changeDatePicker(): any {
