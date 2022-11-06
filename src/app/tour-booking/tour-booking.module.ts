@@ -10,6 +10,7 @@ import { ReceivableNoteDialogComponent } from './receivable-note-dialog/receivab
 import { TourNoteDialogComponent } from './tour-note-dialog/tour-note-dialog.component';
 import { HotelNoteDialogComponent } from './hotel-note-dialog/hotel-note-dialog.component';
 import { AddPeriodDialogComponent } from './add-period-dialog/add-period-dialog.component';
+import { BookingNoteDialogComponent } from './booking-note-dialog/booking-note-dialog.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { AddPeriodDialogComponent } from './add-period-dialog/add-period-dialog.
     ReceivableNoteDialogComponent,
     TourNoteDialogComponent,
     HotelNoteDialogComponent,
-    AddPeriodDialogComponent
+    AddPeriodDialogComponent,
+    BookingNoteDialogComponent
   ],
   imports: [
     CommonModule,

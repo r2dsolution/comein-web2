@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { BookingNoteDialogComponent } from '../booking-note-dialog/booking-note-dialog.component';
 import { HotelNoteDialogComponent } from '../hotel-note-dialog/hotel-note-dialog.component';
 import { ReceivableNoteDialogComponent } from '../receivable-note-dialog/receivable-note-dialog.component';
+import { TourBookingService } from '../tour-booking.service';
 import { TourNoteDialogComponent } from '../tour-note-dialog/tour-note-dialog.component';
 
 @Component({
@@ -23,11 +25,28 @@ export class RecievableComponent implements OnInit {
 
   dataSource = new MatTableDataSource();
   constructor(
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private tourBookingService: TourBookingService
   ) { }
 
   ngOnInit(): void {
     // this.openTourNote(1);
+    this.tourBookingService.getReceivable().subscribe((response)=>{
+      this.dataSource = response;
+    })
+  }
+
+  openNote(element){
+    this.matDialog.open(BookingNoteDialogComponent, {
+      data: {
+        bookingCode: element.bookingCode
+      },
+      width: '100%'
+    }).afterClosed().subscribe({
+      next: (answer) => {
+
+      }
+    })
   }
 
   openReceiveNote(index) {

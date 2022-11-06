@@ -49,6 +49,12 @@ export class TourBookingService {
       "date_to": dateTo
     })
   }
+  getReceivable(): Observable<any> {
+    return this.http.get(`${environment.host}/payable-bookings`)
+  }
+  getReceivableDetail(bookingCode): Observable<any> {
+    return this.http.get(`${environment.host}/payable-bookings/${bookingCode}`)
+  }
 }
 
 

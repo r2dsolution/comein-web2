@@ -6,40 +6,45 @@
         <div class="col-md-12">
             <div class="table-list">
                 <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="[ { id:1 }, {id:2} ]">
+                    <table mat-table [dataSource]="dataSource">
                         <ng-container matColumnDef="bookindId">
                             <th mat-header-cell *matHeaderCellDef> Booking-ID </th>
-                            <td mat-cell *matCellDef="let element; index as i;"> Bookind ID </td>
+                            <td mat-cell *matCellDef="let element; index as i;"> 
+                                {{ element.bookingCode }}
+                            </td>
                         </ng-container>
                         <ng-container matColumnDef="tourDate">
                             <th mat-header-cell *matHeaderCellDef> Tour date </th>
                             <td mat-cell *matCellDef="let element"> 
-                                {{ '2022-03-19' | date:'dd/MM/yyyy' }}
+                                {{ element.tourDate | date:'dd/MM/yyyy' }}
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="status">
                             <th mat-header-cell *matHeaderCellDef> Booking status</th>
                             <td mat-cell *matCellDef="let element"> 
-                                confirmed
+                                {{ element.status }}
                             </td>
                         </ng-container>
                         
                         <ng-container matColumnDef="paymentDate">
                             <th mat-header-cell *matHeaderCellDef class="text-end"> Payment date </th>
                             <td mat-cell *matCellDef="let element" class="text-end"> 
-                                {{ '2022-03-19' | date:'dd/MM/yyyy' }}
+                                {{ element.paymentDate | date:'dd/MM/yyyy' }}
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="total">
                             <th mat-header-cell *matHeaderCellDef> Total </th>
                             <td mat-cell *matCellDef="let element"> 
-                                Total
+                                {{ element.sellValue }}
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="action">
                             <th mat-header-cell *matHeaderCellDef> action </th>
                             <td mat-cell *matCellDef="let element; indes as i;"> 
-                                <button type="button" mat-button mat-raised-bitton color="primary" (click)="openReceiveNote(i)">
+                                <button type="button" mat-button mat-raised-bitton color="primary" (click)="openNote(element)">
+                                    note
+                                </button>
+                                <!-- <button type="button" mat-button mat-raised-bitton color="primary" (click)="openReceiveNote(i)">
                                     Receive note
                                 </button>
                                 <button type="button" mat-button mat-raised-bitton color="primary" (click)="openTourNote(i)">
@@ -47,7 +52,7 @@
                                 </button>
                                 <button type="button" mat-button mat-raised-bitton color="primary" (click)="openHotelNote(i)">
                                     Hotel note
-                                </button>
+                                </button> -->
                             </td>
                         </ng-container>
         
