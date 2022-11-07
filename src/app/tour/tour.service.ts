@@ -53,6 +53,24 @@ export class TourService {
     })
   }
 
+  getTourPaymentConditions(): Observable<any> {
+    return this.http.get(`${environment.host}/payment-conditions`)
+  }
+  
+  getTourPaymentCondition(companyId): Observable<any> {
+    return this.http.get(`${environment.host}/payment-conditions/${companyId}`)
+  }
+
+  updateTourPaymentConditions(data): Observable<any> {
+    console.log(data);
+    return this.http.post(`${environment.host}/payment-conditions`, data)
+  }
+
+  updateTourPaymentCondition(data): Observable<any> {
+    console.log(data);
+    return this.http.post(`${environment.host}/payment-conditions/${data.companyId}`, data)
+  }
+
   // getTourInventory(id:number, startDart): Observable<any>{
   //   return this.http.get(`${environment.host}/tour-inventorys/${id}`)
   // }

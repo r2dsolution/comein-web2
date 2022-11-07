@@ -1,31 +1,31 @@
-<div class="container pt-5">
+<div class="container pt-5" [formGroup]="form">
     <div class="row">
         <mat-form-field>
             <mat-label>Tour selection</mat-label>
-            <mat-select>
-                <mat-option value="1">Tour name</mat-option>
+            <mat-select [value]="tourList[0].companyId" formControlName="companyId" (selectionChange)="onSelectTour($event)">
+                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.companyId">{{ tour.tourName }}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <div class="row">
-        <mat-checkbox [(ngModel)]="isUseDefault">Use Default Payment condition</mat-checkbox>
+        <mat-checkbox formControlName="useDefault">Use Default Payment condition</mat-checkbox>
     </div>
-    <ng-container *ngIf="!isUseDefault">
+    <ng-container *ngIf="!form.value.useDefault">
         <div class="row pt-3">
             <div class="col-md-12">
-                Payable Tour date = Tour date + <input class="day" type="text" value="0"> days
+                Payable Tour date = Tour date + <input class="day" type="text" value="0" formControlName="payableTourDate" > days
             </div>
         </div>
         <div class="row pt-3">
             <div class="col-md-12">
-                Payable date = Payment date + <input class="day" type="text" value="0"> days
+                Payable date = Payment date + <input class="day" type="text" value="0" formControlName="payableDate"> days
             </div>
         </div>
     </ng-container>
     
     <div class="row pt-3">
         <div class="col-md-12">
-            <button type="button" mat-button mat-raised-button color="primary">Save</button>
+            <button type="button" mat-button mat-raised-button color="primary" (click)="onSave()">Save</button>
         </div>
     </div>
 </div>
