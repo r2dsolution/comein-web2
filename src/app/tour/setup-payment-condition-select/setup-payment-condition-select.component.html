@@ -2,7 +2,7 @@
     <div class="row">
         <mat-form-field>
             <mat-label>Tour selection</mat-label>
-            <mat-select [value]="tourList[0].companyId" formControlName="companyId" (selectionChange)="onSelectTour($event)">
+            <mat-select formControlName="companyId" (selectionChange)="onSelectTour($event)">
                 <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.companyId">{{ tour.tourName }}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -13,12 +13,12 @@
     <ng-container *ngIf="!form.value.useDefault">
         <div class="row pt-3">
             <div class="col-md-12">
-                Payable Tour date = Tour date + <input class="day" type="text" value="0" formControlName="payableTourDate" > days
+                Payable Tour date = Tour date + <input class="day" type="text" value="0" formControlName="payableTourDay" > days
             </div>
         </div>
         <div class="row pt-3">
             <div class="col-md-12">
-                Payable date = Payment date + <input class="day" type="text" value="0" formControlName="payableDate"> days
+                Payable date = Payment date + <input class="day" type="text" value="0" formControlName="payableDay"> days
             </div>
         </div>
     </ng-container>

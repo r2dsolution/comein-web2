@@ -54,7 +54,7 @@ export class TourDashboardComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.dashboardForm = new FormGroup({
-      date: new FormControl('')
+      date: new FormControl(moment(new Date()).toDate())
     });
     this.sharedService.getUserInfo().subscribe({
       next: (info) => {

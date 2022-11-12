@@ -16,8 +16,8 @@ export class SetupPaymentConditionAllComponent implements OnInit {
     private matSnackBar: MatSnackBar
   ) {
     this.form = new FormGroup({
-      payableTourDate: new FormControl(0),
-      payableDate: new FormControl(0)
+      payableTourDay: new FormControl(0),
+      payableDay: new FormControl(0)
     })
   }
 

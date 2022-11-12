@@ -18,8 +18,8 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
     private matSnackBar: MatSnackBar
   ) {
     this.form = new FormGroup({
-      payableTourDate: new FormControl(0),
-      payableDate: new FormControl(0),
+      payableTourDay: new FormControl(0),
+      payableDay: new FormControl(0),
       companyId: new FormControl(0),
       useDefault: new FormControl(false)
     })
@@ -30,29 +30,24 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.tourList = response.datas;
+        this.form.get('companyId').setValue(response.datas[0].companyId);
+        this.onSelectTour({value: response.datas[0].companyId});
       }
     })
   }
 
   onSelectTour(event) {
-    this.form.patchValue({
-      "payableTourDate": 3,
-      "payableDate": 0,
-      "companyId": event.value,
-      "useDefault": false
+    this.tourService.getTourPaymentCondition(event.value).subscribe({
+      next: (response) => {
+        this.form.patchValue(response);
+      }
     })
-    // this.tourService.getTourPaymentCondition(event.value).subscribe({
-    //   next: (response) => {
-    //     // Mock
-
-
-    //   }
-    // })
   }
 
   onSave(){
-    console.log(this.form.value);
-    this.tourService.updateTourPaymentCondition(this.form.value).subscribe({
+    // console.log(this.form.value);
+    let data = this.form.value;
+    this.tourService.updateTourPaymentCondition(data).subscribe({
       next: (response)=>{
         console.log(response);
         this.matSnackBar.open('Data updated.');
