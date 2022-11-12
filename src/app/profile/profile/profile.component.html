@@ -1,1 +1,20 @@
-<p>profile works!</p>
+<div class="container pt-3">
+    <div class="box"  *ngIf="isTourAdmin">
+        <h3>Tour admin profile</h3>
+        <form [formGroup]="tourProfileForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input type="text" formControlName="firstName" matInput placeholder="Firstname">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input type="text"  formControlName="lastName" matInput placeholder="Lastname">
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        <button mat-button mat-raised-button color="primary" (click)="onSave()">Save</button>
+    </div>
+</div>

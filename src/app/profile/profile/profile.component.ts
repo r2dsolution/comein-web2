@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { SharedService } from 'src/app/shared/shared.service';
+import { ProfileService } from '../profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +13,52 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+  isTourAdmin: boolean = false;
+  tourProfileForm: FormGroup;
+  constructor(
+    private permissions: NgxPermissionsService,
+    private sharedService: SharedService,
+    private profileService: ProfileService,
+    private matDialog: MatDialog,
+    private matSnackBar: MatSnackBar
+  ) {
+    this.tourProfileForm = new FormGroup({
+      firstName: new FormControl(),
+      lastName: new FormControl()
+    })
+  }
 
   ngOnInit(): void {
+    if (Object.keys(this.permissions.getPermissions()).includes('accessMenuTour')) {
+      this.isTourAdmin = true;
+      this.getTourProfile();
+    }
+  }
+
+  getTourProfile() {
+    this.sharedService.getUserInfo().subscribe({
+      next: (response) => {
+        this.tourProfileForm.patchValue(response);
+      }
+    })
+  }
+
+  onSave() {
+    this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        content: 'Confirm save profile'
+      }
+    }).afterClosed().subscribe({
+      next: (answer) => {
+        if(this.isTourAdmin){
+          this.profileService.updateTourProfiles(this.tourProfileForm.value).subscribe({
+            next: () => {
+              this.matSnackBar.open('Profile has updated')
+            }
+          })
+        }
+      }
+    })
   }
 
 }
