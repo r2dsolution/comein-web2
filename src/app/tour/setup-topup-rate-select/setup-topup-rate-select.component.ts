@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { TourAdminService } from 'src/app/tour-admin/tour-admin.service';
 import { TourService } from '../tour.service';
 
 @Component({
@@ -19,17 +20,18 @@ export class SetupTopupRateSelectComponent implements OnInit {
 
   constructor(
     private tourService: TourService,
+    private tourAdminService: TourAdminService,
     private matSnackBar: MatSnackBar,
     private matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.tourService.getTours({}).subscribe({
+    this.tourAdminService.getTourAdmins({}).subscribe({
       next: (response) => {
         console.log(response);
         this.tourList = response.datas;
-        this.companyId = response.datas[0].companyId;
-        this.onSelectTour({ value: response.datas[0].companyId });
+        this.companyId = response.datas[0].id;
+        this.onSelectTour({ value: response.datas[0].id });
       }
     })
   }
@@ -58,20 +60,20 @@ export class SetupTopupRateSelectComponent implements OnInit {
       detail: this.detail,
       companyId: this.companyId
     };
-    this.tourService.updateTourTopupRate(data, this.companyId).subscribe({
-      next: (response) => {
-        this.matDialog.open(ConfirmDialogComponent, {
-          data: {
-            content: 'Confirm to save'
-          }
-        }).afterClosed().subscribe({
-          next: (answer) => {
-            if (answer) {
+    this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        content: 'Confirm to save'
+      }
+    }).afterClosed().subscribe({
+      next: (answer) => {
+        if (answer) {
+          this.tourService.updateTourTopupRate(data, this.companyId).subscribe({
+            next: (response) => {
               console.log(response);
               this.matSnackBar.open('Data updated.');
             }
-          }
-        })
+          })
+        }
       }
     })
   }

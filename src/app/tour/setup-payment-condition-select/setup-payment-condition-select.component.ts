@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TourAdminService } from 'src/app/tour-admin/tour-admin.service';
 import { TourService } from '../tour.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
   tourList: any[] = [];
   constructor(
     private tourService: TourService,
+    private tourAdminService: TourAdminService,
     private matSnackBar: MatSnackBar
   ) {
     this.form = new FormGroup({
@@ -26,12 +28,12 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tourService.getTours({}).subscribe({
+    this.tourAdminService.getTourAdmins({}).subscribe({
       next: (response) => {
         console.log(response);
         this.tourList = response.datas;
-        this.form.get('companyId').setValue(response.datas[0].companyId);
-        this.onSelectTour({value: response.datas[0].companyId});
+        this.form.get('companyId').setValue(response.datas[0].id);
+        this.onSelectTour({value: response.datas[0].id});
       }
     })
   }

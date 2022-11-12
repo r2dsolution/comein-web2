@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'inventory', loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule) },
   { path: 'tour-booking', loadChildren: () => import('./tour-booking/tour-booking.module').then(m => m.TourBookingModule) },
   { path: 'ota', loadChildren: () => import('./ota/ota.module').then(m => m.OtaModule) },
+  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
   { path: 'term-condition', component: TermAndConditionComponent },
 
 
