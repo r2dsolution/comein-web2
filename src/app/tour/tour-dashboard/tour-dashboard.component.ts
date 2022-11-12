@@ -42,6 +42,9 @@ export class TourDashboardComponent implements OnInit {
   ];
 
   tourCompanyId;
+  currentToursOfDate:any = [];
+  dates: any[] = [];
+  allTours: any[] = [];
 
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
@@ -54,14 +57,14 @@ export class TourDashboardComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.dashboardForm = new FormGroup({
-      date: new FormControl(moment(new Date()).toDate())
+      date: new FormControl(moment('01-08-2022','DD-MM-YYYY').toDate())
     });
     this.sharedService.getUserInfo().subscribe({
       next: (info) => {
         // console.log()
         this.tourCompanyId = info.tourId;
         this.getDashboard(
-          new Date
+          moment('01-08-2022','DD-MM-YYYY').toDate()
         );
       }
     });
@@ -85,114 +88,81 @@ export class TourDashboardComponent implements OnInit {
       moment(dateFrom).add(5, 'days').format('YYYY-MM-DD')
     ).subscribe({
       next: (response) => {
-        // console.log(response);
-        let mockData = [
-          {
-            "total_cancel": 1,
-            "tour_name": "Sun and Sea 0",
-            "tour_company_id": 1,
-            "total_visitor": 20,
-            "tour_date": "2022-08-01",
-            "total_booking": 44,
-            "total_confirm": 43,
-            "total_available": 26
-          },
-          {
-            "total_cancel": 1,
-            "tour_name": "Sun and Sea 1",
-            "tour_company_id": 1,
-            "total_visitor": 70,
-            "tour_date": "2022-08-01",
-            "total_booking": 44,
-            "total_confirm": 43,
-            "total_available": 26
-          },
-          {
-            "total_cancel": 1,
-            "tour_name": "Sun and Sea 2",
-            "tour_company_id": 1,
-            "total_visitor": 70,
-            "tour_date": "2022-08-02",
-            "total_booking": 44,
-            "total_confirm": 43,
-            "total_available": 26
-          },
-          {
-            "total_cancel": 1,
-            "tour_name": "Sun and Sea 3",
-            "tour_company_id": 1,
-            "total_visitor": 70,
-            "tour_date": "2022-08-02",
-            "total_booking": 44,
-            "total_confirm": 43,
-            "total_available": 26
-          },
-          {
-            "total_cancel": 1,
-            "tour_name": "Sun and Sea 4",
-            "tour_company_id": 1,
-            "total_visitor": 10,
-            "tour_date": "2022-08-02",
-            "total_booking": 44,
-            "total_confirm": 43,
-            "total_available": 26
-          }
-        ];
-        this.setChart(mockData);
+        this.allTours = response;
+        this.setChart(response);
       }
     })
   }
 
+  onToggleDetail(index){
+    if(this.currentToursOfDate[index].show){
+      this.currentToursOfDate[index].show = false;
+    }else{
+      this.currentToursOfDate[index].show = true;
+      if(Array.from(this.currentToursOfDate[index].data).length === 0){
+        this.getTourDetail(index);
+      }
+    }
+  }
+
+  getTourDetail(index){
+    this.tourService.getTourBookingDashboardDetail(this.currentToursOfDate[index].tour_company_id,this.currentToursOfDate[index].tour_date).subscribe({
+      next: (response)=>{
+        console.log(response);
+      }
+    })
+  }
+
+  onNextDay(){
+    const nextDay = moment(this.currentToursOfDate[0].tour_date).add(1,'day').format('YYYY-MM-DD').toString();
+    console.log(nextDay);
+    if(this.dates.includes(nextDay)){
+      console.log(nextDay);
+      this.onChangeDateOfDetail(nextDay);
+    }
+  }
+  
+  onPreviousDay(){
+    const previousDay = moment(this.currentToursOfDate[0].tour_date).subtract(1,'day').format('YYYY-MM-DD').toString();
+    console.log(previousDay);
+    if(this.dates.includes(previousDay)){
+      console.log(previousDay);
+      this.onChangeDateOfDetail(previousDay);
+    }
+  }
+
+  onChangeDateOfDetail(date: string){
+    this.currentToursOfDate = this.allTours.filter((t)=> t.tour_date === date).map((t)=>{  t.show = false; t.data = []; return t; });
+  }
+
+
+
 
   setChart(data: any[]) {
-
-
-    // let categories = data.map((d)=> moment(d.tour_date, 'YYYY-MM-DD').format('DD/MM'));
-    let categories = [...new Set(data.map((d) => moment(d.tour_date, 'YYYY-MM-DD').format('DD/MM')))];
-
-    // let newObj: any = {};
-    // data.forEach((d: any) => {
-    //   if (!newObj[d.tour_date]) {
-    //     newObj[d.tour_date] = [];
-    //   }
-    //   newObj[d.tour_date].push(d);
-    // });
-
+    let categories: string[] = this.dates = [...new Set(data.map((d) => moment(d.tour_date, 'YYYY-MM-DD').format('YYYY-MM-DD')))];
+    let tours = [...new Set(data.map((d)=> d.tour_name))];
+    let dataByDateGroup = [];
+    let dataByNameGroup = []
+    categories.forEach((key)=>{
+      dataByDateGroup[key] = data.filter((d) => {return d.tour_date === key });
+    });
+    tours.forEach((tour)=>{
+      dataByNameGroup[tour] = data.filter((d) => {return d.tour_name === tour });
+    });
+    // this.tours = dataByNameGroup;
     let series = [];
-    // Object.keys(newObj).forEach((key)=>{
-    //   series.push({
-    //     name: key,
-    //     data: newObj[key]
-    //   })
-    // })
+    Object.entries(dataByNameGroup).forEach(([key, value])=>{
+      console.log(key)
+      series.push({
+        name: key,
+        data: value.map((v)=> v.total_visitor)
+      });
+    });
 
+    this.onChangeDateOfDetail(this.dates[0]);
 
-    // data = [
-    //   {
-    //     name: "Tourname 1",
-    //     date: [
-    //       {
-    //         data: "วันที่ 1",
-    //         visitor: 80,
-    //         booking: 100
-    //       },
-    //       {
-    //         data: "วันที่ 1",
-    //         visitor: 80,
-    //         booking: 100
-    //       }
-    //     ]
-    //   }
-    // ]
-
-    // console.log(newObj);
     this.chartOptions = {
-      series: [
-        {
-          name: "Tour 1",
-          data: [10, 20]
-        }
-      ],
+      series: series,
       chart: {
         type: 'bar',
         height: 350,
@@ -233,11 +203,11 @@ export class TourDashboardComponent implements OnInit {
         colors: ['transparent']
       },
       xaxis: {
-        categories: categories,
+        categories: [...new Set(categories.map((c)=>moment(c, 'YYYY-MM-DD').format('DD/MM')))],
       },
       yaxis: {
         title: {
-          text: '$ (thousands)'
+          text: 'Total vistors'
         }
       },
       fill: {
@@ -246,7 +216,7 @@ export class TourDashboardComponent implements OnInit {
       tooltip: {
         y: {
           formatter: function (val) {
-            return "$ " + val + " thousands"
+            return + val + " persons"
           }
         }
       }

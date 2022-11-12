@@ -53,6 +53,12 @@ export class TourService {
     })
   }
 
+  getTourBookingDashboardDetail(tourCompanyId, date){
+    return this.http.post(`${environment.host}/tour-dashboards/${tourCompanyId}`,{
+      tour_date: date
+    })
+  }
+
   getTourPaymentConditions(): Observable<any> {
     return this.http.get(`${environment.host}/payment-conditions`)
   }
