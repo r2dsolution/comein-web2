@@ -1,28 +1,36 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-setup-topup-rate-form',
   templateUrl: './setup-topup-rate-form.component.html',
   styleUrls: ['./setup-topup-rate-form.component.scss']
 })
-export class SetupTopupRateFormComponent implements OnInit {
+export class SetupTopupRateFormComponent implements OnInit, OnChanges {
 
   @Input('defaultDatas') defaultDatas: any[];
   @Output() onFormChange = new EventEmitter();
+  
 
   datas: any[] = [];
   tempData: any = null;
   addData: any = {
-    min: 0,
-    max: 0,
-    rate: 0,
-    comein: 0,
-    hotel: 0,
+    minPeriod: 0,
+    maxPeriod: 0,
+    topUpRate: 0,
+    comeinRate: 0,
+    hotelRate: 0,
     isEdit: false
   };
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['defaultDatas'].currentValue){
+      this.datas = changes['defaultDatas'].currentValue;
+    }
   }
 
   onAdd() {

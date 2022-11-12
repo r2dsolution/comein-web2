@@ -3,8 +3,8 @@
         <div class="col-md-4">
             <mat-form-field>
                 <mat-label>Tour selection</mat-label>
-                <mat-select>
-                    <mat-option value="1">Tour name</mat-option>
+                <mat-select [value]="companyId" (selectionChange)="onSelectTour($event)">
+                    <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.companyId">{{ tour.tourName }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -20,13 +20,13 @@
     </div>
     <div *ngIf="!isUseDefault">
         <app-setup-topup-rate-form 
-            [defaultDatas]="[]" 
+            [defaultDatas]="defaultDatas" 
             (onFormChange)="onFormChange($event)">
         </app-setup-topup-rate-form>
     </div>
     <div class="row pt-5">
         <div class="col-md-12 text-center">
-            <button type="button" mat-button mat-raised-button color="primary" >Save All</button>
+            <button type="button" mat-button mat-raised-button color="primary" (click)="onSaveAll()">Save All</button>
         </div>
     </div>
 </div>

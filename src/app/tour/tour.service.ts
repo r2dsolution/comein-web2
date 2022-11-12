@@ -61,6 +61,14 @@ export class TourService {
     return this.http.get(`${environment.host}/payment-conditions/${companyId}`)
   }
 
+  getTourTopupRates(): Observable<any> {
+    return this.http.get(`${environment.host}/topuprates`)
+  }
+
+  getTourTopupRate(companyId): Observable<any> {
+    return this.http.get(`${environment.host}/topuprates/${companyId}`)
+  }
+
   updateTourPaymentConditions(data): Observable<any> {
     console.log(data);
     return this.http.post(`${environment.host}/payment-conditions`, data)
@@ -69,6 +77,16 @@ export class TourService {
   updateTourPaymentCondition(data): Observable<any> {
     console.log(data);
     return this.http.post(`${environment.host}/payment-conditions/${data.companyId}`, data)
+  }
+
+  updateTourTopupRates(data): Observable<any> {
+    console.log(data);
+    return this.http.post(`${environment.host}/topuprates`, data)
+  }
+
+  updateTourTopupRate(data, companyId): Observable<any> {
+    console.log(data);
+    return this.http.post(`${environment.host}/topuprates/${companyId}`, data)
   }
 
   // getTourInventory(id:number, startDart): Observable<any>{
