@@ -77,7 +77,7 @@ export class TourFormComponent implements OnInit {
       tourDesc: new FormControl(),
       endDate: new FormControl(),
       detail: new FormControl(),
-      province: new FormControl(),
+      provinces: new FormControl(),
       country: new FormControl(),
       startDate: new FormControl(),
       companyId: new FormControl(),

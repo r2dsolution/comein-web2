@@ -84,7 +84,7 @@
             </div>
             <div class="col-md-3">
                 <mat-form-field>
-                    <mat-select formControlName="province" placeholder="Province">
+                    <mat-select formControlName="provinces" placeholder="Province" multiple>
                         <mat-option *ngFor="let province of provinceOptions; index as i;" [value]="province.code">
                             {{ province.nameEn }}
                         </mat-option>
