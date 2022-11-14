@@ -72,18 +72,24 @@ export class PaymentDashboardComponent implements OnInit {
           moment(new Date()).format('YYYY-MM-DD'),
           moment(new Date()).add(5, 'days').format('YYYY-MM-DD')
         );
+
+        this.tourService.getTourPaymentDashboardPeriod(this.tourCompanyId).subscribe({
+          next: (response) => {
+            console.log(response);
+          }
+        })
       }
     });
   }
 
-  getDashboard(dateForm, dateTo){
-    this.setChart(['test'],[1000]);
+  getDashboard(dateForm, dateTo) {
+    this.setChart(['test'], [1000]);
     // this.tourService.getTourPaymentDashboard(this.tourCompanyId,dateForm, dateTo).subscribe((response)=>{
     //   console.log(response);
     // })
   }
 
-  setChart(labels: string[], series: number[]){
+  setChart(labels: string[], series: number[]) {
     this.chartOptions = {
       series: series,
       chart: {

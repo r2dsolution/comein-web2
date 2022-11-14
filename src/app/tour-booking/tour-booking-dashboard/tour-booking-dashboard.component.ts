@@ -82,7 +82,17 @@ export class TourBookingDashboardComponent implements OnInit {
         response.map((r) => r.company_name),
         response.map((r) => r.total_sell_value)
       );
-      this.dataSource.data = [{id:1}, {id:2}]
+    })
+  }
+  
+  
+  onSelectCompany(event){
+    // console.log(event.value);
+    this.tourBookingService.getTourbookingDashboardDetail(event.value,moment(this.searchForm.get('startDate').value).format('YYYY-MM-DD'), moment(this.searchForm.get('endDate').value).format('YYYY-MM-DD')).subscribe({
+      next: (response)=>{
+        console.log(response);
+        this.dataSource.data = response;
+      }
     })
   }
 
@@ -167,6 +177,7 @@ export class TourBookingDashboardComponent implements OnInit {
     };
 
   }
+  
 
   changeDatePicker(): any {
     this.searchForm.value.startDate = (moment(this.searchForm.value.startDate).format('YYYY-MM-DD'));

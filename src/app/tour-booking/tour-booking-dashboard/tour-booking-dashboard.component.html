@@ -67,7 +67,7 @@
                         <div class="container-fluid d-flex justify-content-between">
                             <div>
                                 <mat-form-field>
-                                    <mat-select>
+                                    <mat-select (selectionChange)="onSelectCompany($event)" value="">
                                         <mat-option value="">
                                             -- Select Company --
                                         </mat-option>
@@ -85,12 +85,12 @@
                     <table mat-table [dataSource]="dataSource">
                         <ng-container matColumnDef="bookindId">
                             <th mat-header-cell *matHeaderCellDef> Booking-ID </th>
-                            <td mat-cell *matCellDef="let element; index as i;"> Bookind ID </td>
+                            <td mat-cell *matCellDef="let element; index as i;"> {{ element.booking_code }} </td>
                         </ng-container>
     
                         <ng-container matColumnDef="refName">
                             <th mat-header-cell *matHeaderCellDef> Ref-name </th>
-                            <td mat-cell *matCellDef="let element"> Ref name </td>
+                            <td mat-cell *matCellDef="let element"> {{ element.reference_name }} </td>
                         </ng-container>
                         <ng-container matColumnDef="tourDate">
                             <th mat-header-cell *matHeaderCellDef> Tour date </th>

@@ -49,6 +49,13 @@ export class TourBookingService {
       "date_to": dateTo
     })
   }
+
+  getTourbookingDashboardDetail(companyId, dateForm, dateTo): Observable<any>{
+    return this.http.post(`${environment.host}/comein-dashboards/${companyId}`, {
+      "date_from": dateForm,
+      "date_to": dateTo
+    })
+  }
   getReceivable(): Observable<any> {
     return this.http.get(`${environment.host}/payable-bookings`)
   }
