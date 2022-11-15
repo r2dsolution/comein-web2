@@ -2,6 +2,7 @@
     <div class="row p-3">
         <div class="col-md-6">
             <apx-chart
+                *ngIf="chartOptions"
                 [chart]="chartOptions.chart"
                 [series]="chartOptions.series"
                 [stroke]="chartOptions.stroke"
@@ -30,8 +31,9 @@
                         <mat-label>
                             Date period
                         </mat-label>
-                        <mat-select>
-                            <mat-option value="value">10/02/2022</mat-option>
+                        <mat-select (selectionChange)="onSelectPeriod($event)">
+                            <mat-option value=""> - </mat-option>
+                            <mat-option [value]="period.period_id" *ngFor="let period of periods; index as i;"> {{ period.period_desc }} </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

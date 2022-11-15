@@ -34,6 +34,8 @@ export class PaymentDashboardComponent implements OnInit {
 
   searchForm: FormGroup;
 
+  periods: any[] = [];
+
   displayedColumns: string[] = [
     'bookindId',
     'refName',
@@ -68,25 +70,28 @@ export class PaymentDashboardComponent implements OnInit {
       next: (info) => {
         // console.log()
         this.tourCompanyId = info.tourId;
-        this.getDashboard(
-          moment(new Date()).format('YYYY-MM-DD'),
-          moment(new Date()).add(5, 'days').format('YYYY-MM-DD')
-        );
-
+        
         this.tourService.getTourPaymentDashboardPeriod(this.tourCompanyId).subscribe({
           next: (response) => {
             console.log(response);
+            // this.periods = response;
+            this.getDashboard(response[0].period_id);
           }
         })
       }
     });
   }
 
-  getDashboard(dateForm, dateTo) {
-    this.setChart(['test'], [1000]);
-    // this.tourService.getTourPaymentDashboard(this.tourCompanyId,dateForm, dateTo).subscribe((response)=>{
-    //   console.log(response);
-    // })
+  getDashboard(periodId) {
+    this.tourService.getTourPaymentDashboard(this.tourCompanyId,periodId).subscribe((response)=>{
+      console.log(response);
+      // this.setChart(['test'], [1000]);
+    })
+  }
+
+  onSelectPeriod(event){
+    this.getDashboard(event.value)
+    // console.log(event.value)
   }
 
   setChart(labels: string[], series: number[]) {
