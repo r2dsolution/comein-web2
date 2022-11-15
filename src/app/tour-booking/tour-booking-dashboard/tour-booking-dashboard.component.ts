@@ -54,6 +54,7 @@ export class TourBookingDashboardComponent implements OnInit {
   tourList: any;
   allTourBySearch: any[];
   totalSellValue: number = 0;
+  tourSellValue: number = 0;
 
   constructor(
     private tourBookingService: TourBookingService,
@@ -88,9 +89,11 @@ export class TourBookingDashboardComponent implements OnInit {
   
   onSelectCompany(event){
     // console.log(event.value);
-    this.tourBookingService.getTourbookingDashboardDetail(event.value,moment(this.searchForm.get('startDate').value).format('YYYY-MM-DD'), moment(this.searchForm.get('endDate').value).format('YYYY-MM-DD')).subscribe({
+    this.tourSellValue = event.value.total_sell_value;
+    this.tourBookingService.getTourbookingDashboardDetail(event.value.company_id,moment(this.searchForm.get('startDate').value).format('YYYY-MM-DD'), moment(this.searchForm.get('endDate').value).format('YYYY-MM-DD')).subscribe({
       next: (response)=>{
-        console.log(response);
+        // console.log(response);
+
         this.dataSource.data = response;
       }
     })
