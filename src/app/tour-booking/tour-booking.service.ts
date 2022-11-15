@@ -62,6 +62,7 @@ export class TourBookingService {
   getReceivableDetail(bookingCode): Observable<any> {
     return this.http.get(`${environment.host}/payable-bookings/${bookingCode}`)
   }
+  
 }
 
 

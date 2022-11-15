@@ -2,12 +2,12 @@
     Create Payable Period
 </div>
 <div mat-dialog-content>
-    <div class="row">
+    <div class="row" [formGroup]="periodForm">
         <div class="col-md-6">
             <mat-form-field>
                 <mat-label>From</mat-label>
-                <input matInput [matDatepicker]="fromPicker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <input matInput [matDatepicker]="fromPicker" formControlName="from">
+                <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
                 <mat-datepicker #fromPicker></mat-datepicker>
             </mat-form-field>
@@ -15,8 +15,8 @@
         <div class="col-md-6">
             <mat-form-field>
                 <mat-label>To</mat-label>
-                <input matInput [matDatepicker]="toPicker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <input matInput [matDatepicker]="toPicker"  formControlName="to">
+                <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
                 <mat-datepicker #toPicker></mat-datepicker>
             </mat-form-field>
@@ -27,7 +27,7 @@
     <button type="button" mat-dialog-close mat-button mat-raised-button>
         Cancel
     </button>
-    <button type="button" mat-button mat-raised-button color="primary">
+    <button type="button" mat-button mat-raised-button color="primary" (click)="onSave()">
         Save
     </button>
 </div>

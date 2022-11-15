@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-period-dialog',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPeriodDialogComponent implements OnInit {
 
-  constructor() { }
+  periodForm: FormGroup;
+
+  constructor(
+    private matDialogRef: MatDialogRef<AddPeriodDialogComponent>
+  ) {
+    this.periodForm = new FormGroup({
+      from: new FormControl(''),
+      to: new FormControl(''),
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  onSave(){
+    this.matDialogRef.close(this.periodForm.value);
   }
 
 }

@@ -14,6 +14,9 @@ export class BookingNoteDialogComponent implements OnInit {
   tourPayableNote;
   hotelPayableNote;
 
+  tourPeriods: any[] = [];
+  hotelPeriods: any[] = [];
+
   constructor(
     private matDialog: MatDialog,
     public matDialogRef: MatDialogRef<BookingNoteDialogComponent>,
@@ -36,15 +39,21 @@ export class BookingNoteDialogComponent implements OnInit {
     width: '450px'
     }).afterClosed().subscribe((answer) => {
       console.log(answer);
+      if(answer){
+        this.tourPeriods.push(answer);
+      }
     })
   }
   addHotelPeriod(e){
     console.log('addTourPeriod()');
     e.stopPropagation();
     this.matDialog.open(AddPeriodDialogComponent, {
-    width: '450px'
+      width: '450px'
     }).afterClosed().subscribe((answer) => {
       console.log(answer);
+      if(answer){
+        this.hotelPeriods.push(answer);
+      }
     })
   }
 

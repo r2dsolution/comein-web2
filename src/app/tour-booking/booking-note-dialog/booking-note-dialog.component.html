@@ -114,8 +114,8 @@
                     <mat-form-field>
                         <mat-label>Tour Period</mat-label>
                         <mat-select>
-                            <mat-option value=""> - </mat-option>
-                            <mat-option [value]="1"> 14/01/2022 - 14/02/2022 </mat-option>
+                            <!-- <mat-option value=""> - </mat-option> -->
+                            <mat-option  *ngFor="let period of tourPeriods"> {{ period.from | date:'dd/MM/yyyy' }} - {{ period.to | date:'dd/MM/yyyy' }} </mat-option>
                         </mat-select>
                         <button mat-icon-button matSuffix [attr.aria-label]="'Add'" (click)="addTourPeriod($event)">
                             <mat-icon>add_circle_outline</mat-icon>
@@ -166,7 +166,7 @@
                         <mat-label>Hotel Period</mat-label>
                         <mat-select>
                             <mat-option value=""> - </mat-option>
-                            <mat-option [value]="1"> 14/01/2022 - 14/02/2022 </mat-option>
+                            <mat-option  *ngFor="let period of hotelPeriods"> {{ period.from | date:'dd/MM/yyyy' }} - {{ period.to | date:'dd/MM/yyyy' }} </mat-option>
                         </mat-select>
                         <button mat-icon-button matSuffix [attr.aria-label]="'Add'" (click)="addHotelPeriod($event)">
                             <mat-icon>add_circle_outline</mat-icon>
