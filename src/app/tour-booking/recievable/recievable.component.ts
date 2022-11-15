@@ -44,7 +44,9 @@ export class RecievableComponent implements OnInit {
       width: '100%'
     }).afterClosed().subscribe({
       next: (answer) => {
-
+        if(answer){
+          this.ngOnInit();
+        }
       }
     })
   }

@@ -63,6 +63,10 @@ export class TourBookingService {
     return this.http.get(`${environment.host}/payable-bookings/${bookingCode}`)
   }
   
+  onSavePayableNote(bookingCode, data){
+    return this.http.post(`${environment.host}/payable-bookings/${bookingCode}`, data)
+  }
+  
 }
 
 

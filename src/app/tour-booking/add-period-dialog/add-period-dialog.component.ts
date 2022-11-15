@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-period-dialog',
@@ -24,7 +25,10 @@ export class AddPeriodDialogComponent implements OnInit {
   }
 
   onSave(){
-    this.matDialogRef.close(this.periodForm.value);
+    this.matDialogRef.close({
+      from: moment(this.periodForm.get('from').value).format('YYYY-MM-DD'),
+      to: moment(this.periodForm.get('to').value).format('YYYY-MM-DD'),
+    });
   }
 
 }
