@@ -55,7 +55,7 @@ export class PayableCompanyComponent implements OnInit {
       next:(answer)=>{
         if(answer && this.companyId){
           this.payableService.payToCompany(this.companyId,{
-            period: this.dataTable[0].periodId,
+            periodId: this.dataTable[0].periodId,
             note: this.noteInput.value
           }).subscribe(()=>{
             this.matSnackBae.open('Pay success');

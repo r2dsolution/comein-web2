@@ -50,6 +50,7 @@ export class PaymentDashboardComponent implements OnInit {
 
   // dataSource = new MatTableDataSource();
   dataTable: any[] = [];
+  periodId;
 
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
@@ -79,6 +80,7 @@ export class PaymentDashboardComponent implements OnInit {
             console.log(response);
             this.periods = response;
             this.getDashboard(response[0].period_id);
+            this.periodId = response[0].period_id;
           }
         })
       }
@@ -86,16 +88,33 @@ export class PaymentDashboardComponent implements OnInit {
   }
 
   getDashboard(periodId) {
+    this.periodId = periodId;
     this.tourService.getTourPaymentDashboard(this.tourCompanyId,periodId).subscribe((response)=>{
       console.log(response);
       this.dataTable = response;
-      this.summaryNetValue = response.map((r)=> parseFloat(r.net_value)).reduce((a,b)=> a+b);
+      this.summaryNetValue = response.map((r)=> parseFloat(r.total_net_value)).reduce((a,b)=> a+b);
       this.setChart(
         response.map((r)=> r.tour_name), 
-        response.map((r)=> r.net_value)
+        response.map((r)=> r.total_net_value)
       );
     })
   }
+  
+  onTourClick(index) {
+    if(!this.dataTable[index].booking){
+      this.tourService.getTourPaymentDashboardDetail(this.tourCompanyId,this.periodId).subscribe((response)=>{
+        console.log(response);
+        this.dataTable[index].booking = response;
+        // this.summaryNetValue = response.map((r)=> parseFloat(r.net_value)).reduce((a,b)=> a+b);
+        // this.setChart(
+        //   response.map((r)=> r.tour_name), 
+        //   response.map((r)=> r.net_value)
+        // );
+      })
+    }
+  }
+
+  
 
   onSelectPeriod(event){
     this.getDashboard(event.value)
