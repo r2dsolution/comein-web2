@@ -43,10 +43,13 @@ export class PaymentDashboardComponent implements OnInit {
     'total'
   ];
 
+  summaryNetValue = 0;
+
   // series: any[] = [5000.45, 25000];
 
 
-  dataSource = new MatTableDataSource();
+  // dataSource = new MatTableDataSource();
+  dataTable: any[] = [];
 
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
@@ -74,7 +77,7 @@ export class PaymentDashboardComponent implements OnInit {
         this.tourService.getTourPaymentDashboardPeriod(this.tourCompanyId).subscribe({
           next: (response) => {
             console.log(response);
-            // this.periods = response;
+            this.periods = response;
             this.getDashboard(response[0].period_id);
           }
         })
@@ -85,7 +88,12 @@ export class PaymentDashboardComponent implements OnInit {
   getDashboard(periodId) {
     this.tourService.getTourPaymentDashboard(this.tourCompanyId,periodId).subscribe((response)=>{
       console.log(response);
-      // this.setChart(['test'], [1000]);
+      this.dataTable = response;
+      this.summaryNetValue = response.map((r)=> parseFloat(r.net_value)).reduce((a,b)=> a+b);
+      this.setChart(
+        response.map((r)=> r.tour_name), 
+        response.map((r)=> r.net_value)
+      );
     })
   }
 
