@@ -1,0 +1,42 @@
+<div class="container pt-5">
+    <div class="row">
+        <mat-form-field>
+            <mat-label>Tour selection</mat-label>
+            <mat-select (selectionChange)="onSelectTour($event)">
+                <!-- <mat-option>-- Tour company --</mat-option> -->
+                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.businessName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<div class="container">
+    <hr>
+    <div class="row box" *ngFor="let data of dataTable; index as i;">
+        <div class="col-md-3">
+            {{ data.bookingCode }}
+        </div>
+        <div class="col-md-3">
+            {{ data.tourName }}
+        </div>
+        <div class="col-md-3">
+            {{ data.tourDate | date:'dd/MM/yyyy' }}
+        </div>
+        <div class="col-md-3">
+            {{ data.netValue | number:'.02'  }}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6 text-start">
+            <mat-form-field>
+                <textarea matInput cols="30" rows="3" placeholder="Note" [formControl]="noteInput"></textarea>
+            </mat-form-field>
+            <button type="button" mat-button mat-raised-button color="primary" (click)="onPay()" [disabled]="!companyId">Pay to Tour company</button>
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+</div>

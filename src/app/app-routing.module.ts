@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'tour-booking', loadChildren: () => import('./tour-booking/tour-booking.module').then(m => m.TourBookingModule) },
   { path: 'ota', loadChildren: () => import('./ota/ota.module').then(m => m.OtaModule) },
   { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
+  { path: 'payable-company', loadChildren: () => import('./payable-company/payable-company.module').then(m => m.PayableCompanyModule) },
   { path: 'term-condition', component: TermAndConditionComponent },
 
 

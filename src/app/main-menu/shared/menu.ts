@@ -55,5 +55,8 @@ export const MENUS = [
     },
     {
         title: "MAIN_MENU.OTA", routerLink: '/ota', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['comeinAdmin'] // true false
+    },
+    {
+        title: "MAIN_MENU.PAYABLE_COMPANY", routerLink: '/payable-company', routerLinkActiveOptions: { exact: true }, matBadgeParameter: null, matBadgeOverlap: true, matBadgeHiddenParameter: true, role: ['comeinAdmin'] // true false
     }
 ]
