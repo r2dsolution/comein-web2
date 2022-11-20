@@ -52,8 +52,8 @@ export class TourService {
     return this.http.post(`${environment.host}/tour-pay-dashboards/${periodId}`,{})
   }
 
-  getTourPaymentDashboardDetail(tourCompanyId, periodId): Observable<any> {
-    return this.http.post(`${environment.host}/tour-pay-dashboards/${periodId}/${tourCompanyId}`,{})
+  getTourPaymentDashboardDetail(tourId, periodId): Observable<any> {
+    return this.http.post(`${environment.host}/tour-pay-dashboards/${periodId}/${tourId}`,{})
   }
 
   getTourBookingDashboardDetail(tourCompanyId, date){

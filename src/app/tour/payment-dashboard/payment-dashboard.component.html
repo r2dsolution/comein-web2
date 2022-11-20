@@ -32,7 +32,6 @@
                             Date period
                         </mat-label>
                         <mat-select (selectionChange)="onSelectPeriod($event)" [value]="periods[0].period_id">
-                            <mat-option value=""> - </mat-option>
                             <mat-option [value]="period.period_id" *ngFor="let period of periods; index as i;"> {{ period.period_desc }} </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -47,7 +46,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="net-value text-end">
-                                {{ data.net_value | number:'.2' }} B
+                                {{ data.total_net_value | number:'.2' }} B
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small>Note: {{ data.note }}</small>
                             </div>
                         </div>
                     </div>

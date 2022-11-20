@@ -102,7 +102,7 @@ export class PaymentDashboardComponent implements OnInit {
   
   onTourClick(index) {
     if(!this.dataTable[index].booking){
-      this.tourService.getTourPaymentDashboardDetail(this.tourCompanyId,this.periodId).subscribe((response)=>{
+      this.tourService.getTourPaymentDashboardDetail(this.dataTable[index].tour_id,this.periodId).subscribe((response)=>{
         console.log(response);
         this.dataTable[index].booking = response;
         // this.summaryNetValue = response.map((r)=> parseFloat(r.net_value)).reduce((a,b)=> a+b);
