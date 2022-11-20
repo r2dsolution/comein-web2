@@ -26,7 +26,7 @@ export class SetupTopupRateSelectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tourAdminService.getTourAdmins({}).subscribe({
+    this.tourAdminService.getTourAdmins({ size: 999 }).subscribe({
       next: (response) => {
         console.log(response);
         this.tourList = response.datas;
@@ -48,7 +48,7 @@ export class SetupTopupRateSelectComponent implements OnInit {
         this.isUseDefault = response.useDefault;
         this.defaultDatas = response.detail;
         this.detail = response.detail;
-        this.companyId = response.companyId;
+        this.companyId = event.value;
       }
     })
   }
@@ -71,6 +71,7 @@ export class SetupTopupRateSelectComponent implements OnInit {
             next: (response) => {
               console.log(response);
               this.matSnackBar.open('Data updated.');
+              this.onSelectTour({ value: this.companyId});
             }
           })
         }

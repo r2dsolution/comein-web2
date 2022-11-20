@@ -48,6 +48,7 @@ export class SetupTopupRateAllComponent implements OnInit {
           this.tourService.updateTourTopupRates(this.formData).subscribe({
             next: (response) => {
               console.log(response);
+              this.ngOnInit();
               this.matSnackBar.open('Data updated.');
             }
           })

@@ -3,7 +3,7 @@
         <mat-form-field>
             <mat-label>Tour selection</mat-label>
             <mat-select formControlName="companyId" (selectionChange)="onSelectTour($event)">
-                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.businessName }}</mat-option>
+                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.companyName }}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>

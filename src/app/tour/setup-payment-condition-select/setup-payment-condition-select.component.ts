@@ -28,7 +28,7 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tourAdminService.getTourAdmins({}).subscribe({
+    this.tourAdminService.getTourAdmins({size: 999}).subscribe({
       next: (response) => {
         console.log(response);
         this.tourList = response.datas;
@@ -53,6 +53,7 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
       next: (response)=>{
         console.log(response);
         this.matSnackBar.open('Data updated.');
+        this.onSelectTour({value:this.form.get('companyId').value});
       }
     })
   }
