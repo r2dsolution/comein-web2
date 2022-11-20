@@ -1,19 +1,19 @@
-<div mat-dialog-title>Note</div>
+<!-- <div mat-dialog-title>Note</div> -->
 <div mat-dialog-content>
     <!-- {{ receivableNote | json }} -->
     <div class="row">
         <div class="col-md-4">
-            Receivable note
+            <h5>Receivable note</h5>
         </div>
         <div class="col-md-4">
-            Tour Payable note
+            <h5>Tour Payable note</h5>
         </div>
         <div class="col-md-4">
-            Hotel Payable note
+            <h5>Hotel Payable note</h5>
         </div>
     </div>
     <div class="row" [formGroup]="noteForm">
-        <div class="col-md-4" *ngIf="receivableNote">
+        <div class="col-md-4 p-2 card" *ngIf="receivableNote">
             <div class="row">
                 <div class="col-md-6">
                     Transaction Date
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" *ngIf="tourPayableNote">
+        <div class="col-md-4 p-2 card" *ngIf="tourPayableNote">
             <div class="row">
                 <div class="col-md-6">
                     Transaction Date
@@ -113,9 +113,9 @@
                 <div class="col-md-12">
                     <mat-form-field>
                         <mat-label>Tour Period</mat-label>
-                        <mat-select>
+                        <mat-select [value]="tourPeriods[0] ? tourPeriods[0].from : null">
                             <!-- <mat-option value=""> - </mat-option> -->
-                            <mat-option  *ngFor="let period of tourPeriods"> {{ period.from | date:'dd/MM/yyyy' }} - {{ period.to | date:'dd/MM/yyyy' }} </mat-option>
+                            <mat-option  *ngFor="let period of tourPeriods" [value]="period.from"> {{ period.from | date:'dd/MM/yyyy' }} - {{ period.to | date:'dd/MM/yyyy' }} </mat-option>
                         </mat-select>
                         <button mat-icon-button matSuffix [attr.aria-label]="'Add'" (click)="addTourPeriod($event)">
                             <mat-icon>add_circle_outline</mat-icon>
@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>    
-        <div class="col-md-4" *ngIf="hotelPayableNote">
+        <div class="col-md-4 p-2 card" *ngIf="hotelPayableNote">
             <div class="row">
                 <div class="col-md-6">
                     Transaction Date
@@ -164,9 +164,9 @@
                 <div class="col-md-12">
                     <mat-form-field>
                         <mat-label>Hotel Period</mat-label>
-                        <mat-select>
-                            <mat-option value=""> - </mat-option>
-                            <mat-option  *ngFor="let period of hotelPeriods"> {{ period.from | date:'dd/MM/yyyy' }} - {{ period.to | date:'dd/MM/yyyy' }} </mat-option>
+                        <mat-select  [value]="hotelPeriods[0] ? hotelPeriods[0].from : null">
+                            <!-- <mat-option value=""> - </mat-option> -->
+                            <mat-option  *ngFor="let period of hotelPeriods" [value]="period.from"> {{ period.from | date:'dd/MM/yyyy' }} - {{ period.to | date:'dd/MM/yyyy' }} </mat-option>
                         </mat-select>
                         <button mat-icon-button matSuffix [attr.aria-label]="'Add'" (click)="addHotelPeriod($event)">
                             <mat-icon>add_circle_outline</mat-icon>
