@@ -16,8 +16,8 @@
         </mat-form-field>
     </div>
 </div>
-<div class="container" *ngFor="let data of dataTable; index as i;">
-    <h5 *ngIf="data">Periods: {{ data.periodDesc  }} -> {{ data.total | number:'.2' }} B</h5>
+<div class="container pb-5" *ngFor="let data of dataTable; index as i;">
+    <h5 *ngIf="data" class="d-flex justify-content-between"><span>Periods: {{ data.periodDesc  }}</span><span>{{ data.total | number:'.2' }} B</span></h5>
     <table mat-table [dataSource]="data.details">
         <ng-container matColumnDef="bookingCode">
             <th mat-header-cell *matHeaderCellDef> Booking code </th>
