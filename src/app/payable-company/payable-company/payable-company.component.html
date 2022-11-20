@@ -1,30 +1,49 @@
 <div class="container pt-5">
     <div class="row">
+        <div class="col-md-12">
+            <div class="title">
+                Payable company
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
         <mat-form-field>
             <mat-label>Tour selection</mat-label>
             <mat-select (selectionChange)="onSelectTour($event)">
                 <!-- <mat-option>-- Tour company --</mat-option> -->
-                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.businessName }}</mat-option>
+                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.companyName }}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
 </div>
 <div class="container">
-    <hr>
-    <div class="row box" *ngFor="let data of dataTable; index as i;">
-        <div class="col-md-3">
-            {{ data.bookingCode }}
-        </div>
-        <div class="col-md-3">
-            {{ data.tourName }}
-        </div>
-        <div class="col-md-3">
-            {{ data.tourDate | date:'dd/MM/yyyy' }}
-        </div>
-        <div class="col-md-3">
-            {{ data.netValue | number:'.02'  }}
-        </div>
-    </div>
+    <h5 *ngIf="dataTable[0]">Periods: {{ dataTable[0].dateFrom | date:'dd/MM/yyyy'  }} - {{ dataTable[0].dateTo | date:'dd/MM/yyyy'  }} -> {{ summary | number:'.2' }} B</h5>
+    <table mat-table [dataSource]="dataTable">
+        <ng-container matColumnDef="bookingCode">
+            <th mat-header-cell *matHeaderCellDef> Booking code </th>
+            <td mat-cell *matCellDef="let element; index as i;"> {{ element.bookingCode }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tourName">
+            <th mat-header-cell *matHeaderCellDef> Tour name </th>
+            <td mat-cell *matCellDef="let element"> {{ element.tourName }} </td>
+        </ng-container>
+        <ng-container matColumnDef="tourDate">
+            <th mat-header-cell *matHeaderCellDef> Tour date </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{ element.tourDate | date:'dd/MM/yyyy' }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="netValue">
+            <th mat-header-cell *matHeaderCellDef class="text-end"> Net value </th>
+            <td mat-cell *matCellDef="let element" class="text-end"> 
+                {{ element.netValue | number:'.2'}}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </div>
 <div class="container">
     <hr>

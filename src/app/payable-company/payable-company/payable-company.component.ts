@@ -13,10 +13,19 @@ import { PayableCompanyService } from '../payable-company.service';
 })
 export class PayableCompanyComponent implements OnInit {
 
+  displayedColumns: string[] = [
+    'bookingCode',
+    'tourName',
+    'tourDate',
+    'netValue'
+  ];
+
   tourList: any[] = [];
   dataTable: any[] = [];
   companyId;
   noteInput: UntypedFormControl;
+
+  summary = 0;
   constructor(
     private payableService: PayableCompanyService,
     private tourAdminService: TourAdminService,
@@ -37,28 +46,30 @@ export class PayableCompanyComponent implements OnInit {
     })
   }
 
-  onSelectTour(event){
+  onSelectTour(event) {
     this.companyId = event.value;
     this.payableService.getPayableCompany(event.value).subscribe({
-      next: (response)=>{
+      next: (response) => {
         this.dataTable = response;
+        this.summary = response.map((r)=> parseFloat(r.netValue)).reduce((a,b) => a+b);
       }
     })
   }
 
-  onPay(){
-    this.matDialog.open(ConfirmDialogComponent,{
-      data:{
+  onPay() {
+    this.matDialog.open(ConfirmDialogComponent, {
+      data: {
         content: 'Confirm to pay'
       }
     }).afterClosed().subscribe({
-      next:(answer)=>{
-        if(answer && this.companyId){
-          this.payableService.payToCompany(this.companyId,{
+      next: (answer) => {
+        if (answer && this.companyId) {
+          this.payableService.payToCompany(this.companyId, {
             periodId: this.dataTable[0].periodId,
             note: this.noteInput.value
-          }).subscribe(()=>{
+          }).subscribe(() => {
             this.matSnackBae.open('Pay success');
+            this.onSelectTour({ value: this.companyId })
           })
         }
       }
