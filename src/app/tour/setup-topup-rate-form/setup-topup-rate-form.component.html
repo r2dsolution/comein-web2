@@ -2,28 +2,28 @@
     <div class="row p-2 data-row" *ngFor="let data of datas; index as i;">
         <div class="col-md-2">
             Min: 
-            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.minPeriod">
-            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.minPeriod">
+            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.minPeriod" appNumbersOnly>
+            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.minPeriod" appNumbersOnly>
         </div>
         <div class="col-md-2">
             Max: 
-            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.maxPeriod">
-            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.maxPeriod">
+            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.maxPeriod" appNumbersOnly>
+            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.maxPeriod" appNumbersOnly>
         </div>
         <div class="col-md-2">
             Topup rate: 
-            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.topUpRate">
-            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.topUpRate">
+            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.topUpRate" appNumbersOnly>
+            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.topUpRate" appNumbersOnly>
         </div>
         <div class="col-md-2">
             = come-in 
-            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.comeinRate">
-            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.comeinRate">
+            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.comeinRate" appNumbersOnly>
+            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.comeinRate" appNumbersOnly>
         </div>
         <div class="col-md-2">
             + hotel 
-            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.hotelRate">
-            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.hotelRate">
+            <input type="text" class="day" placeholder="0" *ngIf="!data.isEdit" disabled [value]="data.hotelRate" appNumbersOnly>
+            <input type="text" class="day" placeholder="0" *ngIf="data.isEdit" [(ngModel)]="tempData.hotelRate" appNumbersOnly>
         </div>
         <div class="col-md-2">
             <button type="button" mat-button mat-raised-button *ngIf="!data.isEdit && !tempData" (click)="onEdit(i)">Edit</button>
@@ -34,19 +34,19 @@
     </div>
     <div class="row p-2 data-row">
         <div class="col-md-2">
-            Min: <input type="text" class="day" placeholder="0" [(ngModel)]="addData.minPeriod">
+            Min: <input type="text" class="day" placeholder="0" [(ngModel)]="addData.minPeriod" appNumbersOnly>
         </div>
         <div class="col-md-2">
-            Max: <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.maxPeriod">
+            Max: <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.maxPeriod" appNumbersOnly>
         </div>
         <div class="col-md-2">
-            Topup rate: <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.topUpRate">
+            Topup rate: <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.topUpRate" appNumbersOnly>
         </div>
         <div class="col-md-2">
-            = come-in <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.comeinRate">
+            = come-in <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.comeinRate" appNumbersOnly>
         </div>
         <div class="col-md-2">
-            + hotel <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.hotelRate">
+            + hotel <input type="text" class="day" placeholder="0"  [(ngModel)]="addData.hotelRate" appNumbersOnly>
         </div>
         <div class="col-md-2">
             <button type="button" mat-button mat-raised-button color="primary" (click)="onAdd()" *ngIf="!tempData">Add</button>

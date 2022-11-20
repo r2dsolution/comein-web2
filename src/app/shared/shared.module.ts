@@ -54,6 +54,7 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
 import { TermAndConditionComponent } from './term-and-condition/term-and-condition.component';
 import { OtaRematchDialogComponent } from '../ota/ota-rematch-dialog/ota-rematch-dialog.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NumbersOnlyDirective } from './directive/numbers-only.directive';
 
 
 const materialModules = [
@@ -103,7 +104,8 @@ const angularComponent = [
   CommonFormDialogComponent,
   OtaRematchDialogComponent,
   CalendarHeaderComponent,
-  OnlyNumberDirective
+  OnlyNumberDirective,
+  NumbersOnlyDirective
 ]
 
 @NgModule({
@@ -112,7 +114,7 @@ const angularComponent = [
         DatePickerDialogComponent,
         ChangePasswordDialogComponent,
         TermAndConditionComponent,
-        OtaRematchDialogComponent,
+        OtaRematchDialogComponent
     ],
     imports: [
         CommonModule,

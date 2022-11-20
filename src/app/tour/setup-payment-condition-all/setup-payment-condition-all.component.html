@@ -1,12 +1,12 @@
 <div class="container pt-5" [formGroup]="form">
     <div class="row">
         <div class="col-md-12">
-            Payable Tour date = Tour date + <input class="day" type="text" formControlName="payableTourDay"> days
+            Payable Tour date = Tour date + <input class="day" type="text" formControlName="payableTourDay" appNumbersOnly> days
         </div>
     </div>
     <div class="row pt-3">
         <div class="col-md-12">
-            Payable date = Payment date + <input class="day" type="text" value="0"  formControlName="payableDay"> days
+            Payable date = Payment date + <input class="day" type="text" value="0"  formControlName="payableDay" appNumbersOnly> days
         </div>
     </div>
     <div class="row pt-3">
