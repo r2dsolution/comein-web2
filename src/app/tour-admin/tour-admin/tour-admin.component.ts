@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,7 +13,7 @@ import { TourAdminService } from '../tour-admin.service';
   styleUrls: ['./tour-admin.component.scss']
 })
 export class TourAdminComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   displayedColumns: string[] = [
     'position',
@@ -33,9 +33,9 @@ export class TourAdminComponent implements OnInit {
     private matDialog: MatDialog,
     private tourAdminService: TourAdminService
   ) {
-    this.form = new FormGroup({
-      email: new FormControl(),
-      tourName: new FormControl()
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl(),
+      tourName: new UntypedFormControl()
     })
   }
 

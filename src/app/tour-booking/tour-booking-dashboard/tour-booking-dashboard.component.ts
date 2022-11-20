@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexStroke, ApexTitleSubtitle, ChartComponent } from 'ng-apexcharts';
@@ -33,7 +33,7 @@ export type ChartOptions = {
 export class TourBookingDashboardComponent implements OnInit {
 
 
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
 
   displayedColumns: string[] = [
     'bookindId',
@@ -60,9 +60,9 @@ export class TourBookingDashboardComponent implements OnInit {
     private tourBookingService: TourBookingService,
     private tourService: TourService
   ) {
-    this.searchForm = new FormGroup({
-      startDate: new FormControl(moment(new Date()).subtract(180, 'days').toDate()),
-      endDate: new FormControl(moment(new Date()).toDate()),
+    this.searchForm = new UntypedFormGroup({
+      startDate: new UntypedFormControl(moment(new Date()).subtract(180, 'days').toDate()),
+      endDate: new UntypedFormControl(moment(new Date()).toDate()),
 
     })
   }

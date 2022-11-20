@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,7 +14,7 @@ import { HotelStaffService } from '../hotel-staff.service';
 })
 export class HotelStaffComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   displayedColumns: string[] = [
     'position',
@@ -32,9 +32,9 @@ export class HotelStaffComponent implements OnInit {
     private hotelStaffService: HotelStaffService,
     private matDialog: MatDialog
   ) {
-    this.form = new FormGroup({
-      email: new FormControl(),
-      referenceName: new FormControl()
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl(),
+      referenceName: new UntypedFormControl()
     })
   }
 

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./common-form-dialog.component.scss']
 })
 export class CommonFormDialogComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   title: string;
   content: string;
   accept: string;
@@ -36,8 +36,8 @@ export class CommonFormDialogComponent implements OnInit {
       this.denie = this.data.denie;
     }
 
-    this.form = new FormGroup({
-      email: new FormControl()
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl()
     })
   }
 

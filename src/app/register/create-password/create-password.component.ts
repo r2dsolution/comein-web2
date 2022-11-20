@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Auth } from 'aws-amplify';
@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
   ]
 })
 export class CreatePasswordComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   refNo: string;
   isConsent: boolean = true;
   userSub: string;
@@ -28,7 +28,7 @@ export class CreatePasswordComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
@@ -37,11 +37,11 @@ export class CreatePasswordComponent implements OnInit {
     private matDialog: MatDialog
   ) {
     this.auth.signOut();
-    this.loginForm = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      accept: new FormControl(false, [Validators.required]),
+    this.loginForm = new UntypedFormGroup({
+      username: new UntypedFormControl(''),
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmPassword: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
+      accept: new UntypedFormControl(false, [Validators.required]),
     }, {
       validators: [checkPasswords]
     })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -14,7 +14,7 @@ import { ProfileService } from '../profile.service';
 })
 export class ProfileComponent implements OnInit {
   isTourAdmin: boolean = false;
-  tourProfileForm: FormGroup;
+  tourProfileForm: UntypedFormGroup;
   constructor(
     private permissions: NgxPermissionsService,
     private sharedService: SharedService,
@@ -22,9 +22,9 @@ export class ProfileComponent implements OnInit {
     private matDialog: MatDialog,
     private matSnackBar: MatSnackBar
   ) {
-    this.tourProfileForm = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl()
+    this.tourProfileForm = new UntypedFormGroup({
+      firstName: new UntypedFormControl(),
+      lastName: new UntypedFormControl()
     })
   }
 

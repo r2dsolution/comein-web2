@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -16,14 +16,14 @@ export class PayableCompanyComponent implements OnInit {
   tourList: any[] = [];
   dataTable: any[] = [];
   companyId;
-  noteInput: FormControl;
+  noteInput: UntypedFormControl;
   constructor(
     private payableService: PayableCompanyService,
     private tourAdminService: TourAdminService,
     private matDialog: MatDialog,
     private matSnackBae: MatSnackBar
   ) {
-    this.noteInput = new FormControl('');
+    this.noteInput = new UntypedFormControl('');
   }
 
   ngOnInit(): void {

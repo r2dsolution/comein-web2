@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { HotelStaffService } from '../hotel-staff.service';
   styleUrls: ['./hotel-staff-form.component.scss']
 })
 export class HotelStaffFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   id: string;
   data: any = {};
   ownerId: string;
@@ -26,12 +26,12 @@ export class HotelStaffFormComponent implements OnInit {
     private matSnackBar: MatSnackBar
 
   ) {
-    this.form = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      referenceName: new FormControl(),
-      email: new FormControl(),
-      status: new FormControl()
+    this.form = new UntypedFormGroup({
+      firstName: new UntypedFormControl(),
+      lastName: new UntypedFormControl(),
+      referenceName: new UntypedFormControl(),
+      email: new UntypedFormControl(),
+      status: new UntypedFormControl()
     });
   }
 

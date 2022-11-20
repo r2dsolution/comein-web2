@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddPeriodDialogComponent } from '../add-period-dialog/add-period-dialog.component';
 import { TourBookingService } from '../tour-booking.service';
@@ -18,7 +18,7 @@ export class BookingNoteDialogComponent implements OnInit {
   tourPeriods: any[] = [];
   hotelPeriods: any[] = [];
 
-  noteForm: FormGroup;
+  noteForm: UntypedFormGroup;
 
   bookingCode;
   constructor(
@@ -27,10 +27,10 @@ export class BookingNoteDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private tourBookingService: TourBookingService
   ) {
-    this.noteForm = new FormGroup({
-      receive: new FormControl(''),
-      tour: new FormControl(''),
-      hotel: new FormControl(''),
+    this.noteForm = new UntypedFormGroup({
+      receive: new UntypedFormControl(''),
+      tour: new UntypedFormControl(''),
+      hotel: new UntypedFormControl(''),
     })
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { TourBookingService } from '../tour-booking.service';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.c
 })
 export class TourBookingComponent implements OnInit {
 
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
 
   tourBookingList: any[];
   currentFilter:any;
@@ -24,12 +24,12 @@ export class TourBookingComponent implements OnInit {
     private tourBookingService: TourBookingService,
     private matDialog: MatDialog
   ) {
-    this.searchForm = new FormGroup({
-      startDate: new FormControl(),
-      endDate: new FormControl(),
-      bookingCode: new FormControl(),
-      dateType: new FormControl('booking'),
-      referenceName: new FormControl()
+    this.searchForm = new UntypedFormGroup({
+      startDate: new UntypedFormControl(),
+      endDate: new UntypedFormControl(),
+      bookingCode: new UntypedFormControl(),
+      dateType: new UntypedFormControl('booking'),
+      referenceName: new UntypedFormControl()
 
     })
   }

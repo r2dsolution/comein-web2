@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { TourService } from '../tour.service';
   styleUrls: ['./tour.component.scss']
 })
 export class TourComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   displayedColumns: string[] = [
     'no',
@@ -32,8 +32,8 @@ export class TourComponent implements OnInit {
     private tourService: TourService
     // private hotelAdminService: HotelAdminService
   ) {
-    this.form = new FormGroup({
-      tourName: new FormControl(),
+    this.form = new UntypedFormGroup({
+      tourName: new UntypedFormControl(),
     })
   }
 

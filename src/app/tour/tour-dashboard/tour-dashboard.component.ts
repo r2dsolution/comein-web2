@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexStroke, ApexTooltip, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -32,7 +32,7 @@ export type ChartOptions = {
   styleUrls: ['./tour-dashboard.component.scss']
 })
 export class TourDashboardComponent implements OnInit {
-  dashboardForm: FormGroup;
+  dashboardForm: UntypedFormGroup;
   displayedColumns: string[] = [
     'bookindId',
     'refName',
@@ -56,8 +56,8 @@ export class TourDashboardComponent implements OnInit {
     private tourService: TourService,
     private sharedService: SharedService
   ) {
-    this.dashboardForm = new FormGroup({
-      date: new FormControl(moment('01-08-2022','DD-MM-YYYY').toDate())
+    this.dashboardForm = new UntypedFormGroup({
+      date: new UntypedFormControl(moment('01-08-2022','DD-MM-YYYY').toDate())
     });
     this.sharedService.getUserInfo().subscribe({
       next: (info) => {

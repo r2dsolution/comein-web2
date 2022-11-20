@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -22,7 +22,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
   styleUrls: ['./tour-form.component.scss']
 })
 export class TourFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   id: any;
   dayTitle: string = moment(new Date).format('DD/MM/YYYY');
   displayedColumns: string[] = [
@@ -72,19 +72,19 @@ export class TourFormComponent implements OnInit {
     private tourService: TourService,
     private sharedService: SharedService
   ) {
-    this.form = new FormGroup({
-      tourName: new FormControl(),
-      tourDesc: new FormControl(),
-      endDate: new FormControl(),
-      detail: new FormControl(),
-      provinces: new FormControl(),
-      country: new FormControl(),
-      startDate: new FormControl(),
-      companyId: new FormControl(),
-      file: new FormControl(),
+    this.form = new UntypedFormGroup({
+      tourName: new UntypedFormControl(),
+      tourDesc: new UntypedFormControl(),
+      endDate: new UntypedFormControl(),
+      detail: new UntypedFormControl(),
+      provinces: new UntypedFormControl(),
+      country: new UntypedFormControl(),
+      startDate: new UntypedFormControl(),
+      companyId: new UntypedFormControl(),
+      file: new UntypedFormControl(),
       // adultPrice: new FormControl(),
       // childPrice: new FormControl(),
-      images: new FormControl([]),
+      images: new UntypedFormControl([]),
     })
   }
 

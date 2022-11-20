@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexStroke, ApexTitleSubtitle, ChartComponent } from 'ng-apexcharts';
@@ -32,7 +32,7 @@ export type ChartOptions = {
 })
 export class PaymentDashboardComponent implements OnInit {
 
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
 
   periods: any[] = [];
 
@@ -61,9 +61,9 @@ export class PaymentDashboardComponent implements OnInit {
     private sharedService: SharedService,
     private tourService: TourService
   ) {
-    this.searchForm = new FormGroup({
-      startDate: new FormControl(),
-      endDate: new FormControl(),
+    this.searchForm = new UntypedFormGroup({
+      startDate: new UntypedFormControl(),
+      endDate: new UntypedFormControl(),
 
     })
   }

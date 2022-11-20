@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -12,14 +12,14 @@ export class BookingVerifyDialogComponent implements OnInit {
   content: string;
   accept: string;
   denie: string;
-  email: FormControl;
+  email: UntypedFormControl;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<BookingVerifyDialogComponent>
   ) {
 
-    this.email = new FormControl('',[ Validators.required, Validators.email]);
+    this.email = new UntypedFormControl('',[ Validators.required, Validators.email]);
     if (this.data.title) {
       this.title = this.data.title;
     }

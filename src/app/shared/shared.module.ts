@@ -107,28 +107,22 @@ const angularComponent = [
 ]
 
 @NgModule({
-  declarations: [
-    ...angularComponent,
-    DatePickerDialogComponent,
-    ChangePasswordDialogComponent,
-    TermAndConditionComponent,
-    OtaRematchDialogComponent,
-  ],
-  entryComponents: [
-    NoticDialogComponent,
-    AlertDialogComponent,
-    ConfirmDialogComponent,
-    OtaRematchDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    ...materialModules,
-    ...angularModule
-  ],
-  exports: [
-    ...materialModules,
-    ...angularModule,
-    ...angularComponent
-  ]
+    declarations: [
+        ...angularComponent,
+        DatePickerDialogComponent,
+        ChangePasswordDialogComponent,
+        TermAndConditionComponent,
+        OtaRematchDialogComponent,
+    ],
+    imports: [
+        CommonModule,
+        ...materialModules,
+        ...angularModule
+    ],
+    exports: [
+        ...materialModules,
+        ...angularModule,
+        ...angularComponent
+    ]
 })
 export class SharedModule { }

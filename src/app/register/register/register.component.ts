@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -17,7 +17,7 @@ import { SharedService } from '../../shared/shared.service';
 })
 export class RegisterComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isSubmit: boolean = false;
   isLoading: boolean = false;
 
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   provinceOptions:any[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private auth: AuthService,
     private router: Router,
     private matDialog: MatDialog,
@@ -38,18 +38,18 @@ export class RegisterComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.auth.signOut();
-    this.loginForm = new FormGroup({
-      email: new FormControl(''),
-      hotelName: new FormControl(''),
-      companyName: new FormControl(''),
-      mobileNo: new FormControl(''),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      referenceName: new FormControl(''),
-      country: new FormControl(),
-      province: new FormControl(),
-      accept: new FormControl(false,[Validators.required]),
-      address: new FormControl('') 
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl(''),
+      hotelName: new UntypedFormControl(''),
+      companyName: new UntypedFormControl(''),
+      mobileNo: new UntypedFormControl(''),
+      firstName: new UntypedFormControl(''),
+      lastName: new UntypedFormControl(''),
+      referenceName: new UntypedFormControl(''),
+      country: new UntypedFormControl(),
+      province: new UntypedFormControl(),
+      accept: new UntypedFormControl(false,[Validators.required]),
+      address: new UntypedFormControl('') 
     })
   }
 

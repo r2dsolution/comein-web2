@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TourAdminService } from 'src/app/tour-admin/tour-admin.service';
 import { TourService } from '../tour.service';
@@ -11,7 +11,7 @@ import { TourService } from '../tour.service';
 })
 export class SetupPaymentConditionSelectComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   isUseDefault: boolean = true;
   tourList: any[] = [];
   constructor(
@@ -19,11 +19,11 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
     private tourAdminService: TourAdminService,
     private matSnackBar: MatSnackBar
   ) {
-    this.form = new FormGroup({
-      payableTourDay: new FormControl(0),
-      payableDay: new FormControl(0),
-      companyId: new FormControl(0),
-      useDefault: new FormControl(false)
+    this.form = new UntypedFormGroup({
+      payableTourDay: new UntypedFormControl(0),
+      payableDay: new UntypedFormControl(0),
+      companyId: new UntypedFormControl(0),
+      useDefault: new UntypedFormControl(false)
     })
   }
 

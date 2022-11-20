@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import * as moment from 'moment';
 import { MonthViewDay } from 'calendar-utils';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { InventoryService } from '../inventory.service';
 import { TourService } from '../../tour/tour.service';
 import { Subject } from 'rxjs';
@@ -27,7 +27,7 @@ export class InventoryComponent implements OnInit {
 
   tourList:any[] = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   cancelable;
 
   constructor(
@@ -35,16 +35,16 @@ export class InventoryComponent implements OnInit {
     private tourService: TourService,
     private matSnackbar: MatSnackBar
   ) {
-    this.form = new FormGroup({
-      id: new FormControl(),
-      startDate: new FormControl(),
-      endDate: new FormControl(),
-      adultRate: new FormControl([],[Validators.required]),
-      childRate: new FormControl([],[Validators.required]),
-      cancelable: new FormControl(false),
-      cancelBefore: new FormControl(),
-      tourDate: new FormControl(),
-      total: new FormControl([],[Validators.required]),
+    this.form = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      startDate: new UntypedFormControl(),
+      endDate: new UntypedFormControl(),
+      adultRate: new UntypedFormControl([],[Validators.required]),
+      childRate: new UntypedFormControl([],[Validators.required]),
+      cancelable: new UntypedFormControl(false),
+      cancelBefore: new UntypedFormControl(),
+      tourDate: new UntypedFormControl(),
+      total: new UntypedFormControl([],[Validators.required]),
     })
   }
 

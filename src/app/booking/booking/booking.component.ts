@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,7 +13,7 @@ import { BookingService } from '../booking.service';
   styleUrls: ['./booking.component.scss']
 })
 export class BookingComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   displayedColumns: string[] = [
     'position',
@@ -37,9 +37,9 @@ export class BookingComponent implements OnInit {
     private bookingService: BookingService,
     private matDialog: MatDialog
   ) {
-    this.form = new FormGroup({
-      bookingNo: new FormControl(),
-      referenceName: new FormControl(),
+    this.form = new UntypedFormGroup({
+      bookingNo: new UntypedFormControl(),
+      referenceName: new UntypedFormControl(),
       // customerName: new FormControl(),
       // customerSurname: new FormControl()
     })

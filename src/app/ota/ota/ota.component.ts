@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -38,7 +38,7 @@ export class OtaComponent implements OnInit {
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   displayedColumns = [
     'index',
     'feedDate',
@@ -56,9 +56,9 @@ export class OtaComponent implements OnInit {
     private matSnackBar: MatSnackBar,
     private router: Router
   ) {
-    this.form = new FormGroup({
-      startDate: new FormControl(moment(new Date(),).subtract(31, 'days').toDate()),
-      endDate: new FormControl(moment(new Date(),).add(1, 'day').toDate())
+    this.form = new UntypedFormGroup({
+      startDate: new UntypedFormControl(moment(new Date(),).subtract(31, 'days').toDate()),
+      endDate: new UntypedFormControl(moment(new Date(),).add(1, 'day').toDate())
     });
 
     this.paginator.length = 0;

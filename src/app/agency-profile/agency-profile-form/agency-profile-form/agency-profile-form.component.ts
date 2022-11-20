@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { AgencyProfileService } from '../../agency-profile.service';
 })
 export class AgencyProfileFormComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   id: string;
   data: any = {};
   countryOptions:any[] = [];
@@ -30,22 +30,22 @@ export class AgencyProfileFormComponent implements OnInit {
     private matSnackbar: MatSnackBar,
     private sharedService: SharedService
   ) {
-    this.form = new FormGroup({
-      id: new FormControl(),
-      image: new FormControl(),
-      companyName: new FormControl(),
-      tatNo: new FormControl(),
-      businessName: new FormControl(),
-      country: new FormControl(),
-      province: new FormControl(),
+    this.form = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      image: new UntypedFormControl(),
+      companyName: new UntypedFormControl(),
+      tatNo: new UntypedFormControl(),
+      businessName: new UntypedFormControl(),
+      country: new UntypedFormControl(),
+      province: new UntypedFormControl(),
       // contactName: new FormControl(),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      referenceName: new FormControl(),
-      email: new FormControl(),
-      mobileNo: new FormControl(),
-      address: new FormControl(),
-      status: new FormControl(),
+      firstName: new UntypedFormControl(),
+      lastName: new UntypedFormControl(),
+      referenceName: new UntypedFormControl(),
+      email: new UntypedFormControl(),
+      mobileNo: new UntypedFormControl(),
+      address: new UntypedFormControl(),
+      status: new UntypedFormControl(),
     })
   }
 

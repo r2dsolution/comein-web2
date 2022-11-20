@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TourService } from '../tour.service';
 
@@ -10,14 +10,14 @@ import { TourService } from '../tour.service';
 })
 export class SetupPaymentConditionAllComponent implements OnInit {
   // conditions;
-  form: FormGroup;
+  form: UntypedFormGroup;
   constructor(
     private tourService: TourService,
     private matSnackBar: MatSnackBar
   ) {
-    this.form = new FormGroup({
-      payableTourDay: new FormControl(0),
-      payableDay: new FormControl(0)
+    this.form = new UntypedFormGroup({
+      payableTourDay: new UntypedFormControl(0),
+      payableDay: new UntypedFormControl(0)
     })
   }
 

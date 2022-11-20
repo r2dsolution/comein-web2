@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { BehaviorSubject, interval, Observable, PartialObserver, Subject, takeUn
   ]
 })
 export class OtpComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isConfirm: boolean = false;
   usr: string = null;
   ispause = new Subject();
@@ -33,8 +33,8 @@ export class OtpComponent implements OnInit {
     private route: ActivatedRoute,
     private matDialog: MatDialog
   ) {
-    this.loginForm = new FormGroup({
-      otp: new FormControl('', Validators.required)
+    this.loginForm = new UntypedFormGroup({
+      otp: new UntypedFormControl('', Validators.required)
     })
   }
 

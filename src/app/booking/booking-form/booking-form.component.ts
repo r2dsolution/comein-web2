@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { BookingService } from '../booking.service';
   styleUrls: ['./booking-form.component.scss']
 })
 export class BookingFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   id: string;
   data: any = {};
   ownerId: string;
@@ -31,22 +31,22 @@ export class BookingFormComponent implements OnInit {
     private bookingService: BookingService,
     private matSnackbar: MatSnackBar
   ) {
-    this.form = new FormGroup({
-      id: new FormControl(''),
-      bookingNo: new FormControl(''),
-      roomName: new FormControl(''),
-      roomDesc: new FormControl(''),
-      customerId: new FormControl(''),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      referenceName: new FormControl(''),
-      email: new FormControl(''),
-      mobileNo: new FormControl(''),
-      checkin: new FormControl(''),
-      checkout: new FormControl(''),
-      visitorAdult: new FormControl(''),
-      visitorChild: new FormControl(''),
-      status: new FormControl('')
+    this.form = new UntypedFormGroup({
+      id: new UntypedFormControl(''),
+      bookingNo: new UntypedFormControl(''),
+      roomName: new UntypedFormControl(''),
+      roomDesc: new UntypedFormControl(''),
+      customerId: new UntypedFormControl(''),
+      firstName: new UntypedFormControl(''),
+      lastName: new UntypedFormControl(''),
+      referenceName: new UntypedFormControl(''),
+      email: new UntypedFormControl(''),
+      mobileNo: new UntypedFormControl(''),
+      checkin: new UntypedFormControl(''),
+      checkout: new UntypedFormControl(''),
+      visitorAdult: new UntypedFormControl(''),
+      visitorChild: new UntypedFormControl(''),
+      status: new UntypedFormControl('')
     });
   }
 

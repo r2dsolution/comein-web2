@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { TourAdminService } from '../tour-admin.service';
 })
 export class TourAdminFormComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   id: string;
   data: any = {};
   ownerId: string;
@@ -28,16 +28,16 @@ export class TourAdminFormComponent implements OnInit {
     private tourAdminService: TourAdminService,
     private matSnackbar: MatSnackBar
   ) {
-    this.form = new FormGroup({
-      id: new FormControl(),
-      companyName: new FormControl(),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      referenceName: new FormControl(),
-      email: new FormControl(),
-      mobileNo: new FormControl(),
-      address: new FormControl(),
-      status: new FormControl(),
+    this.form = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      companyName: new UntypedFormControl(),
+      firstName: new UntypedFormControl(),
+      lastName: new UntypedFormControl(),
+      referenceName: new UntypedFormControl(),
+      email: new UntypedFormControl(),
+      mobileNo: new UntypedFormControl(),
+      address: new UntypedFormControl(),
+      status: new UntypedFormControl(),
     })
   }
 

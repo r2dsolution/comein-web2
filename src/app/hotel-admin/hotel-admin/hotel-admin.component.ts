@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,7 +13,7 @@ import { HotelAdminService } from '../hotel-admin.service';
   styleUrls: ['./hotel-admin.component.scss']
 })
 export class HotelAdminComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   displayedColumns: string[] = [
     'position',
@@ -32,9 +32,9 @@ export class HotelAdminComponent implements OnInit {
     private hotelAdminService: HotelAdminService,
     private matDialog: MatDialog
   ) {
-    this.form = new FormGroup({
-      email: new FormControl(),
-      hotelName: new FormControl()
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl(),
+      hotelName: new UntypedFormControl()
     })
   }
 

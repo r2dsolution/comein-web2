@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HotelAdminService } from '../../hotel-admin/hotel-admin.service';
 
@@ -10,7 +10,7 @@ import { HotelAdminService } from '../../hotel-admin/hotel-admin.service';
 })
 export class OtaRematchDialogComponent implements OnInit {
   ota: any;
-  hotelInput: FormControl;
+  hotelInput: UntypedFormControl;
   hotels:any[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
@@ -18,7 +18,7 @@ export class OtaRematchDialogComponent implements OnInit {
     private hotelAdminService: HotelAdminService
   ) {
     this.ota = this.data;
-    this.hotelInput = new FormControl('')
+    this.hotelInput = new UntypedFormControl('')
     console.log(this.data);
   }
 

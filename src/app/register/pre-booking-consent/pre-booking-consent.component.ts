@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingService } from 'src/app/booking/booking.service';
 import { RegisterService } from '../register.service';
@@ -14,8 +14,8 @@ import { RegisterService } from '../register.service';
 })
 export class PreBookingConsentComponent implements OnInit {
   token: string;
-  code: FormControl;
-  accept: FormControl;
+  code: UntypedFormControl;
+  accept: UntypedFormControl;
   isTokenValid: boolean = false;
   isSuccess: boolean = false;
   visitor: any;
@@ -25,8 +25,8 @@ export class PreBookingConsentComponent implements OnInit {
     private router: Router,
     private bookingService: BookingService
   ) {
-    this.code = new FormControl('', [Validators.required])
-    this.accept = new FormControl(false, [Validators.requiredTrue])
+    this.code = new UntypedFormControl('', [Validators.required])
+    this.accept = new UntypedFormControl(false, [Validators.requiredTrue])
 
   }
 
