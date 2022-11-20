@@ -88,12 +88,9 @@ export class TourBookingDashboardComponent implements OnInit {
   
   
   onSelectCompany(event){
-    // console.log(event.value);
     this.tourSellValue = event.value.total_sell_value;
     this.tourBookingService.getTourbookingDashboardDetail(event.value.company_id,moment(this.searchForm.get('startDate').value).format('YYYY-MM-DD'), moment(this.searchForm.get('endDate').value).format('YYYY-MM-DD')).subscribe({
       next: (response)=>{
-        // console.log(response);
-
         this.dataSource.data = response;
       }
     })
@@ -105,16 +102,7 @@ export class TourBookingDashboardComponent implements OnInit {
     this.chartOptions = {
       series: series,
       chart: {
-        // width: 380,
         type: 'donut',
-        // dropShadow: {
-        //   enabled: true,
-        //   color: '#111',
-        //   top: -1,
-        //   left: 3,
-        //   blur: 3,
-        //   opacity: 0.2
-        // }
       },
       stroke: {
         width: 0,
@@ -127,7 +115,6 @@ export class TourBookingDashboardComponent implements OnInit {
               total: {
                 show: true,
                 formatter(w) {
-                  // console.log(w);
                   return `บาท`;
                 },
                 label: `${new Intl.NumberFormat().format(Number(Array.from(series).reduce((a: number, b: number) => a + b, 0)))}`,
@@ -143,40 +130,14 @@ export class TourBookingDashboardComponent implements OnInit {
         enabled: false
       },
       fill: {
-        // type: 'pattern',
         opacity: 1,
-        // pattern: {
-        //   enabled: true,
-        //   style: ['verticalLines', 'squares', 'horizontalLines', 'circles', 'slantedLines'],
-        // },
       },
-      // states: {
-      //   hover: {
-      //     filter: 'none'
-      //   }
-      // },
-      // theme: {
-      //   palette: 'palette2'
-      // },
       title: {
         text: ""
       },
       legend: {
         show: false
       }
-      // responsive: [
-      //   {
-      //     breakpoint: 480,
-      //     options: {
-      //       chart: {
-      //         width: 200
-      //       },
-      //       legend: {
-      //         position: 'bottom'
-      //       }
-      //     }
-      //   }
-      // ]
     };
 
   }
@@ -185,6 +146,16 @@ export class TourBookingDashboardComponent implements OnInit {
   changeDatePicker(): any {
     this.searchForm.value.startDate = (moment(this.searchForm.value.startDate).format('YYYY-MM-DD'));
     this.searchForm.value.endDate = (moment(this.searchForm.value.endDate).format('YYYY-MM-DD'));
+    setTimeout(()=>{
+      if(
+        moment(this.searchForm.value.startDate).isValid() &&
+        moment(this.searchForm.value.endDate).isValid()
+        ){
+        console.log(this.searchForm.value.startDate);
+        console.log(this.searchForm.value.endDate);
+        this.getTourBookingDashboard();
+      }
+    }, 500);
   }
 
 }
