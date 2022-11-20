@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { SharedService } from 'src/app/shared/shared.service';
+import { TourAdminService } from 'src/app/tour-admin/tour-admin.service';
 import { ProfileService } from '../profile.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class ProfileComponent implements OnInit {
     private sharedService: SharedService,
     private profileService: ProfileService,
     private matDialog: MatDialog,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private tourAdminService: TourAdminService
   ) {
     this.tourProfileForm = new UntypedFormGroup({
       firstName: new UntypedFormControl(),
@@ -38,7 +40,14 @@ export class ProfileComponent implements OnInit {
   getTourProfile() {
     this.sharedService.getUserInfo().subscribe({
       next: (response) => {
-        this.tourProfileForm.patchValue(response);
+        this.tourAdminService.getTourAdmin(response.tourId).subscribe((tour)=>{
+          this.sharedService.getPersonalInfo(tour.ownerId).subscribe({
+            next: (profile)=>{
+              // console.log(profile);
+              this.tourProfileForm.patchValue(profile);
+            }
+          })
+        })
       }
     })
   }
