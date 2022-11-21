@@ -37,7 +37,7 @@ export class AgencyProfileFormComponent implements OnInit {
       tatNo: new UntypedFormControl(),
       businessName: new UntypedFormControl(),
       country: new UntypedFormControl(),
-      provinces: new UntypedFormControl(),
+      province: new UntypedFormControl(),
       // contactName: new FormControl(),
       firstName: new UntypedFormControl(),
       lastName: new UntypedFormControl(),
