@@ -69,18 +69,28 @@ export class PaymentDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    
+    // this.setChart(
+    //   [''], 
+    //   [0]
+    // );
     this.sharedService.getUserInfo().subscribe({
       next: (info) => {
         // console.log()
         this.tourCompanyId = info.tourId;
-        
+
         this.tourService.getTourPaymentDashboardPeriod(this.tourCompanyId).subscribe({
           next: (response) => {
             console.log(response);
             this.periods = response;
             this.getDashboard(response[0].period_id);
             this.periodId = response[0].period_id;
+          },
+          error: (error)=>{
+            this.setChart(
+              [''], 
+              [0]
+            );
           }
         })
       }
@@ -89,14 +99,19 @@ export class PaymentDashboardComponent implements OnInit {
 
   getDashboard(periodId) {
     this.periodId = periodId;
-    this.tourService.getTourPaymentDashboard(this.tourCompanyId,periodId).subscribe((response)=>{
-      console.log(response);
-      this.dataTable = response;
-      this.summaryNetValue = response.map((r)=> parseFloat(r.total_net_value)).reduce((a,b)=> a+b);
-      this.setChart(
-        response.map((r)=> r.tour_name), 
-        response.map((r)=> r.total_net_value)
-      );
+    this.tourService.getTourPaymentDashboard(this.tourCompanyId,periodId).subscribe({
+      next: (response)=>{
+        console.log(response);
+        this.dataTable = response;
+        this.summaryNetValue = response.map((r)=> parseFloat(r.total_net_value)).reduce((a,b)=> a+b);
+        this.setChart(
+          response.map((r)=> r.tour_name), 
+          response.map((r)=> r.total_net_value)
+        );
+      },
+      error: (error)=>{
+        this.dataTable = [];
+      }
     })
   }
   
@@ -122,8 +137,9 @@ export class PaymentDashboardComponent implements OnInit {
   }
 
   setChart(labels: string[], series: number[]) {
+    let totalSeries =  series.reduce((a,b)=> a+b, 0);
     this.chartOptions = {
-      series: series,
+      series: totalSeries > 0 ? series : [100],
       chart: {
         type: 'donut',
       },
@@ -134,7 +150,7 @@ export class PaymentDashboardComponent implements OnInit {
         pie: {
           donut: {
             labels: {
-              show: true,
+              show: totalSeries > 0 ? true : false,
               total: {
                 show: true,
                 formatter(w) {

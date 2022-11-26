@@ -17,7 +17,8 @@
     </div>
 </div>
 <div class="container pb-5" *ngFor="let data of dataTable; index as i;">
-    <h5 *ngIf="data" class="d-flex justify-content-between"><span>Periods: {{ data.periodDesc  }}</span><span>{{ data.total | number:'.2' }} B</span></h5>
+    <h5 *ngIf="data" class="m-0 d-flex justify-content-between"><span>Periods: {{ data.periodDesc  }}</span><span>{{ data.total | number:'.2' }} B</span></h5>
+    <div>Status: {{ data.status }}</div>
     <table mat-table [dataSource]="data.details">
         <ng-container matColumnDef="bookingCode">
             <th mat-header-cell *matHeaderCellDef> Booking code </th>

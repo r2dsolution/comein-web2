@@ -31,8 +31,11 @@
                         <mat-label>
                             Date period
                         </mat-label>
-                        <mat-select (selectionChange)="onSelectPeriod($event)" [value]="periods[0].period_id">
+                        <mat-select  *ngIf="periods[0]" (selectionChange)="onSelectPeriod($event)" [value]="periods[0].period_id">
                             <mat-option [value]="period.period_id" *ngFor="let period of periods; index as i;"> {{ period.period_desc }} </mat-option>
+                        </mat-select>
+                        <mat-select  *ngIf="!periods[0]" value="">
+                            <mat-option value=""> No period </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
