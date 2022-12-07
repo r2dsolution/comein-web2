@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 
@@ -16,8 +16,8 @@ export class AddPeriodDialogComponent implements OnInit {
     private matDialogRef: MatDialogRef<AddPeriodDialogComponent>
   ) {
     this.periodForm = new UntypedFormGroup({
-      from: new UntypedFormControl(''),
-      to: new UntypedFormControl(''),
+      from: new UntypedFormControl('', [Validators.required]),
+      to: new UntypedFormControl('', [Validators.required]),
     })
   }
 

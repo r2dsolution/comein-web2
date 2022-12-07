@@ -27,7 +27,7 @@
     <button type="button" mat-dialog-close mat-button mat-raised-button>
         Cancel
     </button>
-    <button type="button" mat-button mat-raised-button color="primary" (click)="onSave()">
+    <button type="button" mat-button mat-raised-button color="primary" (click)="onSave()" [disabled]="!periodForm.valid">
         Save
     </button>
 </div>
