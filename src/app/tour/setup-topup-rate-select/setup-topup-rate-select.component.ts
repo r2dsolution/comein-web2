@@ -32,7 +32,10 @@ export class SetupTopupRateSelectComponent implements OnInit {
         this.tourList = response.datas;
         this.companyId = response.datas[0].id;
         this.onSelectTour({ value: response.datas[0].id });
-      }
+      },
+      error: (()=>{
+        
+      })
     })
   }
 
@@ -49,7 +52,10 @@ export class SetupTopupRateSelectComponent implements OnInit {
         this.defaultDatas = response.detail;
         this.detail = response.detail;
         this.companyId = event.value;
-      }
+      },
+      error: (()=>{
+
+      })
     })
   }
 

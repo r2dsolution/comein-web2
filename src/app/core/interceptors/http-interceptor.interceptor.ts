@@ -36,7 +36,7 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
           if(error.error.cause){
             this.matSnackBar.open(`${error.error.cause.message}`, 'close', { duration: 5000 });
           }else if(error.error){
-            this.matSnackBar.open(`${error.error.message}`, 'close', { duration: 5000 });
+            // this.matSnackBar.open(`${error.error.message}`, 'close', { duration: 5000 });
           }else{
             this.matSnackBar.open(`${error.message}`, 'close', { duration: 5000 });
           }

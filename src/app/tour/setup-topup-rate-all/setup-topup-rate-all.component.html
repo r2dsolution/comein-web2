@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <div class="row" *ngIf="defaultDatas">
+    <div class="row" *ngIf="defaultDatas && defaultDatas[0] && defaultDatas[0].updatedDate">
         <div class="col-md-12 ">
             <div class="p-3 d-flex justify-content-end">
                 Last changed date: {{ defaultDatas[0].updatedDate | date:'dd/MMM/yyyy' }}

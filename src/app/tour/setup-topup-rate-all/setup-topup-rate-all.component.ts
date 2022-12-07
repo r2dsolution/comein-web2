@@ -28,7 +28,10 @@ export class SetupTopupRateAllComponent implements OnInit {
           this.defaultDatas = response;
           this.formData = response;
         }
-      }
+      },
+      error: (()=>{
+        
+      })
     })
   }
 
