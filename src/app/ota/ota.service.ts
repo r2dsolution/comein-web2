@@ -40,7 +40,7 @@ export class OtaService {
       map((res: any) => {
         res.datas.map(element => {
           // console.log(element.createdDate.join('/'));
-          element.createdDate = moment(element.createdDate.join('/'), 'YYYY/MM/DD/hh/mm/ss').toDate();
+          element.createdDate = moment(element.createdDate.join('/'), 'YYYY/MM/DD/hh/mm/s').toDate();
         });
         return res;
       })
