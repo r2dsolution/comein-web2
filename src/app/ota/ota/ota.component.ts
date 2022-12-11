@@ -99,7 +99,9 @@ export class OtaComponent implements OnInit {
       console.log(response);
       this.chartOptions.series = [response.total_feed, response.total_unmatch];
       this.chartOptions.lastUpdateFeed = new Date(response.last_updated_feed);
-      this.chartOptions.lastUpdateUnMatch = new Date(response.last_updated_unmatch);
+      if(response.last_updated_unmatch){
+        this.chartOptions.lastUpdateUnMatch = new Date(response.last_updated_unmatch);
+      }
     });
   }
 

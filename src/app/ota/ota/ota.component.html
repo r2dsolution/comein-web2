@@ -18,7 +18,7 @@
             {{ chartOptions.series[0] | number }}
           </div>
           <div class="update">
-            Last Update: {{ chartOptions.lastUpdateFeed | date:'yyyy-MM-dd hh:mm:ss' }}
+            Last Update: {{ chartOptions.lastUpdateFeed | date:'yyyy-MM-dd' }}
           </div>
         </div>
       </div>
@@ -30,8 +30,8 @@
           <div class="total">
             {{ chartOptions.series[1] | number }}
           </div>
-          <div class="update">
-            Last Update: {{ chartOptions.lastUpdateUnMatch | date:'yyyy-MM-dd hh:mm:ss' }}
+          <div class="update" *ngIf="chartOptions.lastUpdateUnMatch">
+            Last Update: {{ chartOptions.lastUpdateUnMatch | date:'yyyy-MM-dd' }}
           </div>
         </div>
       </div>
