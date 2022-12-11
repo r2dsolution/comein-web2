@@ -9,7 +9,7 @@ export class SetupTopupRateFormComponent implements OnInit, OnChanges {
 
   @Input('defaultDatas') defaultDatas: any[];
   @Output() onFormChange = new EventEmitter();
-  
+
 
   datas: any[] = [];
   tempData: any = null;
@@ -24,11 +24,11 @@ export class SetupTopupRateFormComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['defaultDatas'].currentValue){
+    if (changes['defaultDatas'].currentValue) {
       this.datas = changes['defaultDatas'].currentValue;
     }
   }
@@ -63,4 +63,10 @@ export class SetupTopupRateFormComponent implements OnInit, OnChanges {
     this.tempData = null;
   }
 
+  calTopupRate(){
+    if(this.tempData){
+      this.tempData.topUpRate = (parseInt(this.tempData.comeinRate) || 0) + (parseInt(this.tempData.hotelRate) || 0);
+    }
+    this.addData.topUpRate = (parseInt(this.addData.comeinRate)  || 0) + (parseInt(this.addData.hotelRate) || 0);
+  }
 }
