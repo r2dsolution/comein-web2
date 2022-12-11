@@ -58,6 +58,9 @@ export class SetupTopupRateFormComponent implements OnInit, OnChanges {
     this.onFormChange.emit(this.datas);
     this.tempData = null;
   }
+  onDelete(index){
+    this.datas.splice(index, 1);
+  }
   onCancel(index) {
     this.datas[index].isEdit = false;
     this.tempData = null;

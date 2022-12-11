@@ -27,6 +27,7 @@
         </div>
         <div class="col-md-2">
             <button type="button" mat-button mat-raised-button *ngIf="!data.isEdit && !tempData" (click)="onEdit(i)">Edit</button>
+            <button type="button" mat-button mat-raised-button *ngIf="!data.isEdit && !tempData" (click)="onDelete(i)">Delete</button>
             <button type="button" mat-button mat-raised-button *ngIf="data.isEdit && tempData" (click)="onSave(i)">Save</button>
             <button type="button" mat-button mat-raised-button *ngIf="data.isEdit && tempData" (click)="onCancel(i)">Cancel</button>
 
