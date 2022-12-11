@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { TourAdminService } from 'src/app/tour-admin/tour-admin.service';
 import { PayableCompanyService } from '../payable-company.service';
@@ -25,7 +26,7 @@ export class PayableCompanyComponent implements OnInit {
   companyId;
   noteInput: UntypedFormControl;
 
-  summary = 0;
+  // summary = 0;
   constructor(
     private payableService: PayableCompanyService,
     private tourAdminService: TourAdminService,
@@ -48,15 +49,23 @@ export class PayableCompanyComponent implements OnInit {
 
   onSelectTour(event) {
     this.companyId = event.value;
-    this.payableService.getPayableCompany(event.value).subscribe({
+    this.payableService.getPayableCompany(event.value).pipe(
+      map((res)=>{
+        return res.map((d)=> {d.note = ""; return d;} );
+      })
+    ).subscribe({
       next: (response) => {
+        console.log(response);
         this.dataTable = response;
-        this.summary = response.map((r)=> parseFloat(r.netValue)).reduce((a,b) => a+b);
-      }
+        // this.summary = response.map((r)=> parseFloat(r.netValue)).reduce((a,b) => a+b);
+      },
+      error:(()=>{
+        this.dataTable = [];
+      })
     })
   }
 
-  onPay() {
+  onPay(data) {
     this.matDialog.open(ConfirmDialogComponent, {
       data: {
         content: 'Confirm to pay'
@@ -65,8 +74,8 @@ export class PayableCompanyComponent implements OnInit {
       next: (answer) => {
         if (answer && this.companyId) {
           this.payableService.payToCompany(this.companyId, {
-            periodId: this.dataTable[0].periodId,
-            note: this.noteInput.value
+            periodId: data.periodId,
+            note: data.note
           }).subscribe(() => {
             this.matSnackBae.open('Pay success');
             this.onSelectTour({ value: this.companyId })
