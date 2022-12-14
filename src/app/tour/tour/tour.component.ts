@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -29,7 +30,8 @@ export class TourComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private tourService: TourService
+    private tourService: TourService,
+    private matSnackBar: MatSnackBar
     // private hotelAdminService: HotelAdminService
   ) {
     this.form = new UntypedFormGroup({
@@ -42,11 +44,17 @@ export class TourComponent implements OnInit {
   }
 
   getList(filter) {
-    this.tourService.getTours(filter).subscribe((response) => {
-      console.log(response);
-      this.dataSource.data = response.datas;
-      this.paginator.pageIndex = response.pagging.pageNumber;
-      this.paginator.pageSize = response.pagging.pageSize;
+    this.tourService.getTours(filter).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.dataSource.data = response.datas;
+        this.paginator.pageIndex = response.pagging.pageNumber;
+        this.paginator.pageSize = response.pagging.pageSize;
+      },
+      error: (error)=>{
+        this.dataSource.data = [];
+        this.matSnackBar.open(error.error.message);
+      }
     });
   }
 
@@ -62,12 +70,12 @@ export class TourComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  dateArray(date: any): string{
+  dateArray(date: any): string {
     return date.join('-');
   }
 
-  onPageChange(page: PageEvent){
+  onPageChange(page: PageEvent) {
     console.log(page);
-    this.getList({...this.form.value, size: page.pageSize, page: page.pageIndex})
+    this.getList({ ...this.form.value, size: page.pageSize, page: page.pageIndex })
   }
 }

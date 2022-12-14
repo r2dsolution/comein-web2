@@ -54,6 +54,9 @@ export class SetupPaymentConditionSelectComponent implements OnInit {
         console.log(response);
         this.matSnackBar.open('Data updated.');
         this.onSelectTour({value:this.form.get('companyId').value});
+      },
+      error: (error)=>{
+        this.matSnackBar.open(error.error.message);
       }
     })
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingService } from 'src/app/booking/booking.service';
 import { RegisterService } from '../register.service';
@@ -23,7 +24,8 @@ export class PreBookingConsentComponent implements OnInit {
     private route: ActivatedRoute,
     private registerService: RegisterService,
     private router: Router,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private matSnackBar: MatSnackBar
   ) {
     this.code = new UntypedFormControl('', [Validators.required])
     this.accept = new UntypedFormControl(false, [Validators.requiredTrue])
@@ -41,18 +43,26 @@ export class PreBookingConsentComponent implements OnInit {
   submit() {
     console.log(this.code.value);
     this.registerService.getPersonalConsent(this.token, this.code.value).subscribe({
-      next: (response)=>{
+      next: (response) => {
         // console.log(response);
         this.visitor = response;
         this.isTokenValid = true;
+      },
+      error: (error) => {
+        this.matSnackBar.open(error.error.message);
       }
     });
 
   }
 
   success() {
-    this.bookingService.bookingVisitorConfirm(null, this.visitor.consentId ).subscribe(()=>{
-      this.isSuccess = true;
+    this.bookingService.bookingVisitorConfirm(null, this.visitor.consentId).subscribe({
+      next: () => {
+        this.isSuccess = true;
+      },
+      error:(error)=>{
+        this.matSnackBar.open(error.error.message);
+      }
     });
   }
 

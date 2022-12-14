@@ -56,6 +56,9 @@ export class SetupTopupRateAllComponent implements OnInit {
             }
           })
         }
+      },
+      error: (error)=>{
+        this.matSnackBar.open(error.error.message);
       }
     })
   }

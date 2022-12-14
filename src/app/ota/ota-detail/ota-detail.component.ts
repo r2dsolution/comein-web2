@@ -26,17 +26,21 @@ export class OtaDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params:any)=>{
-      if(params.id){
+    this.route.params.subscribe((params: any) => {
+      if (params.id) {
         this.otaService.getOtaDetail(params.id).subscribe({
-          next: (response)=>{
+          next: (response) => {
             this.ota = response;
             // console.log(response);
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackBar.open(error.error.message);
           }
           // ,
           // error: ()=>{
           //     this.ota ={
-          
+
           //       "checkinDate": "2022-02-14",
           //       "checkoutDate": "2022-02-15",
           //       "email": "bbb@guest.booking.com",
@@ -55,39 +59,51 @@ export class OtaDetailComponent implements OnInit {
     });
   }
 
-  onRematch(){
-    this.matDialog.open(OtaRematchDialogComponent,{
+  onRematch() {
+    this.matDialog.open(OtaRematchDialogComponent, {
       data: this.ota,
       width: '450px'
-    }).afterClosed().subscribe((hotelId)=>{
+    }).afterClosed().subscribe((hotelId) => {
       console.log(hotelId);
-      if(hotelId){
-        this.otaService.reMatch(this.ota.id, hotelId, this.ota).subscribe((response)=>{
-          this.matSnackBar.open('Re-Match has completed.');
-          this.router.navigate(['ota']);
+      if (hotelId) {
+        this.otaService.reMatch(this.ota.id, hotelId, this.ota).subscribe({
+          next: (response) => {
+            this.matSnackBar.open('Re-Match has completed.');
+            this.router.navigate(['ota']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackBar.open(error.error.message);
+          }
         });
       }
     })
   }
 
-  onUnmatch(){
-    this.matDialog.open(ConfirmDialogComponent,{
+  onUnmatch() {
+    this.matDialog.open(ConfirmDialogComponent, {
       width: '450px',
-      data:{
+      data: {
         title: `Un-Match OTA ${this.ota.hotelName}`,
         content: `Do you want to continue ?`
       }
-    }).afterClosed().subscribe((answer)=>{
-      if(answer){
-        this.otaService.reMatch(this.ota.id, null, this.ota).subscribe((response)=>{
-          this.matSnackBar.open('Un-Match has completed.');
-          this.ngOnInit();
+    }).afterClosed().subscribe((answer) => {
+      if (answer) {
+        this.otaService.reMatch(this.ota.id, null, this.ota).subscribe({
+          next: (response) => {
+            this.matSnackBar.open('Un-Match has completed.');
+            this.ngOnInit();
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackBar.open(error.error.message);
+          }
         });
       }
     })
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 

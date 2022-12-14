@@ -92,6 +92,9 @@ export class TourBookingDashboardComponent implements OnInit {
     this.tourBookingService.getTourbookingDashboardDetail(event.value.company_id,moment(this.searchForm.get('startDate').value).format('YYYY-MM-DD'), moment(this.searchForm.get('endDate').value).format('YYYY-MM-DD')).subscribe({
       next: (response)=>{
         this.dataSource.data = response;
+      },
+      error: ()=>{
+        this.dataSource.data = [];        
       }
     })
   }

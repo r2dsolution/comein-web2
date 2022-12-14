@@ -64,9 +64,15 @@ export class BookingFormComponent implements OnInit {
         this.status = response.status;
         this.form.patchValue(response);
         this.form.disable();
-        this.bookingService.getBookingVisitors(this.id).subscribe((response: any[]) => {
-          console.log(response);
-          this.visitors = response;
+        this.bookingService.getBookingVisitors(this.id).subscribe({
+          next: (response: any[]) => {
+            console.log(response);
+            this.visitors = response;
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackbar.open(error.error.message);
+          }
         });
       })
       // this.data = { bookingNo: 'T1BDAS', room: 'Two-BedroomDeluxe Apartment', roomDesc: 'Two-BedroomDeluxe Apartment', customerEmail: 'customer1@gmail.com', customerName: 'John', customerSurname: 'Alpha', checkin: new Date(), checkout: new Date(), visitorAdult:3, visitorChild:1, status: null }
@@ -83,8 +89,14 @@ export class BookingFormComponent implements OnInit {
       }
     }).afterClosed().subscribe((answer) => {
       if (answer) {
-        this.bookingService.bookingVisitorConfirm(this.id, consentId).subscribe((response) => {
-          this.visitors[index].consent = "Y";
+        this.bookingService.bookingVisitorConfirm(this.id, consentId).subscribe({
+          next: (response) => {
+            this.visitors[index].consent = "Y";
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackbar.open(error.error.message);
+          }
         });
       }
     })
@@ -144,9 +156,17 @@ export class BookingFormComponent implements OnInit {
     }).afterClosed().subscribe((email) => {
       if (email) {
         // this.data.status = 'Enable'
-        this.bookingService.setHotelBookingStatus(this.id, email).subscribe((response) => {
-          this.matSnackbar.open(`${this.form.get('bookingNo').value} has invited.`);
+        this.bookingService.setHotelBookingStatus(this.id, email).subscribe({
+          next: (response) => {
+            this.matSnackbar.open(`${this.form.get('bookingNo').value} has invited.`);
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackbar.open(error.error.message);
+          }
         })
+
+
       }
     });
   }
@@ -168,9 +188,18 @@ export class BookingFormComponent implements OnInit {
           console.error('method is not available.');
         } else {
           // create
-          this.bookingService.createHotelBooking(this.form.value).subscribe(() => {
-            this.router.navigate(['booking']);
+          this.bookingService.createHotelBooking(this.form.value).subscribe({
+            next: () => {
+              this.matSnackbar.open('Booking created');
+              this.router.navigate(['booking']);
+            },
+            error: (error) => {
+              console.log(error);
+              this.matSnackbar.open(error.error.message);
+            }
           });
+
+
         }
       }
     });

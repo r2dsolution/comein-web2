@@ -43,6 +43,10 @@ export class PayableCompanyComponent implements OnInit {
         this.tourList = response.datas;
         // this.form.get('companyId').setValue(response.datas[0].id);
         // this.onSelectTour({value: response.datas[0].id});
+      },
+      error:(error)=>{
+        this.tourList = [];
+        this.matSnackBae.open(error.error.message);
       }
     })
   }
@@ -59,9 +63,10 @@ export class PayableCompanyComponent implements OnInit {
         this.dataTable = response;
         // this.summary = response.map((r)=> parseFloat(r.netValue)).reduce((a,b) => a+b);
       },
-      error:(()=>{
+      error:(error)=>{
         this.dataTable = [];
-      })
+        this.matSnackBae.open(error.error.message);
+      }
     })
   }
 
@@ -81,6 +86,10 @@ export class PayableCompanyComponent implements OnInit {
             this.onSelectTour({ value: this.companyId })
           })
         }
+      },
+      error: (error) => {
+        console.log(error);
+        this.matSnackBae.open(error.error.message);
       }
     })
   }

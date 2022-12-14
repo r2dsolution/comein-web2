@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PersonalDialogComponent } from 'src/app/shared/personal-dialog/personal-dialog.component';
@@ -35,7 +36,8 @@ export class BookingComponent implements OnInit {
   constructor(
     private router: Router,
     private bookingService: BookingService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private matSnackBar: MatSnackBar
   ) {
     this.form = new UntypedFormGroup({
       bookingNo: new UntypedFormControl(),
@@ -50,16 +52,23 @@ export class BookingComponent implements OnInit {
   }
 
   getList(filter){
-    this.bookingService.getHotelBookings(filter).subscribe((response)=>{
-      console.log(response);
-      let data = response.datas.map((d, i)=>{
-        d.row = (response.pagging.pageSize * response.pagging.pageNumber) + (i+1);
-        return d;
-      })
-      this.dataSource.data = data;
-      this.paginator.pageIndex = response.pagging.pageNumber;
-      this.paginator.pageSize = response.pagging.pageSize;
-      this.paginator.length = response.pagging.total;
+    this.bookingService.getHotelBookings(filter).subscribe({
+      next:(response)=>{
+        console.log(response);
+        let data = response.datas.map((d, i)=>{
+          d.row = (response.pagging.pageSize * response.pagging.pageNumber) + (i+1);
+          return d;
+        })
+        this.dataSource.data = data;
+        this.paginator.pageIndex = response.pagging.pageNumber;
+        this.paginator.pageSize = response.pagging.pageSize;
+        this.paginator.length = response.pagging.total;
+      },
+      error: (error)=>{
+        console.log(error);
+        this.dataSource.data = [];
+        this.matSnackBar.open(error.error.message);
+      }
     })
   }
 

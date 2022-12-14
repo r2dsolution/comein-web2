@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PersonalDialogComponent } from 'src/app/shared/personal-dialog/personal-dialog.component';
@@ -30,7 +31,8 @@ export class HotelAdminComponent implements OnInit {
   constructor(
     private router: Router,
     private hotelAdminService: HotelAdminService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private matSnackbar: MatSnackBar
   ) {
     this.form = new UntypedFormGroup({
       email: new UntypedFormControl(),
@@ -43,11 +45,18 @@ export class HotelAdminComponent implements OnInit {
   }
 
   getList(filter) {
-    this.hotelAdminService.getHotelAdmins(filter).subscribe((response) => {
-      console.log(response);
-      this.dataSource.data = response.datas;
-      this.paginator.pageIndex = response.pagging.pageNumber;
-      this.paginator.pageSize = response.pagging.pageSize;
+    this.hotelAdminService.getHotelAdmins(filter).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.dataSource.data = response.datas;
+        this.paginator.pageIndex = response.pagging.pageNumber;
+        this.paginator.pageSize = response.pagging.pageSize;
+      },
+      error: (error) => {
+        console.log(error);
+        this.dataSource.data = [];
+        this.matSnackbar.open(error.error.message);
+      }
     });
   }
 
@@ -65,22 +74,22 @@ export class HotelAdminComponent implements OnInit {
 
   viewPersonalInfomation(row: any) {
     // alert('View personal infomation');
-    if(row.ownerId){
+    if (row.ownerId) {
       this.matDialog.open(PersonalDialogComponent, {
         minWidth: '380px',
-        data:{
+        data: {
           comeinId: row.ownerId
         }
       }).afterClosed().subscribe(() => {
-  
+
       })
     }
 
   }
 
-  onPageChange(page: PageEvent){
+  onPageChange(page: PageEvent) {
     console.log(page);
-    this.getList({...this.form.value, size: page.pageSize, page: page.pageIndex})
+    this.getList({ ...this.form.value, size: page.pageSize, page: page.pageIndex })
   }
 
 

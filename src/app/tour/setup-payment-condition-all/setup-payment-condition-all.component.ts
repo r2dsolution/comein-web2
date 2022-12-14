@@ -32,6 +32,9 @@ export class SetupPaymentConditionAllComponent implements OnInit {
       next:(response)=>{
         console.log(response);
         this.matSnackBar.open('Data updated.');
+      },
+      error: (error)=>{
+        this.matSnackBar.open(error.error.message);
       }
     })
   }

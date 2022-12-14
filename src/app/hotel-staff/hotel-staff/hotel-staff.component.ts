@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PersonalDialogComponent } from 'src/app/shared/personal-dialog/personal-dialog.component';
@@ -30,7 +31,8 @@ export class HotelStaffComponent implements OnInit {
   constructor(
     private router: Router,
     private hotelStaffService: HotelStaffService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private matSnackbar: MatSnackBar
   ) {
     this.form = new UntypedFormGroup({
       email: new UntypedFormControl(),
@@ -39,45 +41,52 @@ export class HotelStaffComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getList({ page: 0, size: 10});
+    this.getList({ page: 0, size: 10 });
   }
 
-  getList(filter){
-    this.hotelStaffService.getHotelStaffs(filter).subscribe((response)=>{
-      this.dataSource.data = response.datas;
-      this.paginator.pageIndex = response.pagging.pageNumber;
-      this.paginator.pageSize = response.pagging.pageSize;
-      this.paginator.length = response.pagging.total;
+  getList(filter) {
+    this.hotelStaffService.getHotelStaffs(filter).subscribe({
+      next: (response) => {
+        this.dataSource.data = response.datas;
+        this.paginator.pageIndex = response.pagging.pageNumber;
+        this.paginator.pageSize = response.pagging.pageSize;
+        this.paginator.length = response.pagging.total;
 
+      },
+      error: (error) => {
+        console.log(error);
+        this.dataSource.data = [];
+        this.matSnackbar.open(error.error.message);
+      }
     });
   }
 
-  onSearch(){
-    this.getList({ page: 0, size: 10, ...this.form.value});
+  onSearch() {
+    this.getList({ page: 0, size: 10, ...this.form.value });
   }
 
-  onClickRow(row :any){
-    this.router.navigate(['hotel-staff', row.id,'edit']);
+  onClickRow(row: any) {
+    this.router.navigate(['hotel-staff', row.id, 'edit']);
   }
 
-  onPageChange(page: PageEvent){
+  onPageChange(page: PageEvent) {
     this.getList({ page: page.pageIndex, size: page.pageSize });
   }
 
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
   }
-  
-  viewPersonalInfomation(row: any){
+
+  viewPersonalInfomation(row: any) {
     // alert('View personal infomation');
-    if(row.ownerId){
+    if (row.ownerId) {
       this.matDialog.open(PersonalDialogComponent, {
         minWidth: '380px',
-        data:{
+        data: {
           comeinId: row.ownerId
         }
       }).afterClosed().subscribe(() => {
-  
+
       })
     }
   }

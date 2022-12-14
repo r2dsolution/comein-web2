@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexStroke, ApexTitleSubtitle, ChartComponent } from 'ng-apexcharts';
@@ -59,7 +60,8 @@ export class PaymentDashboardComponent implements OnInit {
 
   constructor(
     private sharedService: SharedService,
-    private tourService: TourService
+    private tourService: TourService,
+    private matSnackBar: MatSnackBar
   ) {
     this.searchForm = new UntypedFormGroup({
       startDate: new UntypedFormControl(),
@@ -69,7 +71,7 @@ export class PaymentDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     // this.setChart(
     //   [''], 
     //   [0]
@@ -86,9 +88,9 @@ export class PaymentDashboardComponent implements OnInit {
             this.getDashboard(response[0].period_id);
             this.periodId = response[0].period_id;
           },
-          error: (error)=>{
+          error: (error) => {
             this.setChart(
-              [''], 
+              [''],
               [0]
             );
           }
@@ -99,45 +101,52 @@ export class PaymentDashboardComponent implements OnInit {
 
   getDashboard(periodId) {
     this.periodId = periodId;
-    this.tourService.getTourPaymentDashboard(this.tourCompanyId,periodId).subscribe({
-      next: (response)=>{
+    this.tourService.getTourPaymentDashboard(this.tourCompanyId, periodId).subscribe({
+      next: (response) => {
         console.log(response);
         this.dataTable = response;
-        this.summaryNetValue = response.map((r)=> parseFloat(r.total_net_value)).reduce((a,b)=> a+b);
+        this.summaryNetValue = response.map((r) => parseFloat(r.total_net_value)).reduce((a, b) => a + b);
         this.setChart(
-          response.map((r)=> r.tour_name), 
-          response.map((r)=> r.total_net_value)
+          response.map((r) => r.tour_name),
+          response.map((r) => r.total_net_value)
         );
       },
-      error: (error)=>{
+      error: (error) => {
         this.dataTable = [];
+        this.matSnackBar.open(error.error.message);
       }
     })
   }
-  
+
   onTourClick(index) {
-    if(!this.dataTable[index].booking){
-      this.tourService.getTourPaymentDashboardDetail(this.dataTable[index].tour_id,this.periodId).subscribe((response)=>{
-        console.log(response);
-        this.dataTable[index].booking = response;
-        // this.summaryNetValue = response.map((r)=> parseFloat(r.net_value)).reduce((a,b)=> a+b);
-        // this.setChart(
-        //   response.map((r)=> r.tour_name), 
-        //   response.map((r)=> r.net_value)
-        // );
+    if (!this.dataTable[index].booking) {
+      this.tourService.getTourPaymentDashboardDetail(this.dataTable[index].tour_id, this.periodId).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.dataTable[index].booking = response;
+          // this.summaryNetValue = response.map((r)=> parseFloat(r.net_value)).reduce((a,b)=> a+b);
+          // this.setChart(
+          //   response.map((r)=> r.tour_name), 
+          //   response.map((r)=> r.net_value)
+          // );
+        },
+        error: (error)=>{
+          this.dataTable = [];
+          this.matSnackBar.open(error.error.message);
+        }
       })
     }
   }
 
-  
 
-  onSelectPeriod(event){
+
+  onSelectPeriod(event) {
     this.getDashboard(event.value)
     // console.log(event.value)
   }
 
   setChart(labels: string[], series: number[]) {
-    let totalSeries =  series.reduce((a,b)=> a+b, 0);
+    let totalSeries = series.reduce((a, b) => a + b, 0);
     this.chartOptions = {
       series: totalSeries > 0 ? series : [100],
       chart: {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { SharedService } from 'src/app/shared/shared.service';
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit {
   tourProfileForm: UntypedFormGroup;
   constructor(
     private permissions: NgxPermissionsService,
+    private router: Router,
     private sharedService: SharedService,
     private profileService: ProfileService,
     private matDialog: MatDialog,
@@ -62,10 +64,15 @@ export class ProfileComponent implements OnInit {
         if(this.isTourAdmin){
           this.profileService.updateTourProfiles(this.tourProfileForm.value).subscribe({
             next: () => {
-              this.matSnackBar.open('Profile has updated')
+              this.matSnackBar.open('Update profile successes');
+              this.router.navigate(['/']);
+
             }
           })
         }
+      },
+      error: (error)=>{
+        this.matSnackBar.open(error.error.message);
       }
     })
   }

@@ -20,12 +20,12 @@ export class InventoryComponent implements OnInit {
   viewDate: Date;
   view: CalendarView = CalendarView.Month;
   events: CalendarEvent[] = [];
-  currentPeriod:any;
+  currentPeriod: any;
   currentTourID: any;
   refresh: Subject<any> = new Subject();
   selected: boolean = false;
 
-  tourList:any[] = [];
+  tourList: any[] = [];
 
   form: UntypedFormGroup;
   cancelable;
@@ -39,18 +39,18 @@ export class InventoryComponent implements OnInit {
       id: new UntypedFormControl(),
       startDate: new UntypedFormControl(),
       endDate: new UntypedFormControl(),
-      adultRate: new UntypedFormControl([],[Validators.required]),
-      childRate: new UntypedFormControl([],[Validators.required]),
+      adultRate: new UntypedFormControl([], [Validators.required]),
+      childRate: new UntypedFormControl([], [Validators.required]),
       cancelable: new UntypedFormControl(false),
       cancelBefore: new UntypedFormControl(),
       tourDate: new UntypedFormControl(),
-      total: new UntypedFormControl([],[Validators.required]),
+      total: new UntypedFormControl([], [Validators.required]),
     })
   }
 
   ngOnInit(): void {
     this.viewDate = new Date();
-    
+
     for (let i = 0; i <= 5; i++) {
       // this.events.push({
       //   id: 1,
@@ -59,67 +59,79 @@ export class InventoryComponent implements OnInit {
       //   title: 'โปรแกรมทัวร์ “กรุงเทพฯ (1 วัน)',
       // });
 
-      
+
       // this.dataSource.data.push({
-        //   code: `TICKETCODE${i}`,
-        //   eventName: 'โปรแกรมทัวร์ “กรุงเทพฯ (1 วัน)',
-        //   contactName: 'somchai boonrod',
-        //   email: 'somchai@tour.com',
-        //   status: 'Reserves',
-        //   action: ''
-        // })
-      }
-      this.tourService.getTours({}).subscribe((response)=>{
-        if(response.datas[0]){
+      //   code: `TICKETCODE${i}`,
+      //   eventName: 'โปรแกรมทัวร์ “กรุงเทพฯ (1 วัน)',
+      //   contactName: 'somchai boonrod',
+      //   email: 'somchai@tour.com',
+      //   status: 'Reserves',
+      //   action: ''
+      // })
+    }
+    this.tourService.getTours({}).subscribe({
+      next: (response) => {
+        if (response.datas[0]) {
           console.log(response.datas[0]);
-          this.getSchedule({value: response.datas[0].id});
+          this.getSchedule({ value: response.datas[0].id });
         }
         this.tourList = response.datas;
-      })
+      },
+      error: (error) => {
+        console.log(error);
+        this.matSnackbar.open(error.error.message);
+      }
+    })
 
-      if(this.form.get('cancelable').value){
+    if (this.form.get('cancelable').value) {
+      this.form.get('cancelBefore').enable();
+    } else {
+      this.form.get('cancelBefore').disable();
+    }
+    this.form.get('cancelable').valueChanges.subscribe((value) => {
+      if (value) {
         this.form.get('cancelBefore').enable();
-      }else{
+      } else {
         this.form.get('cancelBefore').disable();
       }
-      this.form.get('cancelable').valueChanges.subscribe((value)=>{
-        if(value){
-          this.form.get('cancelBefore').enable();
-        }else{
-          this.form.get('cancelBefore').disable();
-        }
-      })
-      
+    })
+
   }
 
-  setCurrentMonth(event){
+  setCurrentMonth(event) {
     console.log(event);
     this.currentPeriod = event.period;
   }
 
-  getSchedule(event: MatOption|any){
-      console.log(event);
-      this.currentTourID = event.value;
-      this.events = [];
-      this.inventoryService.getInventories(
-        event.value,
-        moment(this.currentPeriod.start).format('YYYY-MM-DD'),
-        moment(this.currentPeriod.end).format('YYYY-MM-DD')
-        ).subscribe((response)=>{
+  getSchedule(event: MatOption | any) {
+    console.log(event);
+    this.currentTourID = event.value;
+    this.events = [];
+    this.inventoryService.getInventories(
+      event.value,
+      moment(this.currentPeriod.start).format('YYYY-MM-DD'),
+      moment(this.currentPeriod.end).format('YYYY-MM-DD')
+    ).subscribe({
+      next: (response) => {
         console.log(response);
-        Array.from(response).forEach((tour: any)=>{
-              this.events.push({
-                id: tour.id,
-                start: new Date(tour.tourDate),
-                end: new Date(tour.tourDate),
-                title: '',
-                ...tour,
-                tourDate: new Date(tour.tourDate),
-              });
+        Array.from(response).forEach((tour: any) => {
+          this.events.push({
+            id: tour.id,
+            start: new Date(tour.tourDate),
+            end: new Date(tour.tourDate),
+            title: '',
+            ...tour,
+            tourDate: new Date(tour.tourDate),
+          });
         })
         this.refresh.next('');
         // this.events = response;
-      });
+      },
+      error: (error) => {
+        console.log(error);
+        this.matSnackbar.open(error.error.message);
+      }
+    });
   }
 
   changeDatePicker(): any {
@@ -133,12 +145,12 @@ export class InventoryComponent implements OnInit {
     let data = v;
     this.selected = true;
     // data.tourDate = moment(v.tourDate).format('YYYY-MM-DD');
-    if(typeof v.cancelable === 'string'){
-      data.cancelable = v.cancelable === 'Y' ? true:false;
+    if (typeof v.cancelable === 'string') {
+      data.cancelable = v.cancelable === 'Y' ? true : false;
     }
-    if(data.cancelable){
+    if (data.cancelable) {
       this.form.get('cancelBefore').enable();
-    }else{
+    } else {
       this.form.get('cancelBefore').disable();
     }
     this.form.patchValue(data);
@@ -148,27 +160,39 @@ export class InventoryComponent implements OnInit {
     // this.dayTitle = moment(value.day.date).format('DD/MM/YYYY');
   }
 
-  create(){
+  create() {
     let data = this.form.value;
-    data.cancelable = data.cancelable ? 'Y':'N';
-    this.inventoryService.createInventory(this.currentTourID, data).subscribe((response)=>{
-      this.matSnackbar.open('Inventory created');
-      this.getSchedule({ value: this.currentTourID });
-    })
-  }
-  
-  update(){
-    let data = this.form.value;
-    data.cancelable = data.cancelable ? 'Y':'N';
-    this.inventoryService.updateInventory(this.currentTourID, data).subscribe((response)=>{
-      this.matSnackbar.open('Inventory Updated');
-      this.selected = false;
-      this.getSchedule({ value: this.currentTourID });
-      this.refresh.next('');
+    data.cancelable = data.cancelable ? 'Y' : 'N';
+    this.inventoryService.createInventory(this.currentTourID, data).subscribe({
+      next: (response) => {
+        this.matSnackbar.open('Inventory created');
+        this.getSchedule({ value: this.currentTourID });
+      },
+      error: (error) => {
+        console.log(error);
+        this.matSnackbar.open(error.error.message);
+      }
     })
   }
 
-  cancel(){
+  update() {
+    let data = this.form.value;
+    data.cancelable = data.cancelable ? 'Y' : 'N';
+    this.inventoryService.updateInventory(this.currentTourID, data).subscribe({
+      next: (response) => {
+        this.matSnackbar.open('Inventory Updated');
+        this.selected = false;
+        this.getSchedule({ value: this.currentTourID });
+        this.refresh.next('');
+      },
+      error: (error) => {
+        console.log(error);
+        this.matSnackbar.open(error.error.message);
+      }
+    })
+  }
+
+  cancel() {
     this.form.reset();
     this.form.get('startDate').enable();
     this.form.get('endDate').enable();

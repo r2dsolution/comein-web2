@@ -7,6 +7,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { threadId } from 'worker_threads';
 import { DatePickerDialogComponent } from 'src/app/shared/date-picker-dialog/date-picker-dialog.component';
 import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-tour-booking',
   templateUrl: './tour-booking.component.html',
@@ -17,12 +18,13 @@ export class TourBookingComponent implements OnInit {
   searchForm: UntypedFormGroup;
 
   tourBookingList: any[];
-  currentFilter:any;
-  booking:any;
+  currentFilter: any;
+  booking: any;
 
   constructor(
     private tourBookingService: TourBookingService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private matSnackBar: MatSnackBar
   ) {
     this.searchForm = new UntypedFormGroup({
       startDate: new UntypedFormControl(),
@@ -35,14 +37,19 @@ export class TourBookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
-  getList(filter, page = 0){
+  getList(filter, page = 0) {
     this.currentFilter = filter;
-    this.tourBookingService.getTourBooking({...filter, page}).subscribe((response)=>{
-      console.log(response);
-      this.tourBookingList = response.datas;
+    this.tourBookingService.getTourBooking({ ...filter, page }).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.tourBookingList = response.datas;
+      },
+      error: (error)=>{
+        this.matSnackBar.open(error.error.message);
+      }
     })
   }
 
@@ -51,37 +58,37 @@ export class TourBookingComponent implements OnInit {
     this.searchForm.value.endDate = (moment(this.searchForm.value.endDate).format('YYYY-MM-DD'));
   }
 
-  search(){
+  search() {
     this.changeDatePicker();
     let value = this.searchForm.value;
-    if(!moment(value.startDate).isValid()){ value.startDate = null }
-    if(!moment(value.endDate).isValid()){ value.endDate = null }
+    if (!moment(value.startDate).isValid()) { value.startDate = null }
+    if (!moment(value.endDate).isValid()) { value.endDate = null }
     this.getList(this.searchForm.value);
   }
 
-  cancelTourBooking(booking: any){
+  cancelTourBooking(booking: any) {
 
-    if(booking.cancelFlag === 'Allow' || booking.cancelFlag === 'Warning'){
+    if (booking.cancelFlag === 'Allow' || booking.cancelFlag === 'Warning') {
 
-      let msg = booking.cancelFlag === 'Warning' ? 'This ticket was over due or cancel policy is incorrect.' : `Cancel ${ booking.bookingCode }`;
-      this.matDialog.open(ConfirmDialogComponent,{
+      let msg = booking.cancelFlag === 'Warning' ? 'This ticket was over due or cancel policy is incorrect.' : `Cancel ${booking.bookingCode}`;
+      this.matDialog.open(ConfirmDialogComponent, {
         data: {
           title: 'Cancel booking',
           content: msg,
           accept: 'Yes',
           denie: 'No'
         }
-      }).afterClosed().subscribe((answer)=>{
+      }).afterClosed().subscribe((answer) => {
         console.log(answer);
-  
-        if(answer){
-          this.tourBookingService.cancelTourBooking(booking.bookingCode).subscribe(()=>{
+
+        if (answer) {
+          this.tourBookingService.cancelTourBooking(booking.bookingCode).subscribe(() => {
             this.getList(this.currentFilter);
           })
         }
       });
-    }else{
-      this.matDialog.open(AlertDialogComponent,{
+    } else {
+      this.matDialog.open(AlertDialogComponent, {
         data: {
           title: 'Cancel booking',
           content: 'This ticket cannot cancel by Cancel policy.',
@@ -91,8 +98,8 @@ export class TourBookingComponent implements OnInit {
     }
   }
 
-  changeBookingDate(booking: any){
-    this.matDialog.open(DatePickerDialogComponent,{
+  changeBookingDate(booking: any) {
+    this.matDialog.open(DatePickerDialogComponent, {
       data: {
         title: 'Change booking date for',
         content: booking.bookingCode,
@@ -100,20 +107,20 @@ export class TourBookingComponent implements OnInit {
         accept: 'OK',
         denie: 'Cancel'
       }
-    }).afterClosed().subscribe((answer)=>{
+    }).afterClosed().subscribe((answer) => {
       console.log(answer);
-      if(answer){
+      if (answer) {
         let date = moment(answer).format('YYYY-MM-DD');
-        this.tourBookingService.changeTourBookingDate(booking.bookingCode, date).subscribe(()=>{
+        this.tourBookingService.changeTourBookingDate(booking.bookingCode, date).subscribe(() => {
           this.getList(this.currentFilter);
         })
       }
     });
   }
 
-  loadDetail(index){
+  loadDetail(index) {
     // console.log(this.tourBookingList[index]);
-    this.tourBookingService.getTourBookingDetail(this.tourBookingList[index].bookingCode).subscribe((response)=>{
+    this.tourBookingService.getTourBookingDetail(this.tourBookingList[index].bookingCode).subscribe((response) => {
       // console.log(response);
       this.booking = response;
     })

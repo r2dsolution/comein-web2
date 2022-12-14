@@ -44,7 +44,7 @@ export class TourFormComponent implements OnInit {
   imageSrcs: SafeUrl[] = [];
   imageFiles: any[] = [];
   uploadQue: any[] = [];
-  imageSequent: number = 0; 
+  imageSequent: number = 0;
   fileUrls: any[] = [];
   previousImagesName: string[] = [];
 
@@ -111,7 +111,7 @@ export class TourFormComponent implements OnInit {
           console.log(response);
           this.id = response.id;
           this.form.patchValue(response);
-          if(response.images){
+          if (response.images) {
             response.images.forEach((img: FileObjForSave) => {
               this.imageSrcs.push(this.sanitizer.bypassSecurityTrustUrl(img.imgUrl));
               this.imageFiles.push(img.tourImg);
@@ -137,7 +137,7 @@ export class TourFormComponent implements OnInit {
 
 
 
-  save(){
+  save() {
     this.uploadQue = this.imageFiles;
     this.doSave();
   }
@@ -145,46 +145,61 @@ export class TourFormComponent implements OnInit {
   doSave() {
     // console.log(this.form.value);
     // console.log(this.imageFiles);
-    if(this.uploadQue.length === 0){
+    if (this.uploadQue.length === 0) {
       this.imageSequent = 0;
-      this.fileUrls.forEach((file: FileObjForSave)=>{
+      this.fileUrls.forEach((file: FileObjForSave) => {
 
       });
       console.log("SEND SAVE");
       this.form.get('images').setValue(this.fileUrls);
-      this.imageFiles = this.previousImagesName = this.fileUrls.map((file: FileObjForSave)=> file.tourImg);
+      this.imageFiles = this.previousImagesName = this.fileUrls.map((file: FileObjForSave) => file.tourImg);
       this.fileUrls = []; // clear affter assigned
       this.form.get('file').setValue('');
       console.log(this.form.getRawValue());
       if (this.id === 'create') {
-        this.tourService.createTour(this.form.getRawValue()).subscribe((response) => {
-          this.matSnackBar.open(`Tour has been created.`);
-          this.router.navigate(['tour']);
+        this.tourService.createTour(this.form.getRawValue()).subscribe({
+          next: (response) => {
+            this.matSnackBar.open(`Tour has been created.`);
+            this.router.navigate(['tour']);
+          },
+          error: (error) => {
+            this.matSnackBar.open(error.error.message);
+          }
         });
       } else {
-        this.tourService.updateTour(this.form.getRawValue(), this.id).subscribe(() => {
-          this.matSnackBar.open(`Tour has been updated.`);
-          this.router.navigate(['tour'])
+        this.tourService.updateTour(this.form.getRawValue(), this.id).subscribe({
+          next: () => {
+            this.matSnackBar.open(`Tour has been updated.`);
+            this.router.navigate(['tour'])
+          },
+          error: (error) => {
+            this.matSnackBar.open(error.error.message);
+          }
         });
         this.form.get('detail').disable();
         this.form.get('file').disable();
         this.isEdit = true;
       }
-    }else{
+    } else {
       this.imageSequent++;
       this.uploadFile();
     }
   }
-  
-  deleteImageOnCloud(previousImagesName: string[], newImagesName: string[]){
+
+  deleteImageOnCloud(previousImagesName: string[], newImagesName: string[]) {
     let notIncludeOfNewImageList = previousImagesName.filter(x => !newImagesName.includes(x));
     notIncludeOfNewImageList.forEach((notInclude) => {
-      this.sharedService.deleteFile(notInclude,'tours').subscribe((response)=>{
-        console.log(`Delete imageName done.`);
+      this.sharedService.deleteFile(notInclude, 'tours').subscribe({
+        next: (response) => {
+          console.log(`Delete imageName done.`);
+        },
+        error: (error)=>{
+          this.matSnackBar.open(error.error.message);
+        }
       });
     });
   }
-  
+
 
   // compressimage(file: string){
   //   return new Promise((resolve)=>{
@@ -212,25 +227,25 @@ export class TourFormComponent implements OnInit {
 
   uploadFile() {
     console.log("Upload");
-    if(typeof this.uploadQue[0] === 'string'){
+    if (typeof this.uploadQue[0] === 'string') {
       this.fileUrls.push({
         seq: this.imageSequent,
         tourImg: this.uploadQue[0]
       });
-      this.uploadQue.splice(0,1);
+      this.uploadQue.splice(0, 1);
       this.doSave();
-    }else{
-      this.sharedService.uploadFile(this.uploadQue[0],'tours').subscribe({
-        next:(response)=>{
+    } else {
+      this.sharedService.uploadFile(this.uploadQue[0], 'tours').subscribe({
+        next: (response) => {
           console.log("Upload done");
           this.fileUrls.push({
             seq: this.imageSequent,
             tourImg: response.fileName
           });
-          this.uploadQue.splice(0,1);
+          this.uploadQue.splice(0, 1);
           this.doSave();
         },
-        error:()=>{
+        error: () => {
           alert('Upload file error')
         }
       });
@@ -255,12 +270,12 @@ export class TourFormComponent implements OnInit {
           img.onload = async () => {
             const ratio = Math.min(900 / img.width, 900 / img.height);
             console.log(ratio);
-            const base64 = await fetch(await this.compressImage(img.src,  img.width * ratio, img.height * ratio));
+            const base64 = await fetch(await this.compressImage(img.src, img.width * ratio, img.height * ratio));
             const pureBlob = await base64.blob();
             const objectUrl = await URL.createObjectURL(pureBlob);
             this.imageSrcs.push(this.sanitizer.bypassSecurityTrustUrl(objectUrl));
             // this.imageFiles.push(file);
-            this.imageFiles.push(new File([pureBlob], file.name,{
+            this.imageFiles.push(new File([pureBlob], file.name, {
               type: pureBlob.type
             }))
           }
@@ -310,7 +325,7 @@ export class TourFormComponent implements OnInit {
 }
 
 
-export interface FileObjForSave{
+export interface FileObjForSave {
   seq: number,
   tourImg: string,
   imgUrl: string

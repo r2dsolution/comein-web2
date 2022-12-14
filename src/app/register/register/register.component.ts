@@ -7,6 +7,7 @@ import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.c
 import {Auth} from 'aws-amplify';
 import { RegisterService } from '../register.service';
 import { SharedService } from '../../shared/shared.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
     private matDialog: MatDialog,
     private registerService: RegisterService,
     private route: ActivatedRoute,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private matSnackBar: MatSnackBar
   ) {
     this.auth.signOut();
     this.loginForm = new UntypedFormGroup({
@@ -94,6 +96,9 @@ export class RegisterComponent implements OnInit {
         },
         complete: ()=>{
           this.isLoading = false;
+        },
+        error:(error)=>{
+          this.matSnackBar.open(error.error.message);
         }
       });
     }else if(this.isTourAgency){
@@ -105,6 +110,9 @@ export class RegisterComponent implements OnInit {
         },
         complete: ()=>{
           this.isLoading = false;
+        },
+        error:(error)=>{
+          this.matSnackBar.open(error.error.message);
         }
       });
       // this.isSubmit = true;

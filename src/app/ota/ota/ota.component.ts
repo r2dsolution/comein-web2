@@ -87,7 +87,7 @@ export class OtaComponent implements OnInit {
     this.getList();
     this.getDashboard();
   }
-  
+
   onFilter() {
     this.getList();
     this.getDashboard();
@@ -95,12 +95,18 @@ export class OtaComponent implements OnInit {
   }
 
   getDashboard() {
-    this.otaService.getOtaDashboard(this.form.get('startDate').value, this.form.get('endDate').value).subscribe((response) => {
-      console.log(response);
-      this.chartOptions.series = [response.total_feed, response.total_unmatch];
-      this.chartOptions.lastUpdateFeed = new Date(response.last_updated_feed);
-      if(response.last_updated_unmatch){
-        this.chartOptions.lastUpdateUnMatch = new Date(response.last_updated_unmatch);
+    this.otaService.getOtaDashboard(this.form.get('startDate').value, this.form.get('endDate').value).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.chartOptions.series = [response.total_feed, response.total_unmatch];
+        this.chartOptions.lastUpdateFeed = new Date(response.last_updated_feed);
+        if (response.last_updated_unmatch) {
+          this.chartOptions.lastUpdateUnMatch = new Date(response.last_updated_unmatch);
+        }
+      },
+      error: (error) => {
+        console.log(error);
+        this.matSnackBar.open(error.error.message);
       }
     });
   }
@@ -116,6 +122,11 @@ export class OtaComponent implements OnInit {
         this.paginator.length = response.pagging.total;
         // this.paginator.pageSize = response.pagging.pageSize;
         this.paginator.pageIndex = response.pagging.pageNumber;
+      },
+      error: (error) => {
+        console.log(error);
+        this.dataSource.data = [];
+        this.matSnackBar.open(error.error.message);
       }
     })
   }

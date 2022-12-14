@@ -22,8 +22,8 @@ export class HotelAdminFormComponent implements OnInit {
 
   ownerId: string;
 
-  countryOptions:any[] = [];
-  provinceOptions:any[] = [];
+  countryOptions: any[] = [];
+  provinceOptions: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -52,88 +52,106 @@ export class HotelAdminFormComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log(this.id);
-    if(this.id == 'create') { 
+    if (this.id == 'create') {
       this.id = null;
       // this.data = {hotelName: null, contactName: null, email: null, address: null, status: null, mobileNo: null}
     } else {
-      this.hotelAdminService.getHotelAdmin(this.id).subscribe((response)=>{
-        // console.log(response);
-        // this.data = response;
-        this.ownerId = response.ownerId;
-        this.form.patchValue(response);
-        this.form.disable();
+      this.hotelAdminService.getHotelAdmin(this.id).subscribe({
+        next: (response) => {
+          // console.log(response);
+          // this.data = response;
+          this.ownerId = response.ownerId;
+          this.form.patchValue(response);
+          this.form.disable();
+        },
+        error: (error) => {
+          console.log(error);
+          this.matSnackbar.open(error.error.message);
+        }
       });
       // this.data = {hotelName: 'Oakwood Suites Bangkok', contactName: 'General Suites', email: 'general.suites-bangkok@oakwood.com', address: 'Bangkok\n10120', status: null}
     }
 
-    this.sharedService.getCountries().subscribe((response)=>{
+    this.sharedService.getCountries().subscribe((response) => {
       this.countryOptions = response;
     });
 
-    this.form.get('country').valueChanges.subscribe((countryCode)=>{
-      this.sharedService.getProvinces(countryCode).subscribe((response)=>{
+    this.form.get('country').valueChanges.subscribe((countryCode) => {
+      this.sharedService.getProvinces(countryCode).subscribe((response) => {
         this.provinceOptions = response;
       });
     })
-    
+
   }
 
-  back(){
+  back() {
     this.location.back()
   }
 
-  openVerifyDialog(){
-    this.matDialog.open(ConfirmDialogComponent,{
+  openVerifyDialog() {
+    this.matDialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Do you want to verify',
         content: this.form.get('hotelName').value,
         accept: 'Yes',
         denie: 'No'
       }
-    }).afterClosed().subscribe((answer)=>{
+    }).afterClosed().subscribe((answer) => {
       console.log(answer);
 
-      if(answer){
+      if (answer) {
         // this.data.status = 'Enable'
-        this.hotelAdminService.setHotelAdminStatus(this.id, 'verify').subscribe((response)=>{
-          this.matSnackbar.open(`${this.form.get('hotelName').value} has been verfified.`);
-          this.form.get('status').setValue(response.status);
-          this.id = response.id;
-          this.router.navigate(['hotel-admin']);
+        this.hotelAdminService.setHotelAdminStatus(this.id, 'verify').subscribe({
+          next: (response) => {
+            this.matSnackbar.open(`${this.form.get('hotelName').value} has been verfified.`);
+            this.form.get('status').setValue(response.status);
+            this.id = response.id;
+            this.router.navigate(['hotel-admin']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackbar.open(error.error.message);
+          }
         })
       }
     });
   }
 
-  openSaveDialog(){
-    this.matDialog.open(ConfirmDialogComponent,{
+  openSaveDialog() {
+    this.matDialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Do you want to save',
         content: '',
         accept: 'Yes',
         denie: 'No'
       }
-    }).afterClosed().subscribe((answer)=>{
+    }).afterClosed().subscribe((answer) => {
       console.log(answer);
 
-      if(answer){
-        this.hotelAdminService.createHotelAdmin(this.form.value).subscribe((response)=>{
-          this.matSnackbar.open(`Hotel admin has been created.`);
-          this.router.navigate(['hotel-admin']);
+      if (answer) {
+        this.hotelAdminService.createHotelAdmin(this.form.value).subscribe({
+          next: (response) => {
+            this.matSnackbar.open(`Hotel admin has been created.`);
+            this.router.navigate(['hotel-admin']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackbar.open(error.error.message);
+          }
         })
       }
     });
   }
 
   viewPersonalInfomation() {
-    if(this.ownerId){
+    if (this.ownerId) {
       this.matDialog.open(PersonalDialogComponent, {
         minWidth: '380px',
-        data:{
+        data: {
           comeinId: this.ownerId
         }
       }).afterClosed().subscribe(() => {
-  
+
       })
     }
   }
