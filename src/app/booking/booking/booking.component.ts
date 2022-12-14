@@ -52,7 +52,11 @@ export class BookingComponent implements OnInit {
   getList(filter){
     this.bookingService.getHotelBookings(filter).subscribe((response)=>{
       console.log(response);
-      this.dataSource.data = response.datas;
+      let data = response.datas.map((d, i)=>{
+        d.row = (response.pagging.pageSize * response.pagging.pageNumber) + (i+1);
+        return d;
+      })
+      this.dataSource.data = data;
       this.paginator.pageIndex = response.pagging.pageNumber;
       this.paginator.pageSize = response.pagging.pageSize;
       this.paginator.length = response.pagging.total;
