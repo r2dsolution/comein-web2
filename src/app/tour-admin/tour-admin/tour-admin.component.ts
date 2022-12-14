@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PersonalDialogComponent } from 'src/app/shared/personal-dialog/personal-dialog.component';
@@ -90,6 +90,11 @@ export class TourAdminComponent implements OnInit {
   
       })
     }
+  }
+
+  onPageChange(page: PageEvent){
+    console.log(page);
+    this.getList({...this.form.value, size: page.pageSize, page: page.pageIndex})
   }
 
 }

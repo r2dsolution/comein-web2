@@ -90,9 +90,12 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
           
-            <mat-paginator [pageSizeOptions]="[10, 20]"
-                           showFirstLastButtons 
-                           aria-label="Select page of periodic elements">
+            <mat-paginator 
+              [pageSizeOptions]="[10, 20]"
+              showFirstLastButtons
+              pageSize="10"
+              (page)="onPageChange($event)"
+              aria-label="Select page of periodic elements">
             </mat-paginator>
           </div>          
     </div>

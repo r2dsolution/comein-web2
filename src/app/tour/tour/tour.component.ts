@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -64,5 +64,10 @@ export class TourComponent implements OnInit {
 
   dateArray(date: any): string{
     return date.join('-');
+  }
+
+  onPageChange(page: PageEvent){
+    console.log(page);
+    this.getList({...this.form.value, size: page.pageSize, page: page.pageIndex})
   }
 }

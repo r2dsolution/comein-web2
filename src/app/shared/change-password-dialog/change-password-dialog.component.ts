@@ -45,9 +45,15 @@ export class ChangePasswordDialogComponent implements OnInit {
       this.form.get('email').value,
       this.form.get('password').value,
       this.form.get('newPassword').value
-    ).subscribe((response)=>{
-      this.matSnackBar.open(`Password has been change for the next login.`);
-      this.dialogRef.close();
+    ).subscribe({
+      next: (response)=>{
+        this.matSnackBar.open(`Password has been change for the next login.`);
+        this.dialogRef.close();
+      },
+      error: (error)=>{
+        console.log(error);
+        this.matSnackBar.open(error.error.message);
+      }
     })
   }
 
