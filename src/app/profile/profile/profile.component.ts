@@ -40,16 +40,16 @@ export class ProfileComponent implements OnInit {
   }
 
   getTourProfile() {
-    this.sharedService.getUserInfo().subscribe({
+    this.sharedService.getPersonalInfo(null).subscribe({
       next: (response) => {
-        this.tourAdminService.getTourAdmin(response.tourId).subscribe((tour)=>{
-          this.sharedService.getPersonalInfo(tour.ownerId).subscribe({
-            next: (profile)=>{
-              // console.log(profile);
-              this.tourProfileForm.patchValue(profile);
-            }
-          })
-        })
+        this.tourProfileForm.patchValue(response);
+        // this.tourAdminService.getTourAdmin(response.tourId).subscribe((tour)=>{
+        //   this.sharedService.getPersonalInfo(tour.ownerId).subscribe({
+        //     next: (profile)=>{
+        //       // console.log(profile);
+        //     }
+        //   })
+        // })
       }
     })
   }
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
       }
     }).afterClosed().subscribe({
       next: (answer) => {
-        this.profileService.updateTourProfiles(this.tourProfileForm.value).subscribe({
+        this.sharedService.updatePersonalInfo(this.tourProfileForm.value).subscribe({
           next: () => {
             this.matSnackBar.open('Update profile successes');
             this.router.navigate(['/']);

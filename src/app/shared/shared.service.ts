@@ -14,16 +14,20 @@ export class SharedService {
     private auth: AuthService
   ) { }
 
-  getCountries(): Observable<any>{
+  getCountries(): Observable<any> {
     return this.http.get(`${environment.host}/countries`)
   }
 
-  getProvinces(countryCode): Observable<any>{
+  getProvinces(countryCode): Observable<any> {
     return this.http.get(`${environment.host}/provinces/${countryCode}`);
   }
 
-  getPersonalInfo(comeinId: string): Observable<any>{
-    return this.http.post(`${environment.host}/personals/info`,{ ownerId: comeinId });
+  getPersonalInfo(comeinId: string): Observable<any> {
+    return this.http.post(`${environment.host}/personals/info`, { ownerId: comeinId });
+  }
+
+  updatePersonalInfo(data): Observable<any> {
+    return this.http.put(`${environment.host}/personals/info`, data);
   }
 
   getUserInfo(): Observable<any> {
@@ -31,8 +35,8 @@ export class SharedService {
       userToken: this.auth.userToken
     });
   }
-  
-  uploadFile(file: File, module: string): Observable<UploadResponse>{
+
+  uploadFile(file: File, module: string): Observable<UploadResponse> {
     // console.log(file.name);
     // return of(file.name).pipe(delay(1000));
     const formData = new FormData();
@@ -41,7 +45,7 @@ export class SharedService {
     return this.http.post<UploadResponse>(`${environment.host}/files`, formData);
   }
 
-  deleteFile(fileName: string, module: string): Observable<any>{
+  deleteFile(fileName: string, module: string): Observable<any> {
     return this.http.post(`${environment.host}/files`, {
       module,
       fileName
@@ -50,7 +54,7 @@ export class SharedService {
 }
 
 
-interface UploadResponse{
+interface UploadResponse {
   fileName: string;
   message: string;
   module: string;
