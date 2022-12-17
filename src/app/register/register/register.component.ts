@@ -98,6 +98,7 @@ export class RegisterComponent implements OnInit {
           this.isLoading = false;
         },
         error:(error)=>{
+          this.isLoading = false;
           this.matSnackBar.open(error.error.message);
         }
       });
@@ -112,6 +113,7 @@ export class RegisterComponent implements OnInit {
           this.isLoading = false;
         },
         error:(error)=>{
+          this.isLoading = false;
           this.matSnackBar.open(error.error.message);
         }
       });

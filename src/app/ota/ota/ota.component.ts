@@ -98,7 +98,7 @@ export class OtaComponent implements OnInit {
     this.otaService.getOtaDashboard(this.form.get('startDate').value, this.form.get('endDate').value).subscribe({
       next: (response) => {
         console.log(response);
-        this.chartOptions.series = [response.total_feed, response.total_unmatch];
+        this.chartOptions.series = [response.total_feed-response.total_unmatch, response.total_unmatch];
         this.chartOptions.lastUpdateFeed = new Date(response.last_updated_feed);
         if (response.last_updated_unmatch) {
           this.chartOptions.lastUpdateUnMatch = new Date(response.last_updated_unmatch);
