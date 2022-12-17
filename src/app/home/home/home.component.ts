@@ -23,7 +23,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // const permissions = this.ngxPermissionService.getPermissions();
     // console.log(permissions);
-    this.allPermissions = Object.keys(this.ngxPermissionService.getPermissions())
+    this.ngxPermissionService.permissions$.subscribe((permissions)=>{
+      this.allPermissions = Object.keys(permissions)
+    });
   }
 
   openAlertDialog(){
