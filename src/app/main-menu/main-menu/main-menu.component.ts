@@ -26,6 +26,7 @@ export class MainMenuComponent implements OnInit {
 
   hotelName: string = "";
   userName: string = "";
+  role: string = "";
 
 
   constructor(
@@ -54,6 +55,7 @@ export class MainMenuComponent implements OnInit {
         this.sharedService.getUserInfo().subscribe((response) => {
           this.hotelName = response.hotelName;
           this.userName = response.name;   
+          this.role = response.role;
         });  
       }
     });
