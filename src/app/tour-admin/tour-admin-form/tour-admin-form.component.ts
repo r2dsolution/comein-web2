@@ -101,6 +101,34 @@ export class TourAdminFormComponent implements OnInit {
     });
   }
 
+  openUnVerifyDialog() {
+    this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Do you want to unverify',
+        content: '',
+        accept: 'Yes',
+        denie: 'No'
+      }
+    }).afterClosed().subscribe((answer) => {
+      console.log(answer);
+
+      if (answer) {
+        // this.data.status = 'Enable'
+        this.tourAdminService.setTourAdminStatus(this.id, 'unverify').subscribe({
+          next: (response) => {
+            this.matSnackbar.open(`Tour admin has been unverfified.`);
+            this.form.get('status').setValue(response.status);
+            this.id = response.id;
+            this.router.navigate(['tour-admin'])
+          },
+          error: (error) => {
+            this.matSnackbar.open(error.error.message);
+          }
+        })
+      }
+    });
+  }
+
   openSaveDialog() {
     this.matDialog.open(ConfirmDialogComponent, {
       data: {
