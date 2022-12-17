@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { SharedService } from 'src/app/shared/shared.service';
 import { TourAdminService } from 'src/app/tour-admin/tour-admin.service';
@@ -20,6 +21,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private permissions: NgxPermissionsService,
     private router: Router,
+    private auth: AuthService,
     private sharedService: SharedService,
     private profileService: ProfileService,
     private matDialog: MatDialog,
@@ -40,7 +42,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getTourProfile() {
-    this.sharedService.getPersonalInfo(null).subscribe({
+    this.sharedService.getPersonalInfo(this.auth.userToken).subscribe({
       next: (response) => {
         this.tourProfileForm.patchValue(response);
         // this.tourAdminService.getTourAdmin(response.tourId).subscribe((tour)=>{
