@@ -10,6 +10,7 @@ import { LoadingService } from '../../core/service/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordDialogComponent } from 'src/app/shared/change-password-dialog/change-password-dialog.component';
 import { SharedService } from 'src/app/shared/shared.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-main-menu',
@@ -28,6 +29,7 @@ export class MainMenuComponent implements OnInit {
   userName: string = "";
 
 
+
   constructor(
     private authService: AuthService,
     iconRegistry: MatIconRegistry,
@@ -35,14 +37,15 @@ export class MainMenuComponent implements OnInit {
     private router: Router,
     private loadingService: LoadingService,
     private matDialog: MatDialog,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private permissionService: NgxPermissionsService
 
     // private translate: TranslateService,
     // private loadingService: LoadingService,
   ) {
     iconRegistry.addSvgIcon('th', sanitizer.bypassSecurityTrustResourceUrl('assets/images/multilingual_icons/thailand.svg'));
     iconRegistry.addSvgIcon('en', sanitizer.bypassSecurityTrustResourceUrl('assets/images/multilingual_icons/united-states-of-america.svg'));
-
+    
     
   }
 

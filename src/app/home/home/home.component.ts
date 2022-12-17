@@ -11,6 +11,9 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
+
+  allPermissions: any[] = [];
+
   constructor(
     private ngxPermissionService: NgxPermissionsService,
     private matDoalog: MatDialog,
@@ -20,6 +23,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // const permissions = this.ngxPermissionService.getPermissions();
     // console.log(permissions);
+    this.allPermissions = Object.keys(this.ngxPermissionService.getPermissions())
   }
 
   openAlertDialog(){

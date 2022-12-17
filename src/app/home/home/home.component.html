@@ -75,8 +75,10 @@
                 <img src="../../../assets/images/comein_logo.png" alt="">
             </div>
             <div class="m-5">
-                <h3>Welcome to Comein system</h3>
+                <h3 class="text-center">Welcome to Comein system</h3>
+                <h5 class="text-center text-danger" *ngIf="allPermissions.length === 0">Waiting approve by comein</h5>
             </div>
+            
         </div>
     </div>
 </div>

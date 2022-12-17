@@ -33,10 +33,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (Object.keys(this.permissions.getPermissions()).includes('accessMenuTour')) {
-      this.isTourAdmin = true;
-      this.getTourProfile();
-    }
+    this.getTourProfile();
+    // if (Object.keys(this.permissions.getPermissions()).includes('accessMenuTour')) {
+    //   this.isTourAdmin = true;
+    // }
   }
 
   getTourProfile() {
@@ -61,15 +61,15 @@ export class ProfileComponent implements OnInit {
       }
     }).afterClosed().subscribe({
       next: (answer) => {
-        if(this.isTourAdmin){
-          this.profileService.updateTourProfiles(this.tourProfileForm.value).subscribe({
-            next: () => {
-              this.matSnackBar.open('Update profile successes');
-              this.router.navigate(['/']);
+        this.profileService.updateTourProfiles(this.tourProfileForm.value).subscribe({
+          next: () => {
+            this.matSnackBar.open('Update profile successes');
+            this.router.navigate(['/']);
 
-            }
-          })
-        }
+          }
+        })
+        // if(this.isTourAdmin){
+        // }
       },
       error: (error)=>{
         this.matSnackBar.open(error.error.message);
