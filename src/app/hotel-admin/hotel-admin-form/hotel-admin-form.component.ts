@@ -117,6 +117,35 @@ export class HotelAdminFormComponent implements OnInit {
     });
   }
 
+  openUnVerifyDialog() {
+    this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Do you want to unverify',
+        content: this.form.get('hotelName').value,
+        accept: 'Yes',
+        denie: 'No'
+      }
+    }).afterClosed().subscribe((answer) => {
+      console.log(answer);
+
+      if (answer) {
+        // this.data.status = 'Enable'
+        this.hotelAdminService.setHotelAdminStatus(this.id, 'unverify').subscribe({
+          next: (response) => {
+            this.matSnackbar.open(`${this.form.get('hotelName').value} has been unverfified.`);
+            this.form.get('status').setValue(response.status);
+            this.id = response.id;
+            this.router.navigate(['hotel-admin']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackbar.open(error.error.message);
+          }
+        })
+      }
+    });
+  }
+
   openSaveDialog() {
     this.matDialog.open(ConfirmDialogComponent, {
       data: {

@@ -11,6 +11,10 @@
                 <mat-icon>verified_user</mat-icon>
                 Verify
             </button>
+            <button mat-raised-button color="warn" (click)="openUnVerifyDialog()" *ngIf="id!=null && form.get('status').value=='Verify'">
+                <mat-icon>verified_user</mat-icon>
+                UnVerify
+            </button>
             <button mat-raised-button color="primary" (click)="openSaveDialog()" *ngIf="!id" >
                 <mat-icon>save</mat-icon>
                 Save
