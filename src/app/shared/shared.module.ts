@@ -55,6 +55,7 @@ import { TermAndConditionComponent } from './term-and-condition/term-and-conditi
 import { OtaRematchDialogComponent } from '../ota/ota-rematch-dialog/ota-rematch-dialog.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NumbersOnlyDirective } from './directive/numbers-only.directive';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 const materialModules = [
@@ -83,7 +84,8 @@ const materialModules = [
   MatNativeDateModule,
   MatExpansionModule,
   DragDropModule,
-  MatTabsModule
+  MatTabsModule,
+  MatTooltipModule
 ];
 
 const angularModule = [

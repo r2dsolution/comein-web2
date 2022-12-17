@@ -7,11 +7,15 @@
           Staff Management
         </div>
         <div class="control">
-            <button mat-raised-button color="primary" (click)="openVerifyDialog()" *ngIf="id!=null && !form.get('status').value">
+            <button mat-raised-button color="primary" (click)="openVerifyDialog()" *ngIf="id!=null && form.get('status').value=='UnVerify'">
                 <mat-icon>verified_user</mat-icon>
                 Verify
             </button>
-            <button mat-raised-button color="primary" (click)="openSaveDialog()" *ngIf="id==null" >
+            <button mat-raised-button color="warn" (click)="openUnVerifyDialog()" *ngIf="id!=null && form.get('status').value=='Verify'">
+                <mat-icon>verified_user</mat-icon>
+                UnVerify
+            </button>
+            <button mat-raised-button color="primary" (click)="openSaveDialog()" *ngIf="!id" >
                 <mat-icon>save</mat-icon>
                 Save
             </button>

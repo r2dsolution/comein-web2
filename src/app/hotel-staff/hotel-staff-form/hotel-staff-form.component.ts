@@ -73,7 +73,7 @@ export class HotelStaffFormComponent implements OnInit {
     this.matDialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Do you want to verify',
-        content: this.form.get('staffName').value,
+        content: this.form.get('referenceName').value,
         accept: 'Yes',
         denie: 'No'
       }
@@ -82,9 +82,37 @@ export class HotelStaffFormComponent implements OnInit {
       if (answer) {
         this.hotelStaffService.setHotelStaffStatus(this.id, 'verify').subscribe({
           next: (response) => {
-            this.matSnackBar.open(`${this.form.get('staffName').value} is in verify processing.`);
+            this.matSnackBar.open(`${this.form.get('referenceName').value} has been verfified.`);
             this.form.get('status').setValue(response.status);
             this.id = response.id;
+            this.router.navigate(['hotel-staff'])
+          },
+          error: (error) => {
+            console.log(error);
+            this.matSnackBar.open(error.error.message);
+          }
+        })
+      }
+    });
+  }
+
+  openUnVerifyDialog() {
+    this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Do you want to unverify',
+        content: this.form.get('referenceName').value,
+        accept: 'Yes',
+        denie: 'No'
+      }
+    }).afterClosed().subscribe((answer) => {
+      console.log(answer);
+      if (answer) {
+        this.hotelStaffService.setHotelStaffStatus(this.id, 'unverify').subscribe({
+          next: (response) => {
+            this.matSnackBar.open(`${this.form.get('referenceName').value} has been unverfified.`);
+            this.form.get('status').setValue(response.status);
+            this.id = response.id;
+            this.router.navigate(['hotel-staff'])
           },
           error: (error) => {
             console.log(error);
