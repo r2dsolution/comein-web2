@@ -25,7 +25,7 @@ export class TourBookingService {
     })
   }
 
-  getTourBookingDetail(bookingCode: string){
+  getTourBookingDetail(bookingCode: string) {
     return this.http.get(`${environment.host}/tour-bookings/${bookingCode}`);
   }
 
@@ -36,7 +36,7 @@ export class TourBookingService {
   }
 
   changeTourBookingDate(bookingCode: string, date: string): Observable<any> {
-    return this.http.put(`${environment.host}/tour-bookings/changedate`,{
+    return this.http.put(`${environment.host}/tour-bookings/changedate`, {
       "bookingCode": bookingCode,
       "tourDate": date
     });
@@ -50,23 +50,27 @@ export class TourBookingService {
     })
   }
 
-  getTourbookingDashboardDetail(companyId, dateForm, dateTo): Observable<any>{
+  getTourbookingDashboardDetail(companyId, dateForm, dateTo): Observable<any> {
     return this.http.post(`${environment.host}/comein-dashboards/${companyId}`, {
       "date_from": dateForm,
       "date_to": dateTo
     })
   }
-  getReceivable(): Observable<any> {
-    return this.http.get(`${environment.host}/payable-bookings`)
+  getReceivable(companyId): Observable<any> {
+    return this.http.get(`${environment.host}/payable-bookings`, {
+      params: {
+        companyId
+      }
+    })
   }
   getReceivableDetail(bookingCode): Observable<any> {
     return this.http.get(`${environment.host}/payable-bookings/${bookingCode}`)
   }
-  
-  onSavePayableNote(bookingCode, data){
+
+  onSavePayableNote(bookingCode, data) {
     return this.http.post(`${environment.host}/payable-bookings/${bookingCode}`, data)
   }
-  
+
 }
 
 

@@ -2,6 +2,15 @@
     <div class="table-header">
         <div class="title">Receivable/Payable</div>
     </div>
+    <div class="row pt-2">
+        <mat-form-field>
+            <mat-label>Tour selection</mat-label>
+            <mat-select (selectionChange)="onSelectTour($event)" value="">
+                <mat-option value="">All</mat-option>
+                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.companyName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-list">
