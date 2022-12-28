@@ -66,10 +66,10 @@
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> - </th>
                 <td mat-cell *matCellDef="let element"> 
-                    <mat-icon color="primary" class="m-2" *ngIf="element.status=='Verify'"> verified_user</mat-icon>
-                    <mat-icon color="warn" class="m-2" *ngIf="element.status=='UnVerify'"> verified_user</mat-icon>
-                    <mat-icon [color]="element.ownerId ? 'primary':''" class="m-2" (click)="viewPersonalInfomation(element)">account_box</mat-icon>
-                    <mat-icon color="primary" class="m-2" (click)="onClickRow(element)">edit</mat-icon>
+                    <mat-icon color="primary" class="m-2" *ngIf="element.status=='Verify'" matTooltip="Verified"> verified_user</mat-icon>
+                    <mat-icon color="warn" class="m-2" *ngIf="element.status=='UnVerify'" matTooltip="UnVerify"> verified_user</mat-icon>
+                    <mat-icon [color]="element.ownerId ? 'primary':''" class="m-2" (click)="viewPersonalInfomation(element)" matTooltip="Personal Information">account_box</mat-icon>
+                    <mat-icon color="primary" class="m-2" (click)="onClickRow(element)" matTooltip="Edit">edit</mat-icon>
                 </td>
               </ng-container>
 
