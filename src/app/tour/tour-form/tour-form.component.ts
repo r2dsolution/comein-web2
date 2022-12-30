@@ -34,6 +34,9 @@ export class TourFormComponent implements OnInit {
     'checked'
   ];
 
+  hours = [];
+  minutes = [];
+
   isEdit: boolean = false;
 
   dataSource = new MatTableDataSource();
@@ -82,10 +85,20 @@ export class TourFormComponent implements OnInit {
       startDate: new UntypedFormControl(),
       companyId: new UntypedFormControl(),
       file: new UntypedFormControl(),
-      // adultPrice: new FormControl(),
+      startHour: new UntypedFormControl(),
+      startMinute: new UntypedFormControl(),
+      endHour: new UntypedFormControl(),
+      endMinute: new UntypedFormControl(),
       // childPrice: new FormControl(),
       images: new UntypedFormControl([]),
-    })
+    });
+
+    for(let i = 0; i<=24; i++){
+      this.hours.push(i < 10 ? `0${i}` : i.toString());
+    }
+    for(let i = 0; i<=60; i++){
+      this.minutes.push(i < 10 ? `0${i}` : i.toString());
+    }
   }
 
   ngOnInit(): void {

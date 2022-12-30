@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <mat-checkbox [(ngModel)]="isUseDefault">Use Default Payment condition</mat-checkbox>
+        <mat-checkbox [(ngModel)]="isUseDefault" (change)="defaultDatas = []">Use Default topup rate</mat-checkbox>
     </div>
     <div *ngIf="!isUseDefault">
         <app-setup-topup-rate-form 

@@ -91,6 +91,34 @@
                     </mat-select>
                 </mat-form-field>
             </div>
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-select formControlName="startHour" placeholder="Start hour">
+                        <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-select formControlName="startMinute" placeholder="Start minute">
+                        <mat-option *ngFor="let minute of minutes" [value]="minute">{{ minute }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-select formControlName="endHour" placeholder="End hour">
+                        <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-select formControlName="endMinute" placeholder="End minute">
+                        <mat-option *ngFor="let minute of minutes" [value]="minute">{{ minute }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
             <h5>Cover File</h5>
             <div class="col-md-12">
                 <input 
