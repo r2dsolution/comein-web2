@@ -23,7 +23,10 @@ export class PayableCompanyComponent implements OnInit {
 
   tourList: any[] = [];
   dataTable: any[] = [];
+  dataTableTemp: any[] = [];
+  
   companyId;
+  status: string = '';
   noteInput: UntypedFormControl;
 
   // summary = 0;
@@ -59,15 +62,28 @@ export class PayableCompanyComponent implements OnInit {
       })
     ).subscribe({
       next: (response) => {
-        console.log(response);
-        this.dataTable = response;
+        // console.log(response);
+        this.status = "";
+        this.dataTable = this.dataTableTemp = response;
+        
         // this.summary = response.map((r)=> parseFloat(r.netValue)).reduce((a,b) => a+b);
       },
       error:(error)=>{
-        this.dataTable = [];
+        this.dataTable  = this.dataTableTemp = [];
         this.matSnackBae.open(error.error.message);
       }
     })
+  }
+
+  onStatusChange(event){
+    console.log(event.value);
+    this.status = event.value;
+
+    if(this.status){
+      this.dataTable = this.dataTableTemp.filter((d)=> d.status === this.status);
+    }else{
+      this.dataTable = this.dataTableTemp;
+    }
   }
 
   onPay(data) {

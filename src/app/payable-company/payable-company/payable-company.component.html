@@ -7,13 +7,25 @@
         </div>
     </div>
     <div class="row pt-2">
-        <mat-form-field>
-            <mat-label>Tour selection</mat-label>
-            <mat-select (selectionChange)="onSelectTour($event)">
-                <!-- <mat-option>-- Tour company --</mat-option> -->
-                <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.companyName }}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Tour selection</mat-label>
+                <mat-select (selectionChange)="onSelectTour($event)">
+                    <!-- <mat-option>-- Tour company --</mat-option> -->
+                    <mat-option *ngFor="let tour of tourList; index as i;" [value]="tour.id">{{ tour.companyName }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <mat-select (selectionChange)="onStatusChange($event)" value="" [(ngModel)]="status">
+                    <mat-option value="">All</mat-option>
+                    <mat-option value="Open">Open</mat-option>
+                    <mat-option value="Close">Close</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
 </div>
 <div class="container pb-5" *ngFor="let data of dataTable; index as i;">
